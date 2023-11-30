@@ -23,6 +23,18 @@ const brandData = [
   },
 ];
 
-const seedBrands = () => Brand.bulkCreate(brandData);
+// This async function will handle the seeding of brands
+async function seedBrands() {
+  try {
+    console.log('Starting to seed brands...');
+    await Brand.bulkCreate(brandData);
+    console.log('Seeding successful. Seeding complete.');
+    process.exit(0); // Exit the process after the seeding is complete
+  } catch (error) {
+    console.error('Seeding failed:', error);
+    process.exit(1); // Exit with an error code if the seeding fails
+  }
+}
 
-module.exports = seedBrands;
+// Call the seedBrands function to perform the seeding
+seedBrands();

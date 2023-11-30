@@ -5,6 +5,8 @@ const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const handlebars = require('express-handlebars');
 const routes = require('./controllers');
+const homeRoutes = require('./controllers/homeRoutes');
+const withAuth = require('./utils/auth'); // Import the withAuth middleware
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -40,8 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Define routes
 app.use(routes);
 
-// Home route
-app.get('/', (req, res) => {
+// Home route with authentication
+app.get('/', withAuth, (req, res) => {
   res.render('homepage', { layout: 'index', logged_in: req.session.logged_in });
 });
 
@@ -51,6 +53,9 @@ app.get('/auth', (req, res) => {
     logged_in: req.session.logged_in
   });
 });
+
+// Use the homeRoutes and apply withAuth middleware
+app.use('/home', withAuth, homeRoutes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening to http://localhost:${PORT}`));

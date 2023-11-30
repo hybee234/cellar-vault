@@ -5,6 +5,7 @@ const seedWines = require('./seedWines');
 const seedVintages = require('./seedVintages');
 const seedTransactions = require('./seedTransactions');
 const seedUsers = require('./seedUsers');
+require('dotenv').config();
 
 const seedAll = async () => {
     await sequelize.sync({ force: true });
