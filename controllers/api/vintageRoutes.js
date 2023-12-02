@@ -5,15 +5,13 @@ const checkWineId = require('../../utils/checkWineId');
 
 // Root: http://localhost:3001/api/vintage/
 
+//---------------------------------------------------//
+//- GET - All active Vintage under Selected Wine ID -//
+//---------------------------------------------------// 
 
-// GET - All active Vintage under Selected Wine ID (TODO - need to attach vintages to wines in the response too)
-
-    // API: http://localhost:3001/api/vintage/:wine_id
-    //
-    // Example : http://localhost:3001/api/vintage/:1
-    //              Where wine ID is 1
-    //
-    // No JSON Body required
+// API: http://localhost:3001/api/vintage/:wine_id
+// Example : http://localhost:3001/api/vintage/:1
+// No JSON Body required
 
 router.get('/:wine_id', checkWineId, async (req, res) => {
     try {
@@ -32,22 +30,21 @@ router.get('/:wine_id', checkWineId, async (req, res) => {
     }
 });
 
-// POST - Add a Vintage to Wine ID
+//-----------------------------------//
+//- POST - Add a Vintage to Wine ID -//
+//-----------------------------------//
 
-    // API: http://localhost:3001/api/vintage/:wine_id
-
-    // Example : http://localhost:3001/api/vintage/6
-    //              Where wine ID is 6
-    //
-    // Example JSON Body
-    //  {
-    //      vintage: 2017,
-    //      format: 750mL,
-    //      drink_by: 2030,                
-    //      active_ind: 1,
-    //      wine_id: req.params.wine_id     
-    //  }
-    //  Note: vintage_total will default to zero
+// API: http://localhost:3001/api/vintage/:wine_id
+// Example : http://localhost:3001/api/vintage/6
+// Example JSON Body
+//  {
+//      vintage: 2017,
+//      format: 750mL,
+//      drink_by: 2030,                
+//      active_ind: 1,
+//      wine_id: req.params.wine_id     
+//  }
+//  Note: vintage_total will default to zero
 
 router.post('/:wine_id', checkWineId, async (req, res) => {
     try {
@@ -67,20 +64,19 @@ router.post('/:wine_id', checkWineId, async (req, res) => {
     }
 });
 
-// PUT - Update Vintage by Vintage ID
+//--------------------------------------//
+//- PUT - Update Vintage by Vintage ID -//
+//--------------------------------------//
 
-    // API: http://localhost:3001/api/vintage/:vintage_id
-
-    // Example : http://localhost:3001/api/vintage/10
-    //              Where vintage ID is 10
-    //
-    // Example JSON Body
-    //     {
-    //        "vintage": 2017,
-    //        "format": "750mL",
-    //        "drink_by": 2057,
-    //        "active_ind": 1   
-    //      }
+// API: http://localhost:3001/api/vintage/:vintage_id
+// Example : http://localhost:3001/api/vintage/10
+// Example JSON Body
+//     {
+//        "vintage": 2017,
+//        "format": "750mL",
+//        "drink_by": 2057,
+//        "active_ind": 1   
+//      }
 
 router.put('/:vintage_id', checkVintageId, async (req, res) => {
     try {
@@ -106,14 +102,13 @@ router.put('/:vintage_id', checkVintageId, async (req, res) => {
     }        
 });
 
-// PUT - Soft Delete Vintage by Vintage ID
+//-------------------------------------------//
+//- PUT - Soft Delete Vintage by Vintage ID -//
+//-------------------------------------------//
 
-    // API: http://localhost:3001/api/vintage/inactivate/:vintage_id
-
-    // Example : http://localhost:3001/api/vintage/inactivate/10
-    //              Where vintage ID is 10
-    //
-    // No JSON Body required.
+// API: http://localhost:3001/api/vintage/inactivate/:vintage_id
+// Example : http://localhost:3001/api/vintage/inactivate/10
+// No JSON Body required.
 
 router.put('/inactivate/:vintage_id', checkVintageId, async (req, res) => {
     try {

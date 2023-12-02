@@ -5,15 +5,13 @@ const checkWineId = require('../../utils/checkWineId');
 
 // Root: http://localhost:3001/api/wine/
 
+//-----------------------------------------------//
+//- GET - All active Wines under Selected Brand -//
+//-----------------------------------------------//
 
-// GET - All active Wines under Selected Brand (TODO - need to attach vintages to wines in the response too)
-
-    // API: http://localhost:3001/api/wine/:brand_id
-
-    // Example : http://localhost:3001/api/wine/1
-    //              Where brand ID is 1
-    //
-    // No JSON Body required
+// API: http://localhost:3001/api/wine/:brand_id
+// Example : http://localhost:3001/api/wine/1
+// No JSON Body required
 
 router.get('/:brand_id', checkBrandId, async (req, res) => {
     try {
@@ -33,18 +31,17 @@ router.get('/:brand_id', checkBrandId, async (req, res) => {
     }
 });
 
-// POST - Add a Wine to Brand ID
+//---------------------------------//
+//- POST - Add a Wine to Brand ID -//
+//---------------------------------//
 
-    // API: http://localhost:3001/api/wine/:brand_id
-
-    // Example : http://localhost:3001/api/wine/6
-    //              Where brand ID is 6
-    //
-    // Example JSON Body
-    //  {
-    //	    "wine_name" : "Diana Madeline",
-    //	    "active_ind" : 1	
-    //  }
+// API: http://localhost:3001/api/wine/:brand_id
+// Example : http://localhost:3001/api/wine/6
+// Example JSON Body
+//  {
+//	    "wine_name" : "Diana Madeline",
+//	    "active_ind" : 1	
+//  }
 
 router.post('/:brand_id', checkBrandId, async (req, res) => {
     try {
@@ -62,19 +59,18 @@ router.post('/:brand_id', checkBrandId, async (req, res) => {
     }
 });
 
-// PUT - Update Wine by Wine ID
+//--------------------------------//
+//- PUT - Update Wine by Wine ID -//
+//--------------------------------//
 
-    // API: http://localhost:3001/api/wine/:wine_id
-
-    // Example : http://localhost:3001/api/wine/21
-    //              Where wine ID is 21
-    //
-    // Example JSON Body
-    // {
-    //     "wine_name": "Diana Madeline",
-    //     "active_ind": 1,
-    //     "brand_id": 6
-    // }
+// API: http://localhost:3001/api/wine/:wine_id
+// Example : http://localhost:3001/api/wine/21
+// Example JSON Body
+// {
+//     "wine_name": "Diana Madeline",
+//     "active_ind": 1,
+//     "brand_id": 6
+// }
 
 router.put('/:wine_id', checkWineId, async (req, res) => {
     try {
@@ -98,14 +94,13 @@ router.put('/:wine_id', checkWineId, async (req, res) => {
     }        
 });
 
-// PUT - Soft Delete Wine by Wine ID
+//-------------------------------------//
+//- PUT - Soft Delete Wine by Wine ID -//
+//-------------------------------------//
 
-    // API: http://localhost:3001/api/wine/inactivate/:wine_id
-
-    // Example : http://localhost:3001/api/wine/inactivate/21
-    //              Where wine ID is 21
-    //
-    // No JSON Body required.
+// API: http://localhost:3001/api/wine/inactivate/:wine_id
+// Example : http://localhost:3001/api/wine/inactivate/21
+// No JSON Body required.
 
 router.put('/inactivate/:wine_id', checkWineId, async (req, res) => {
     try {

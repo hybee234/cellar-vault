@@ -2,17 +2,17 @@ const router = require('express').Router();
 const { Transaction } = require('../../models'); 
 const checkTransactionId = require('../../utils/checkTransactionId');
 const checkVintageId = require('../../utils/checkVintageId');
+const updateVintageTotal = require('../../utils/updateVintageTotal');
 
 // Root: http://localhost:3001/api/vintage/
 
-// GET - All active Transactions under Selected Vintage ID 
+//-----------------------------------------------------------//
+//- GET - All active Transactions under Selected Vintage ID -//
+//-----------------------------------------------------------//
 
-    // API: http://localhost:3001/api/transaction/:vintage_id
-    //
-    // Example : http://localhost:3001/api/transaction/:1
-    //              Where wine ID is 1
-    //
-    // No JSON Body required
+// API: http://localhost:3001/api/transaction/:vintage_id
+// Example : http://localhost:3001/api/transaction/:1
+// No JSON Body required
 
 router.get('/:vintage_id', checkVintageId, async (req, res) => {
     try {
@@ -31,24 +31,23 @@ router.get('/:vintage_id', checkVintageId, async (req, res) => {
     }
 });
 
-// POST - Add a Transaction to Vintage ID
+//----------------------------------------//
+// POST - Add a Transaction to Vintage ID-//
+//----------------------------------------//
 
-    // API: http://localhost:3001/api/transaction/:vintage_id
-
-    // Example : http://localhost:3001/api/transaction/6
-    //              Where vintage ID is 6
-    //
-    // Example JSON Body
-	//  {
-	// 	    "cost": "23.70",
-	// 	    "transaction_date": "2012-01-01",
-	// 	    "qty_in": 12,
-	// 	    "qty_out": null,
-	// 	    "notes": "Dan Murphys",
-	// 	    "active_ind": 1,
-	// 	    "user_id": 1,
-	//  },
-    // Can have null qty_in, qty_out, cost, notes
+// API: http://localhost:3001/api/transaction/:vintage_id
+// Example : http://localhost:3001/api/transaction/6
+// Example JSON Body
+//  {
+// 	    "cost": "23.70",
+// 	    "transaction_date": "2012-01-01",
+// 	    "qty_in": 12,
+// 	    "qty_out": null,
+// 	    "notes": "Dan Murphys",
+// 	    "active_ind": 1,
+// 	    "user_id": 1,
+//  },
+// Can have null qty_in, qty_out, cost, notes
 
 router.post('/:vintage_id', checkVintageId, async (req, res) => {
     try {
@@ -64,31 +63,34 @@ router.post('/:vintage_id', checkVintageId, async (req, res) => {
                 user_id: req.body.user_id,
                 vintage_id: req.params.vintage_id      
             });
+        
+        // Recalculate Vintage Total
+        updateVintageTotal (req.params.vintage_id) 
+
         res.status(200).json(postNewTransaction);
-        // TODO: To calculate totals and update vintage_total etc
+    
         // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(400).json(err); // Status 400 - Bad Request
     }
 });
 
-// PUT - Update Tranasction by Transaction ID
+//----------------------------------------------//
+//- PUT - Update Tranasction by Transaction ID -//
+//----------------------------------------------//
 
-    // API: http://localhost:3001/api/transaction/:transaction_id
-
-    // Example : http://localhost:3001/api/tranasction/10
-    //              Where transaction ID is 10
-    //
-    // Example JSON Body
-	//  {
-	// 	    "cost": null,
-	// 	    "transaction_date": "2023-01-01",
-	// 	    "qty_in": 12,
-	// 	    "qty_out": null,
-	// 	    "notes": "Test notes Murphys",
-	// 	    "active_ind": 1,
-	// 	    "user_id": 1
-	//  }
+// API: http://localhost:3001/api/transaction/:transaction_id
+// Example : http://localhost:3001/api/tranasction/10
+// Example JSON Body
+//  {
+// 	    "cost": null,
+// 	    "transaction_date": "2023-01-01",
+// 	    "qty_in": 12,
+// 	    "qty_out": null,
+// 	    "notes": "Test notes Murphys",
+// 	    "active_ind": 1,
+// 	    "user_id": 1
+//  }
 
 router.put('/:transaction_id', checkTransactionId, async (req, res) => {
     try {
@@ -102,7 +104,7 @@ router.put('/:transaction_id', checkTransactionId, async (req, res) => {
                 notes: req.body.notes,           
                 active_ind: req.body.active_ind,
                 user_id: req.body.user_id,
-                vintage_id: req.params.vintage_id      
+                vintage_id: req.params.vintage_id
             },
             {
                 where: {  
@@ -110,6 +112,20 @@ router.put('/:transaction_id', checkTransactionId, async (req, res) => {
                 },
             }        
         )
+
+        // Recalculate Vintage Total
+        
+        // Find the Vintage_ID to pass through to be recalculated
+        const transactionData = await Transaction.findOne ({        // Pull the transaction 
+            attributes: ['vintage_id'],
+            where: { transaction_id: req.params.transaction_id }
+        });            
+        const transaction = transactionData.get({ plain:true})      // Serialize the data            
+        const vintage_id = transaction.vintage_id                   // Grab the Vintage_ID
+        
+        // Call updateVintage Total - passing through Vintage_ID
+        updateVintageTotal (vintage_id)   
+
         res.status(200).json(`Transaction ID ${req.params.transaction_id} updated`);
         // TODO: PUT request to also update quantities
         // TODO: Refresh page to show changes 
@@ -118,18 +134,17 @@ router.put('/:transaction_id', checkTransactionId, async (req, res) => {
     }        
 });
 
-// PUT - Soft Delete Transaction by Transaction ID
+//---------------------------------------------------//
+//- PUT - Soft Delete Transaction by Transaction ID -//
+//---------------------------------------------------//
 
-    // API: http://localhost:3001/api/transaction/inactivate/:transaction_id
-
-    // Example : http://localhost:3001/api/transaction/inactivate/10
-    //              Where transaction ID is 10
-    //
-    // No JSON Body required.
+// API: http://localhost:3001/api/transaction/inactivate/:transaction_id
+// Example : http://localhost:3001/api/transaction/inactivate/10
+// No JSON Body required.
 
 router.put('/inactivate/:transaction_id', checkTransactionId, async (req, res) => {
     try {
-        // PUT - Soft Delete Transaction by Transaction ID
+        //PUT - Soft Delete Transaction by Transaction ID
         const inactivateTransaction = await Transaction.update( 
             {                
                 active_ind: 0,      
@@ -140,9 +155,23 @@ router.put('/inactivate/:transaction_id', checkTransactionId, async (req, res) =
                 },
             }        
         )
+
+        // Recalculate Vintage Total
+        
+        // Find the Vintage_ID to pass through to be recalculated
+        const transactionData = await Transaction.findOne ({        // Pull the transaction 
+            attributes: ['vintage_id'],
+            where: { transaction_id: req.params.transaction_id }
+        });            
+        const transaction = transactionData.get({ plain:true})      // Serialize the data            
+        const vintage_id = transaction.vintage_id                   // Grab the Vintage_ID
+        
+        // Call updateVintage Total - passing through Vintage_ID
+        updateVintageTotal (vintage_id)  
+
         res.status(200).json(`Transaction ID ${req.params.transaction_id} inactivated`);
         // TODO: PUT Request to also update quantities
-        // TODO: Refresh page to show changes 
+        // TODO: Refresh page to show changes
     } catch (err) {
         res.status(500).json(err); 
     }        

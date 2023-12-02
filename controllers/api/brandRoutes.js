@@ -4,12 +4,12 @@ const checkBrandId = require('../../utils/checkBrandId');
 
 // Root: http://localhost:3001/api/brand/
 
-// GET - Route to render the homepage with Brand data
+//------------------------------------------------------//
+//- GET - Route to render the homepage with Brand data -//
+//------------------------------------------------------//
 
 // API: http://localhost:3001/api/brand/
-
 // Example : http://localhost:3001/api/wine/
-//
 // No JSON Body required
 
 router.get('/', async (req, res) => {
@@ -35,12 +35,12 @@ router.get('/', async (req, res) => {
     }
 });
 
-// POST - Add a Brand 
+//----------------------//
+//- POST - Add a Brand -//
+//----------------------//
 
 // API: http://localhost:3001/api/brand
-
 // Example : http://localhost:3001/api/brand
-//
 // Example JSON Body
 //  {
 //	    "brand_name" : "Diana Madeline",
@@ -58,12 +58,12 @@ router.post('/', async (req, res) => {
     }
 });
 
-// PUT - Update Brand by Brand ID
+//----------------------------------//
+//- PUT - Update Brand by Brand ID -//
+//----------------------------------//
 
 // API: http://localhost:3001/api/brand
-
 // Example : http://localhost:3001/api/brand
-//
 // Example JSON Body
 //  {
 //	    "brand_name" : "Diana Madeline",
@@ -90,12 +90,12 @@ router.put('/:brand_id', checkBrandId, async (req, res) => {
     }
 });
 
-// PUT - Soft Delete Brand by Brand ID
+//---------------------------------------//
+//- PUT - Soft Delete Brand by Brand ID -//
+//---------------------------------------//
 
 // API: http://localhost:3001/api/brand/inactivate/:brand_id
-
 // Example : http://localhost:3001/api/brand/inactivate/6
-//
 // No JSON Body Required
 
 router.put('/inactivate/:brand_id', checkBrandId, async (req, res) => {
