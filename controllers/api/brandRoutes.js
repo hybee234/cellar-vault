@@ -62,8 +62,8 @@ router.post('/', async (req, res) => {
 //- PUT - Update Brand by Brand ID -//
 //----------------------------------//
 
-// API: http://localhost:3001/api/brand
-// Example : http://localhost:3001/api/brand
+// API: http://localhost:3001/api/brand/:brand_id
+// Example : http://localhost:3001/api/brand/1
 // Example JSON Body
 //  {
 //	    "brand_name" : "Diana Madeline",

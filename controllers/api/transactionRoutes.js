@@ -68,15 +68,14 @@ router.post('/:vintage_id', checkVintageId, async (req, res) => {
         updateVintageTotal (req.params.vintage_id) 
 
         res.status(200).json(postNewTransaction);
-    
-        // TODO: Refresh page to show changes 
+
     } catch (err) {
         res.status(400).json(err); // Status 400 - Bad Request
     }
 });
 
 //----------------------------------------------//
-//- PUT - Update Tranasction by Transaction ID -//
+//- PUT - Update Transaction by Transaction ID -//
 //----------------------------------------------//
 
 // API: http://localhost:3001/api/transaction/:transaction_id
@@ -126,9 +125,7 @@ router.put('/:transaction_id', checkTransactionId, async (req, res) => {
         // Call updateVintage Total - passing through Vintage_ID
         updateVintageTotal (vintage_id)   
 
-        res.status(200).json(`Transaction ID ${req.params.transaction_id} updated`);
-        // TODO: PUT request to also update quantities
-        // TODO: Refresh page to show changes 
+        res.status(200).json(`Transaction ID ${req.params.transaction_id} updated`); 
     } catch (err) {
         res.status(500).json(err); // Status 400 - Bad Request
     }        
@@ -170,8 +167,7 @@ router.put('/inactivate/:transaction_id', checkTransactionId, async (req, res) =
         updateVintageTotal (vintage_id)  
 
         res.status(200).json(`Transaction ID ${req.params.transaction_id} inactivated`);
-        // TODO: PUT Request to also update quantities
-        // TODO: Refresh page to show changes
+
     } catch (err) {
         res.status(500).json(err); 
     }        

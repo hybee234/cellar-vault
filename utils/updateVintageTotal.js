@@ -31,7 +31,6 @@ const updateVintageTotal = async (vintage_id) => {
         }
     )
     return;
-
 }
 
 module.exports = updateVintageTotal;
