@@ -6,31 +6,6 @@ const updateVintageTotal = require('../../utils/updateVintageTotal');
 
 // Root: http://localhost:3001/api/vintage/
 
-//-----------------------------------------------------------//
-//- GET - All active Transactions under Selected Vintage ID -//
-//-----------------------------------------------------------//
-
-// API: http://localhost:3001/api/transaction/:vintage_id
-// Example : http://localhost:3001/api/transaction/:1
-// No JSON Body required
-
-router.get('/:vintage_id', checkVintageId, async (req, res) => {
-    try {
-        // GET all active Transactions under target Vintage_ID
-        const getActiveTransactions = await Transaction.findAll({
-            //attributes: ['wine_id', 'wine_name', 'active_ind', 'brand_id'], // Specify the columns to fetch
-            where: {
-                active_ind: 1, // This will only include brands where active_ind is 1
-                vintage_id: req.params.vintage_id  // where brand ID matches the brand ID in URL
-            }
-        });
-        res.status(200).json(getActiveTransactions);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json(err); // Status 500 - Internal Server Error
-    }
-});
-
 //----------------------------------------//
 // POST - Add a Transaction to Vintage ID-//
 //----------------------------------------//

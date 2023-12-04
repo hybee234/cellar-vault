@@ -4,37 +4,6 @@ const checkBrandId = require('../../utils/checkBrandId');
 
 // Root: http://localhost:3001/api/brand/
 
-//------------------------------------------------------//
-//- GET - Route to render the homepage with Brand data -//
-//------------------------------------------------------//
-
-// API: http://localhost:3001/api/brand/
-// Example : http://localhost:3001/api/wine/
-// No JSON Body required
-
-router.get('/', async (req, res) => {
-    try {
-        const getActiveBrand = await Brand.findAll({
-            attributes: ['brand_name'],
-            where: { active_ind: 1 }
-        });
-        const brands = getActiveBrand.map(brand => brand.get({ plain: true }));
-
-        // Check if the request accepts JSON
-        if (req.headers.accept && req.headers.accept.includes('application/json')) {
-            res.json(brands); // Send JSON response
-        } else {
-            res.render('homepage', {
-                brands,
-                loggedIn: req.session.loggedIn
-            }); // Render HTML page
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal Server Error', error: err });
-    }
-});
-
 //----------------------//
 //- POST - Add a Brand -//
 //----------------------//
