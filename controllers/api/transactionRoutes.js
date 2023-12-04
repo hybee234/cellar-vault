@@ -3,6 +3,7 @@ const { Transaction } = require('../../models');
 const checkTransactionId = require('../../utils/checkTransactionId');
 const checkVintageId = require('../../utils/checkVintageId');
 const updateVintageTotal = require('../../utils/updateVintageTotal');
+const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 
 // Root: http://localhost:3001/api/vintage/
 
@@ -24,7 +25,7 @@ const updateVintageTotal = require('../../utils/updateVintageTotal');
 //  },
 // Can have null qty_in, qty_out, cost, notes
 
-router.post('/:vintage_id', checkVintageId, async (req, res) => {
+router.post('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // POST new transaction under Vintage ID
         const postNewTransaction = await Transaction.create(
@@ -66,7 +67,7 @@ router.post('/:vintage_id', checkVintageId, async (req, res) => {
 // 	    "user_id": 1
 //  }
 
-router.put('/:transaction_id', checkTransactionId, async (req, res) => {
+router.put('/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Update Tranasction by Transaction ID
         const putTransaction = await Transaction.update( 
@@ -114,7 +115,7 @@ router.put('/:transaction_id', checkTransactionId, async (req, res) => {
 // Example : http://localhost:3001/api/transaction/inactivate/10
 // No JSON Body required.
 
-router.put('/inactivate/:transaction_id', checkTransactionId, async (req, res) => {
+router.put('/inactivate/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         //PUT - Soft Delete Transaction by Transaction ID
         const inactivateTransaction = await Transaction.update( 

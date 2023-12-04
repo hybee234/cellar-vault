@@ -5,7 +5,7 @@ const checkBrandId = require('./../utils/checkBrandId');
 const checkWineId = require('./../utils/checkWineId');
 const checkVintageId = require('./../utils/checkVintageId');
 const checkTransactionId = require('./../utils/checkTransactionId');
-
+const withAuth = require('./../utils/auth'); // Import the withAuth middleware
 
 // Welcome page - Login/Sign Up route
 router.get('/auth', (req, res) => {
@@ -14,18 +14,17 @@ router.get('/auth', (req, res) => {
     });
 });
 
-
 //------------------------------------------------------------------------//
 //- Brand Page (Home) GET - Route to render the homepage with Brand data -//
 //------------------------------------------------------------------------//
 
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => { // withAuth middleware added
     try {
         // Pull all active brands
         const getActiveBrand = await Brand.findAll({            
             where: { active_ind: 1 }
         });
-        // Serielize the Data
+        // Serialize the Data
         const brands = getActiveBrand.map(brand => brand.get({ plain: true }));
 
         // Response - render the page
@@ -43,7 +42,7 @@ router.get('/', async (req, res) => {
 //- Wine Page - GET - All active Wines (and Child Vintages) under Selected Brand -//
 //--------------------------------------------------------------------------------//
 
-router.get('/wine/:brand_id', checkBrandId, async (req, res) => {    //checkBrandId = checkBrand ID exists
+router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // withAuth middleware added
     try {
         // GET all active Wines and attached Vintages under target Brand_ID       
         const getActiveWines = await Wine.findAll({            
@@ -61,33 +60,20 @@ router.get('/wine/:brand_id', checkBrandId, async (req, res) => {    //checkBran
             wines,
             loggedIn: req.session.loggedIn
         });    
-
-        // res.status(200).json(wines);
     } catch (err) {
         console.error(err);
         res.status(500).json(err); // Status 500 - Internal Server Error
     }
 });
 
-
-
-
-
-// Transaction page - Transactions listed by Vintage ID
-
 //-----------------------------------------------------------//
 //- GET - All active Transactions under Selected Vintage ID -//
 //-----------------------------------------------------------//
 
-// API: http://localhost:3001/api/transaction/:vintage_id
-// Example : http://localhost:3001/api/transaction/:1
-// No JSON Body required
-
-router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
+router.get('/transaction/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // GET all active Transactions under target Vintage_ID
         const getActiveTransactions = await Transaction.findAll({
-            //attributes: ['wine_id', 'wine_name', 'active_ind', 'brand_id'], // Specify the columns to fetch
             where: {
                 active_ind: 1, // This will only include brands where active_ind is 1
                 vintage_id: req.params.vintage_id  // where brand ID matches the brand ID in URL
@@ -99,6 +85,5 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         res.status(500).json(err); // Status 500 - Internal Server Error
     }
 });
-
 
 module.exports = router;
