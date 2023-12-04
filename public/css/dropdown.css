@@ -1,0 +1,49 @@
+/* Style for the master dropdown */
+.master-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.master-dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.master-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Style for the individual brand dropdown */
+.individual-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.individual-dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.individual-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Show the dropdown content when the button is clicked */
+.master-dropdown:hover .master-dropdown-content,
+.master-dropdown:focus .master-dropdown-content,
+.individual-dropdown:hover .individual-dropdown-content,
+.individual-dropdown:focus .individual-dropdown-content {
+    display: block;
+}
