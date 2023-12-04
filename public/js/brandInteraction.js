@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 // Perform the deactivation of all brands here
 
-                // Example: You can loop through each brand and deactivate them
+                
                 const brands = document.querySelectorAll('.card');
                 for (const brand of brands) {
                     const brandId = brand.querySelector('.deactivate-option').getAttribute('data-brand-id');
