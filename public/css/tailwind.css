@@ -550,10 +550,6 @@ video {
   top: 65px;
 }
 
-.m-5 {
-  margin: 1.25rem;
-}
-
 .m-2 {
   margin: 0.5rem;
 }
@@ -670,6 +666,10 @@ video {
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
+.rounded-3xl {
+  border-radius: 1.5rem;
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
@@ -686,10 +686,6 @@ video {
   border-radius: 0.75rem;
 }
 
-.rounded-3xl {
-  border-radius: 1.5rem;
-}
-
 .border {
   border-width: 1px;
 }
@@ -698,20 +694,8 @@ video {
   border-width: 2px;
 }
 
-.border-8 {
-  border-width: 8px;
-}
-
 .border-b {
   border-bottom-width: 1px;
-}
-
-.border-transparent {
-  border-color: transparent;
-}
-
-.border-zinc-400\/20 {
-  border-color: rgb(161 161 170 / 0.2);
 }
 
 .border-emerald-400 {
@@ -722,6 +706,14 @@ video {
 .border-green-400 {
   --tw-border-opacity: 1;
   border-color: rgb(74 222 128 / var(--tw-border-opacity));
+}
+
+.border-transparent {
+  border-color: transparent;
+}
+
+.border-zinc-400\/20 {
+  border-color: rgb(161 161 170 / 0.2);
 }
 
 .bg-blue-500 {
@@ -748,20 +740,12 @@ video {
   padding: 0px;
 }
 
-.p-5 {
-  padding: 1.25rem;
+.p-2 {
+  padding: 0.5rem;
 }
 
 .p-8 {
   padding: 2rem;
-}
-
-.p-4 {
-  padding: 1rem;
-}
-
-.p-2 {
-  padding: 0.5rem;
 }
 
 .px-3 {
@@ -997,6 +981,20 @@ li {
   }
 }
 
+/* Toast Notification for Sign-ups */
+
+.toast-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
 .hover\:border-zinc-500:hover {
   --tw-border-opacity: 1;
   border-color: rgb(113 113 122 / var(--tw-border-opacity));
@@ -1007,13 +1005,13 @@ li {
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-zinc-500\/60:hover {
-  background-color: rgb(113 113 122 / 0.6);
-}
-
 .hover\:bg-emerald-400:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(52 211 153 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-zinc-500\/60:hover {
+  background-color: rgb(113 113 122 / 0.6);
 }
 
 .hover\:text-zinc-100:hover {
@@ -1029,13 +1027,6 @@ li {
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .dark\:bg-slate-900 {
-    --tw-bg-opacity: 1;
-    background-color: rgb(15 23 42 / var(--tw-bg-opacity));
-  }
 }
 
 @media (min-width: 768px) {
@@ -1162,4 +1153,3 @@ li {
     line-height: 2.5rem;
   }
 }
-
