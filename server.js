@@ -5,6 +5,7 @@ const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const handlebars = require('express-handlebars');
 const routes = require('./controllers');
+const brandRoutes = require('./controllers/api/brandRoutes.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -44,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Define routes
 app.use(routes);
-
+app.use('/api/brand', brandRoutes); // Moved this line here
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening to http://localhost:${PORT}`));
