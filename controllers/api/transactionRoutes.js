@@ -3,33 +3,9 @@ const { Transaction } = require('../../models');
 const checkTransactionId = require('../../utils/checkTransactionId');
 const checkVintageId = require('../../utils/checkVintageId');
 const updateVintageTotal = require('../../utils/updateVintageTotal');
+const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 
 // Root: http://localhost:3001/api/vintage/
-
-//-----------------------------------------------------------//
-//- GET - All active Transactions under Selected Vintage ID -//
-//-----------------------------------------------------------//
-
-// API: http://localhost:3001/api/transaction/:vintage_id
-// Example : http://localhost:3001/api/transaction/:1
-// No JSON Body required
-
-router.get('/:vintage_id', checkVintageId, async (req, res) => {
-    try {
-        // GET all active Transactions under target Vintage_ID
-        const getActiveTransactions = await Transaction.findAll({
-            //attributes: ['wine_id', 'wine_name', 'active_ind', 'brand_id'], // Specify the columns to fetch
-            where: {
-                active_ind: 1, // This will only include brands where active_ind is 1
-                vintage_id: req.params.vintage_id  // where brand ID matches the brand ID in URL
-            }
-        });
-        res.status(200).json(getActiveTransactions);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json(err); // Status 500 - Internal Server Error
-    }
-});
 
 //----------------------------------------//
 // POST - Add a Transaction to Vintage ID-//
@@ -49,7 +25,7 @@ router.get('/:vintage_id', checkVintageId, async (req, res) => {
 //  },
 // Can have null qty_in, qty_out, cost, notes
 
-router.post('/:vintage_id', checkVintageId, async (req, res) => {
+router.post('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // POST new transaction under Vintage ID
         const postNewTransaction = await Transaction.create(
@@ -91,7 +67,7 @@ router.post('/:vintage_id', checkVintageId, async (req, res) => {
 // 	    "user_id": 1
 //  }
 
-router.put('/:transaction_id', checkTransactionId, async (req, res) => {
+router.put('/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Update Tranasction by Transaction ID
         const putTransaction = await Transaction.update( 
@@ -139,7 +115,7 @@ router.put('/:transaction_id', checkTransactionId, async (req, res) => {
 // Example : http://localhost:3001/api/transaction/inactivate/10
 // No JSON Body required.
 
-router.put('/inactivate/:transaction_id', checkTransactionId, async (req, res) => {
+router.put('/inactivate/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         //PUT - Soft Delete Transaction by Transaction ID
         const inactivateTransaction = await Transaction.update( 

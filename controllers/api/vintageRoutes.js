@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Vintage } = require('../../models'); 
 const checkVintageId = require('../../utils/checkVintageId');
 const checkWineId = require('../../utils/checkWineId');
+const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 
 // Root: http://localhost:3001/api/vintage/
 
@@ -13,7 +14,7 @@ const checkWineId = require('../../utils/checkWineId');
 // Example : http://localhost:3001/api/vintage/:1
 // No JSON Body required
 
-router.get('/:wine_id', checkWineId, async (req, res) => {
+router.get('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAuth middleware added
     try {
         // Get all active Vintages under target Wine_ID
         const getActiveVintages = await Vintage.findAll({
@@ -46,7 +47,7 @@ router.get('/:wine_id', checkWineId, async (req, res) => {
 //  }
 //  Note: vintage_total will default to zero
 
-router.post('/:wine_id', checkWineId, async (req, res) => {
+router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAuth middleware added
     try {
         // POST new Vintage under Wine ID
         const postNewVintage = await Vintage.create(
@@ -78,7 +79,7 @@ router.post('/:wine_id', checkWineId, async (req, res) => {
 //        "active_ind": 1   
 //      }
 
-router.put('/:vintage_id', checkVintageId, async (req, res) => {
+router.put('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Update Vintage by Vintage ID
         const putVintage = await Vintage.update( 
@@ -110,7 +111,7 @@ router.put('/:vintage_id', checkVintageId, async (req, res) => {
 // Example : http://localhost:3001/api/vintage/inactivate/10
 // No JSON Body required.
 
-router.put('/inactivate/:vintage_id', checkVintageId, async (req, res) => {
+router.put('/inactivate/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Soft Delete Vintage by Vintage ID
         const inactivateVintage = await Vintage.update( 

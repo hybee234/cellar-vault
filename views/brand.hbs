@@ -1,0 +1,26 @@
+{{! Template title }}
+<h1
+    class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-zinc-900"
+>
+    Select a brand from your &nbsp;<span class="text-[#722F37]">Cellar</span>
+</h1>
+
+{{! Brand heading }}
+<h2 class="font-semibold text-center underline text-zinc-900">Brands</h2>
+
+<div id="brandListContainer">
+    <ul class="p-0 mt-3 flex items-center justify-center">
+        {{#each brands as |brand|}}   
+        <section class="card p-2 m-2 border-2 rounded-3xl border-emerald-400 bg-white dark:bg-slate-900 hover:bg-emerald-400">
+            <a href="/wine/{{brand_id}}">
+            <header>{{brand_name}}</header>
+            </a>
+            <bttn> "(PUT inactivate brand) brand_id is {{brand_id}}"</bttn>
+        </section>
+        {{/each}}        
+    </ul>
+    <p class = "text-center"> "(POST brand)" </p>
+    <p class = "text-center"> "Not sure where to include (PUT brand)" </p>
+</div>
+
+{{!-- <script src="/js/fetchBrand.js"></script> --}}
