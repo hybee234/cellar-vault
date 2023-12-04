@@ -5,32 +5,6 @@ const checkWineId = require('../../utils/checkWineId');
 
 // Root: http://localhost:3001/api/wine/
 
-//-----------------------------------------------//
-//- GET - All active Wines under Selected Brand -//
-//-----------------------------------------------//
-
-// API: http://localhost:3001/api/wine/:brand_id
-// Example : http://localhost:3001/api/wine/1
-// No JSON Body required
-
-router.get('/:brand_id', checkBrandId, async (req, res) => {
-    try {
-        // GET all active Wines and attached Vintages under target Brand_ID
-        const getActiveWines = await Wine.findAll({
-            //attributes: ['wine_id', 'wine_name', 'active_ind', 'brand_id'], // Specify the columns to fetch
-            include: [{ model: Vintage }],
-            where: {
-                active_ind: 1, // This will only include brands where active_ind is 1
-                brand_id: req.params.brand_id  // where brand ID matches the brand ID in URL
-            }
-        });
-        res.status(200).json(getActiveWines);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json(err); // Status 500 - Internal Server Error
-    }
-});
-
 //---------------------------------//
 //- POST - Add a Wine to Brand ID -//
 //---------------------------------//
