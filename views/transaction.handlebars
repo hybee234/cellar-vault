@@ -1,0 +1,91 @@
+<main class="text-center justify-center align-center w-full">
+
+    <h1 class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-[#722F37]"> {{brandName}} - {{wineArray.Wine.wine_name}} - {{transactions.[1].vintage.vintage}} </h1>
+
+    <p class="flex items-center justify-center my-4 text-lg font-semibold text-center md:text-2xl text-zinc-900">
+        <span class="font-bold text-[#722F37]">{{transactions.[1].vintage.vintage_total}}</span> &nbsp;in stock
+    </p>
+
+    <h2 class="flex items-center justify-center my-4 text-lg font-semibold text-center md:text-2xl text-zinc-900" >
+        <span class="text-[#722F37]">Transaction History</span>
+    </h2>
+
+    <table class="table-auto p-1 border-2 text-center justify-center w-4/5 m-auto" >
+        <thead>
+            <tr>
+                <th><u>Date</u></th>
+                <th><u>Unit Cost</u></th>
+                <th><u>Qty In</u></th>
+                <th><u>Qty Out</u></th>
+                <th><u>Notes</u></th>
+                <th><u>Edit</u></th>
+                <th><u>Delete</u></th>
+                {{!-- <th><u>Trans ID</u></th> --}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each transactions as |transaction|}}
+            <tr>                
+                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{format_date transaction_date}}</th>
+                
+                {{#if cost}} 
+                    <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{format_currency cost}}</th>
+                {{else}} 
+                    <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{cost}}</th>                
+                {{/if}}
+                
+                
+                
+                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{qty_in}}</th>
+                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{qty_out}}</th>
+                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{notes}}</th>                
+                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">
+                    <button data-index = "{{transaction_id}}" class="edit fa-regular fa-pen-to-square"></a>  
+                </th>
+                <th>
+                    <button data-index = "{{transaction_id}}" class="inactivate fa-regular fa-circle-xmark text-red-600"></a>  
+                </th>
+                {{!-- <th class="font-normal">{{transaction_id}}</th> --}}
+            </tr>
+            {{/each}} 
+        </tbody>        
+    </table>    
+
+    <form id="new-transaction-form" class="w-4/5 max-w-lg bg-orange-300 m-auto p-1 border-2 my-5">
+        <h2 class="block uppercase tracking-wide text-gray-700 text-med font-bold mb-2"> Add Transaction </h2>
+        <div class="flex flex-wrap mx-1 my-2">
+            <div class="w-full md:w-2/5 px-1">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="transaction_date"> Date </label>
+                <input class="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-rose-800" id="transaction_date" type="date" placeholder="MM/DD/YYYY" required>
+            </div>
+            <div class="w-1/3 md:w-1/5 px-1">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cost"> Unit Cost ($) </label>
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-0 leading-tight focus:outline-none focus:bg-white  focus:border-rose-800" id="cost" type="text">
+                <p class="text-red-500 text-xs italic">Numbers only</p>
+            </div>
+            <div class="w-1/3 md:w-1/5 px-1">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="qty_in"> Qty In</label>
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white  focus:border-rose-800" id="qty_in" type="text">
+            </div>
+            <div class="w-1/3 md:w-1/5 px-1">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="qty_out"> Qty Out</label>
+                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white  focus:border-rose-800" id="qty_out" type="text">
+            </div>
+        </div>
+        <div class="flex flex-wrap mx-1 mb-2">
+            <div class="w-full md:w-full px-1">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes">Notes</label>
+            <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white  focus:border-rose-800" id="notes" type="text" placeholder="Retailer, Tastings Notes ..." rows="2" cols="30"></textarea>
+            </div>
+        </div>
+        <div class="flex flex-wrap mx-1">
+            <div class="w-full md:w-full px-1">
+                {{!-- <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"for="vintage_id"> Vintage_ID: {{transactions.[1].vintage_id}} </label> --}}
+                <input type="hidden" name="vintage_id" id="vintage_id" value="{{transactions.[1].vintage_id}}" "readonly"/>
+            </div> 
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit" value="Submit"> Submit </button>
+    </form>    
+</main>
+
+<script src="/js/transaction.js"></script>
