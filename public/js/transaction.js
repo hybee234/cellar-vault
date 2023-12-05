@@ -1,47 +1,45 @@
-//--------------------------------------//
-//- Javascript used by transaction.hbs -//
-//--------------------------------------//
+//---------------------------------------------//
+//- Javascript used by transaction.handlebars -//
+//---------------------------------------------//
 
 const inactivateBttnEl = document.getElementsByClassName("inactivate")
-const formEl = document.getElementById("new-transaction-form")
+const addFormEl = document.getElementById("new-transaction-form")
+const updateFormEl = document.getElementById("update-transaction-form")
 const transTblEl = document.getElementById("trans-table")
+const addTransactionBttnEl = document.getElementById("add-button")
+const addModalEl = document.getElementById("new-transaction-modal")
+const updateModalEl = document.getElementById("update-transaction-modal")
 
-//-------------------------//
-//- POST request via form -//
-//-------------------------//
+//-----------------------------//
+//- POST request via add form -//
+//-----------------------------//
 
 const postTransactionHandler = async (event) => {
     event.preventDefault();
-    console.log("triggered")
     // Create JSON Array
     let bodyArray = {}
-
     bodyArray.transaction_date = document.querySelector('#transaction_date').value
     bodyArray.vintage_id = document.querySelector('#vintage_id').value
     if (document.querySelector('#cost').value) {
         bodyArray.cost = document.querySelector('#cost').value   
     }
-
     if (document.querySelector('#qty_in').value) {
         bodyArray.qty_in = parseInt(document.querySelector('#qty_in').value)
     }
-
     if (document.querySelector('#qty_out').value) {
         bodyArray.qty_out = parseInt(document.querySelector('#qty_out').value)
     }
-
     if (document.querySelector('#notes').value) {
         bodyArray.notes = document.querySelector('#notes').value
     }
-
-    console.log("bodyArray")
-    console.log(bodyArray)
+    // console.log("bodyArray")
+    // console.log(bodyArray)
 
     //Stringify the Array to prepare for FETCH
     const bodyStringified = JSON.stringify(bodyArray)
 
-    console.log("bodyStringified")
-    console.log(bodyStringified)
+    // console.log("bodyStringified")
+    // console.log(bodyStringified)
 
     // FETCH Request (POST Method)
     const response = await fetch(`/api/transaction/${document.querySelector('#vintage_id').value}`, {
@@ -91,111 +89,89 @@ const inactivateTrans = (transaction_id) => {
     return;
 }
 
-//------------------------------------------//
-//- PUT (Update) request by Transaction ID -//
-//------------------------------------------//
+//----------------------------------------//
+//- PUT request via Add Transcation Modal-//
+//----------------------------------------//
 
-const updateTrans = async (transaction_id) => {
-    try{
-        console.log (transaction_id)
-        
+const putTransactionHandler = async (event) => {
+    event.preventDefault();
+    // Create JSON Array
+    let bodyArray = {}
+
+    bodyArray.transaction_date = document.querySelector('#updateDateInput').value
+    bodyArray.vintage_id = document.querySelector('#updateVintageIdInput').value
+    bodyArray.transaction_id = document.querySelector('#updateTransIdInput').value
+    if (document.querySelector('#updateCostInput').value) {
+        bodyArray.cost = document.querySelector('#updateCostInput').value   
+    }
+    if (document.querySelector('#updateQtyInInput').value) {
+        bodyArray.qty_in = parseInt(document.querySelector('#updateQtyInInput').value)
+    }
+    if (document.querySelector('#updateQtyOutInput').value) {
+        bodyArray.qty_out = parseInt(document.querySelector('#updateQtyOutInput').value)
+    }
+    if (document.querySelector('#updateNotesInput').value) {
+        bodyArray.notes = document.querySelector('#updateNotesInput').value
+    }
+
+    // console.log("bodyArray")
+    // console.log(bodyArray)
+
+    //Stringify the Array to prepare for FETCH
+    const bodyStringified = JSON.stringify(bodyArray)
+
+    // console.log("bodyStringified")
+    // console.log(bodyStringified)
+
+    // FETCH Request (POST Method)
+    const response = await fetch(`/api/transaction/${document.querySelector('#updateTransIdInput').value}`, {
+    method: 'PUT',
+    body: bodyStringified,        
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (response.ok) {
+        window.location.reload() // Reload screen
+    } else {
+        alert('Failed to add transaction');
+    }
+};
+
+//------------------------------------------------//
+//- Show Update Transaction Modal - Prepopulated -//
+//------------------------------------------------//
+
+const showUpdateModal = async (transaction_id) => {
+    try{                
+        // GET details of transaction
         let getOneTransactionURL = `./../api/transaction/${transaction_id}`
         let options = {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Accept': 'application/json'
             },            
         }
+        const response = await fetch(getOneTransactionURL, options )
+        const transactionArray = await response.json() 
 
-        const response = await fetch (getOneTransactionURL, options)
-                
-        let array = JSON.parse(response)
-        console.log(response)
-        console.log(array)
+        // Pre-populate fiends in Update Modal Window with Transaction Values
+        document.getElementById('updateDateInput').value = transactionArray.transaction_date
+        document.getElementById('updateCostInput').value = transactionArray.cost
+        document.getElementById('updateQtyInInput').value = transactionArray.qty_in
+        document.getElementById('updateQtyOutInput').value = transactionArray.qty_out
+        document.getElementById('updateNotesInput').value = transactionArray.notes
+        document.getElementById('updateTransIdInput').value = transactionArray.transaction_id
 
-        // } else {
-        //     return
-        // };    
-
+        // Show the Update modal window 
+        updateModalEl.style.display = 'block';
+    
     } catch (err) {
         console.error(err);
-        res.status(500).json(err); // Status 500 - Internal Server Error
+    
     }
 };
-
-// // Fetch the rest of the data for the transaction
-        // let getOneTransactionURL = `./../api/transaction/${transaction_id}`
-        // let options = {
-        //     method: 'GET',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },            
-        // }
-    //     fetch(getOneTransactionURL, options )
-    //         .then(function (response) {                
-    //             if (response.ok) {                                                                  
-    //                 response.json().then(function (data) {                                          
-    //                     console.log("  Checking data received:")
-    //                     console.log(data)
-    //                     const putDate = data.transaction_date;
-    //                     const putCost = data.cost;
-    //                     const putQtyIn = data.qty_in;
-    //                     const putQtyOut = data.qty_out;                    
-    //                     const putNotes = data.notes;
-                        
-    //                     console.log("Date " + putDate)
-    //                     console.log("Cost " + putCost)
-    //                     console.log("Qty_in " + putQtyIn)
-    //                     console.log("Qty_out " + putQtyOut)
-    //                     console.log("Notes " + putNotes)
-                        
-    //                 });
-    //                 // window.location.reload()
-    //             } else {
-    //                 console.log ("something went wrong")
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log ("something else went wrong")
-    //         });
-
-    //     return;
-    //     }
-    // });
-
-    //     let inactivateTransactionURL = `./../api/transaction/${transaction_id}`
-    //     let options = {
-    //         method: 'PUT',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         // body: jsonString
-    //     }
-        
-    //     fetch(inactivateTransactionURL, options )
-    //         .then(function (response) {                
-    //             if (response.ok) {                                                                  
-    //                 response.json().then(function (data) {                                          
-    //                     console.log("  Checking data received:")
-    //                     console.log(data)
-    //                 });
-    //                 window.location.reload()
-    //             } else {
-    //                 console.log ("something went wrong")
-    //             }
-    //         })
-            // .catch(function (error) {
-            //     console.log ("something else went wrong")
-            // });
-            // return;
-// }
-
-// } catch (err) {
-//     console.error(err);
-//     res.status(500).json(err); // Status 500 - Internal Server Error
-// }
-// });
-
 
 //-----------------------------------------------------------------//
 //- Event listener - triggered by clicking with Transaction Table -// 
@@ -215,14 +191,47 @@ transTblEl.addEventListener('click', (event) => {
    // If the Edit button was clicked
     if (element.matches("button") === true && element.classList.contains("edit")) { 
         console.log("  > Edit button clicked")
-        updateTrans(transaction_id)
+        showUpdateModal(transaction_id)
     }
 });
 
-//-----------------------------------------//
-//- Event listener for submission of form -//
-//-----------------------------------------//
-formEl.addEventListener('submit', (event) => {
-    console.log ("Add button clicked")
+//----------------------------------------------------------//
+//- Event listener - Update Transaction Modal - Hide -//
+//----------------------------------------------------------//
+document.getElementById('cancelUpdate').addEventListener('click', function () {
+    updateModalEl.style.display = 'none';
+});
+
+//----------------------------------------------------------//
+//- Event listener - Update Transaction Modal - Submission -//
+//----------------------------------------------------------//
+updateFormEl.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log ("Update Submit button clicked")    
+    putTransactionHandler(event);
+})
+
+
+
+//-------------------------------------------------------//
+//- Event listener - Add Transaction Modal - Submission -//
+//-------------------------------------------------------//
+addFormEl.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log ("Add Submit button clicked")    
     postTransactionHandler(event);
 })
+
+//------------------------------------------------------//
+//- Event Listener - Add Transaction Modal - Hide/Show -//
+//------------------------------------------------------//
+
+//Show "Add Tranasction Modal" when "Add Transaction" button is clicked
+addTransactionBttnEl.addEventListener('click', function () {
+    addModalEl.style.display = 'block';
+});
+
+//Hide "Add Tranasction Modal" when "Cancel" button is clicked
+document.getElementById('cancelAdd').addEventListener('click', function () {
+    addModalEl.style.display = 'none';
+});
