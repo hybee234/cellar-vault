@@ -14,7 +14,7 @@
                 <div class="flex w-full item-center justify-between">
                     <div class="m-auto items-center justify-center my-0 text-lg font-bold text-center md:text-2xl text-[#722F37]">{{wine_name}}</div>                    
                     <div class="justify-start align-center">
-                        <button class="edit p-1 fa-regular fa-pen-to-square" data-index = "{{wine_id}}" > {{wine_id}}</button>
+                        <button class="update p-1 fa-regular fa-pen-to-square" data-index = "{{wine_id}}" > {{wine_id}}</button>
                     </div>
                         <div class = "justify-start">
                         <button class="inactivate text-red-600 p-1 fa-regular fa-circle-xmark" data-index = "{{wine_id}}" > {{wine_id}}</button>
@@ -25,7 +25,7 @@
                         <tr>
                             <th><u>Vintage</u></th>
                             <th><u>Stock</u></th>
-                            <th><u>Edit</u></th>
+                            <th><u>Update</u></th>
                             <th><u>Delete</u></th>
                             {{!-- <th><u>Vintage ID</u></th> --}}
                         </tr>
@@ -37,7 +37,7 @@
                             {{!-- <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{vintage}}</th> --}}
                                                         <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{vintage_total}}</th>               
                             <th>
-                                <button data-index = "{{vintage_id}}" class="edit fa-regular fa-pen-to-square"></a>  
+                                <button data-index = "{{vintage_id}}" class="update fa-regular fa-pen-to-square"></a>  
                             </th>
                             <th>
                                 <button data-index = "{{vintage_id}}" class="text-red-600 inactivate fa-regular fa-circle-xmark"></a>  

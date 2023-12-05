@@ -19,7 +19,7 @@
                 <th><u>Qty In</u></th>
                 <th><u>Qty Out</u></th>
                 <th><u>Notes</u></th>
-                <th><u>Edit</u></th>
+                <th><u>Update</u></th>
                 <th><u>Delete</u></th>
                 {{!-- <th><u>Trans ID</u></th> --}}
             </tr>
@@ -39,12 +39,12 @@
                 <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{qty_out}}</th>
                 <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{notes}}</th>                
                 <th>
-                    <button data-index = "{{transaction_id}}" class="edit fa-regular fa-pen-to-square"></a>  
+                    <button data-index = "{{transaction_id}}" class="update fa-regular fa-pen-to-square"></a>  
                 </th>
                 <th>
                     <button data-index = "{{transaction_id}}" class="text-red-600 inactivate fa-regular fa-circle-xmark"></a>  
                 </th>
-                <th class="font-normal">{{transaction_id}}</th>
+                {{!-- <th class="font-normal">{{transaction_id}}</th> --}}
             </tr>
             {{/each}} 
         </tbody>        
@@ -95,7 +95,7 @@
         </form>
     </div>   
 
-{{!-- Edit Transaction Modal Form --}}
+{{!-- Update Transaction Modal Form --}}
     <div id="update-transaction-modal" class="modal">
         <form id="update-transaction-form" class="w-full bg-orange-300 m-auto p-1 border-2 my-5 rounded-3xl modal-content">    
             <h2 id="put-heading" class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Update Transaction</h2>    

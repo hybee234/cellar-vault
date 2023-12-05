@@ -180,9 +180,9 @@ transTblEl.addEventListener('click', (event) => {
         console.log("  > Delete button clicked")
         inactivateTrans(transaction_id)
     }
-   // If the Edit button was clicked
-    if (element.matches("button") === true && element.classList.contains("edit")) { 
-        console.log("  > Edit button clicked")
+   // If the UPdate button was clicked
+    if (element.matches("button") === true && element.classList.contains("update")) { 
+        console.log("  > Update button clicked")
         showUpdateModal(transaction_id)
     }
 });
