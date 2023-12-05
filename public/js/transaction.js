@@ -2,7 +2,7 @@
 
 const inactivateBttnEl = document.getElementsByClassName("inactivate")
 const formEl = document.getElementById("new-transaction-form")
-console.log(formEl)
+
 //--------------------------------------------------//
 //- PUT - Inactivate Transaction by Transaction ID -//
 //--------------------------------------------------//
@@ -48,78 +48,54 @@ document.addEventListener('click', (event) => {
 
 async function newTransactionHandler(event) {
     event.preventDefault();
-    const transaction_date = document.querySelector('#transaction_date').value;
-    
-    // let newTransaction=[];
-    // let test = {};
 
-    let cost = "";
-        if (document.querySelector('#cost').value) {
-            // test.push(document.querySelector('#cost').value)
-            cost = document.querySelector('#cost').value
-        } else {
-        }
+    // Create JSON Array
+    let bodyArray = {}
 
-    let qty_in = "";
-        if (document.querySelector('#qty_in').value) {
-            // test.push(document.querySelector('#qty_in').value)
-            qty_in = document.querySelector('#qty_in').value
-        } else {
-        }
+    bodyArray.transaction_date = document.querySelector('#transaction_date').value
+    bodyArray.vintage_id = document.querySelector('#vintage_id').value
+    if (document.querySelector('#cost').value) {
+        bodyArray.cost = parseInt(document.querySelector('#cost').value)        
+    }
 
-    let qty_out = "";
-        if (document.querySelector('#qty_out').value) {
-            // test.push(document.querySelector('#qty_out').value)
-            qty_out = document.querySelector('#qty_out').value
-        } else {
-        }
+    if (document.querySelector('#qty_in').value) {
+        bodyArray.qty_in = parseInt(document.querySelector('#qty_in').value)
+    }
 
-    let notes = "";
-        if (document.querySelector('#notes').value) {
-            // test.push(document.querySelector('#note').value)
-            notes = document.querySelector('#notes').value
-        } else {
-        }
-        
-    const vintage_id = document.querySelector('#vintage_id').value;
-    // test.push(document.querySelector('#vintage_id').value)
-    // const user_id = document.querySelector('#user_id').value;
+    if (document.querySelector('#qty_out').value) {
+        bodyArray.qty_out = parseInt(document.querySelector('#qty_out').value)
+    }
 
-// console.log(test)
-// console.log (req.session.user_id)
+    if (document.querySelector('#notes').value) {
+        bodyArray.notes = document.querySelector('#notes').value
+    }
 
-const body = JSON.stringify({
-    cost,
-    transaction_date,
-    qty_in,
-    qty_out,
-    notes,
-    vintage_id,
-    // user_id
-});
+    console.log("bodyArray")
+    console.log(bodyArray)
 
-console.log("body")
-console.log(body)
+    //Stringy the Array to prepare for FETCH
+    const bodyStringified = JSON.stringify(bodyArray)
 
-        const response = await fetch(`/api/transaction/${vintage_id}`, {
-        method: 'POST',
-        body: body,        
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            });
-    
-        if (response.ok) {
-            window.location.reload()
-        } else {
-        alert('Failed to add transaction');
-        }
-    } 
+    console.log("bodyStringified")
+    console.log(bodyStringified)
 
-    console.log(formEl)
-
-    window.addEventListener("DOMContentLoaded", (event) => {
-        formEl.addEventListener('submit', newTransactionHandler);
-
+    // FETCH Request (POST Method)
+    const response = await fetch(`/api/transaction/${document.querySelector('#vintage_id').value}`, {
+    method: 'POST',
+    body: bodyStringified,        
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
-    
+
+    if (response.ok) {
+        window.location.reload() // Reload screen
+    } else {
+        alert('Failed to add transaction');
+    }
+};
+
+// Event listener for submit button
+window.addEventListener("DOMContentLoaded", (event) => {
+    formEl.addEventListener('submit', newTransactionHandler);
+});
