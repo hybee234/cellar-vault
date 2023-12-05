@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Brand, Wine, Vintage, Transaction } = require('../models');
+const { Brand, Wine, Vintage, Transaction, User } = require('../models');
 const checkBrandId = require('./../utils/checkBrandId');
 const checkWineId = require('./../utils/checkWineId');
 const checkVintageId = require('./../utils/checkVintageId');
@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
         const getActiveBrand = await Brand.findAll({            
             where: { active_ind: 1 }
         });
-        // Serielize the Data
+        // Serialize the Data
         const brands = getActiveBrand.map(brand => brand.get({ plain: true }));
 
         // Response - render the page
@@ -69,31 +69,66 @@ router.get('/wine/:brand_id', checkBrandId, async (req, res) => {    //checkBran
     }
 });
 
-
-
-
-
-// Transaction page - Transactions listed by Vintage ID
-
-//-----------------------------------------------------------//
-//- GET - All active Transactions under Selected Vintage ID -//
-//-----------------------------------------------------------//
-
-// API: http://localhost:3001/api/transaction/:vintage_id
-// Example : http://localhost:3001/api/transaction/:1
-// No JSON Body required
+//------------------------------------------------------------------------//
+//- Transaction Page - All active Transactions under Selected Vintage ID -//
+//------------------------------------------------------------------------//
 
 router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
     try {
         // GET all active Transactions under target Vintage_ID
-        const getActiveTransactions = await Transaction.findAll({
-            //attributes: ['wine_id', 'wine_name', 'active_ind', 'brand_id'], // Specify the columns to fetch
+        const getActiveTransactions = await Transaction.findAll({            
             where: {
-                active_ind: 1, // This will only include brands where active_ind is 1
-                vintage_id: req.params.vintage_id  // where brand ID matches the brand ID in URL
-            }
+                active_ind: 1, // Only include active rows on all tables
+                vintage_id: req.params.vintage_id},
+            include: [{ model: Vintage}, {model: User}]            
         });
-        res.status(200).json(getActiveTransactions);
+         //Serialize the data
+        const transactions = getActiveTransactions.map(transaction => transaction.get({ plain: true }));
+
+        // GET Wine
+        const getWine = await Vintage.findOne({
+            include: [{ model: Wine}],
+            where: {
+                active_ind: 1,
+                vintage_id: req.params.vintage_id
+            },
+            
+        })
+        // const wines = getWine.map(wine => wine.get({ plain: true }));
+        const wineArray = getWine.get({ plain: true });
+        const wineName = wineArray.Wine.wine_name
+
+        // console.log (wineArray)
+        // console.log (wineArray.Wine.wine_name)
+        // console.log (wineArray.Wine.wine_id)
+
+                // GET Wine
+                const getBrand = await Wine.findOne({
+                    include: [{ model: Brand}],
+                    where: {
+                        active_ind: 1,
+                        wine_id: wineArray.Wine.wine_id
+                    },
+                    
+                })
+                // const wines = getWine.map(wine => wine.get({ plain: true }));
+                const brandArray = getBrand.get({ plain: true });
+                brandName = brandArray.brand.brand_name
+                
+                // console.log (brandArray)
+                // console.log (brandArray.brand.brand_name)
+                // console.log (brandArray.brand.brand_id)
+
+
+        // Response - render the page
+        res.status(200).render('transaction', {
+            transactions, wineName, brandName,
+            loggedIn: req.session.loggedIn
+    });    
+
+        // // console.log(brand)
+        // res.status(200).json(transactions);
+
     } catch (err) {
         console.error(err);
         res.status(500).json(err); // Status 500 - Internal Server Error
