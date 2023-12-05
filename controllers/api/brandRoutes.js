@@ -36,26 +36,38 @@ router.get('/', withAuth, async (req, res) => { // Added withAuth middleware
     }
 });
 
-//----------------------//
-//- POST - Add a Brand -//
-//----------------------//
+//------------------------------------------------------//
+//- POST - Update Brand by Brand ID                    -//
+//------------------------------------------------------//
 
-// API: http://localhost:3001/api/brand
-// Example : http://localhost:3001/api/brand
+// API: http://localhost:3001/api/brand/update/:brand_id
+// Example : http://localhost:3001/api/brand/update/1
 // Example JSON Body
 //  {
-//      "brand_name" : "Diana Madeline",
-//      "active_ind" : 1    
+//      "brand_name": "New Brand Name"
 //  }
 
-router.post('/', withAuth, async (req, res) => { // Added withAuth middleware
+router.post('/update/:brand_id', withAuth, async (req, res) => {
     try {
-        // POST new Brand to Brand Table
-        const postNewBrand = await Brand.create(req.body);
-        res.status(200).json(postNewBrand);
-        // TODO: Refresh page to show changes
+        const updatedBrand = await Brand.update(
+            {
+                brand_name: req.body.brand_name, // Update the brand_name field
+                // You can add other fields to update here if needed
+            },
+            {
+                where: {
+                    brand_id: req.params.brand_id,
+                },
+            }
+        );
+
+        if(updatedBrand[0] > 0) {
+            res.status(200).json({ message: `Brand ID ${req.params.brand_id} updated successfully` });
+        } else {
+            res.status(404).json({ message: 'No brand found with this ID' });
+        }
     } catch (err) {
-        res.status(400).json(err); // Status 400 - Bad Request
+        res.status(500).json({ message: 'Internal Server Error', error: err });
     }
 });
 

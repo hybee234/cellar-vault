@@ -6,6 +6,34 @@
   <span class="text-[#722F37]">Cellar</span>
 </h1>
 
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="editModalClose">&times;</span>
+    <h2>Edit Brand</h2>
+    <form id="editForm">
+      <label for="editedBrandName">Brand Name:</label>
+      <input type="text" id="editedBrandName" name="brandName" required>
+      <button type="submit" class="edit-button">Save Changes</button>
+    </form>
+  </div>
+</div>
+
+<!-- Deactivate Modal -->
+<div id="deactivateModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="cancelDeactivate">&times;</span>
+    <h2>Deactivate Brand</h2>
+    <form id="deactivateForm">
+      <p>Are you sure you want to deactivate this brand?</p>
+      <input type="hidden" id="deactivateBrandId" name="brandId">
+      <button type="submit" class="deactivate-button">Yes</button>
+      <button type="button" id="cancelDeactivate" class="cancel-button">No</button>
+    </form>
+  </div>
+</div>
+
+
 <div id="brandListContainer">
   <table
     class="justify-center w-4/5 p-1 m-auto text-center border-2 table-auto"
