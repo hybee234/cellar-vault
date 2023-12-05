@@ -33,4 +33,11 @@ document.addEventListener('DOMContentLoaded', function () {
       closeDropdown();
     }
   });
+
+  // Retrieve the user's name from localStorage
+  const userName = localStorage.getItem('userName');
+  if (userName) {
+    const welcomeMessage = document.querySelector('#profile-dropdown p');
+    welcomeMessage.textContent = `Welcome, ${userName}`;
+  }
 });
