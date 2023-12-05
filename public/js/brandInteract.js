@@ -1,72 +1,88 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Handle "Edit" button click
-    const editButtons = document.querySelectorAll('.edit.fa-regular.fa-pen-to-square');
-    editButtons.forEach(editButton => {
-        editButton.addEventListener('click', async (event) => {
-            const brandId = event.target.getAttribute('data-brand-id');
+    // Modals and modal close buttons
+    const editModal = document.getElementById('editModal');
+    const deactivateModal = document.getElementById('deactivateModal');
+    const editModalClose = document.getElementById('editModalClose');
+    const cancelDeactivate = document.getElementById('cancelDeactivate');
 
-            // Replace the prompt dialog with your own form or modal for editing
-            const editedBrandName = prompt(`Edit brand name for brand with ID ${brandId}:`, event.target.getAttribute('data-brand-name'));
+    // Form elements
+    const editForm = document.getElementById('editForm');
+    const editedBrandNameInput = document.getElementById('editedBrandName');
+    const deactivateForm = document.getElementById('deactivateForm');
 
-            if (editedBrandName !== null) {
-                try {
-                    // Send a POST request to update the brand name
-                    const response = await fetch(`/api/brand/update/${brandId}`, {
-                        method: 'POST', // Use POST method
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ brandName: editedBrandName })
-                    });
+    // Close button actions for modals
+    editModalClose.addEventListener('click', () => editModal.style.display = 'none');
+    cancelDeactivate.addEventListener('click', () => deactivateModal.style.display = 'none');
 
-                    if (response.ok) {
-                        alert('Brand name updated successfully');
-                        location.reload();
-                    } else {
-                        alert('Failed to update brand name');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            }
+    // Edit button click event
+    document.querySelectorAll('.edit.fa-regular.fa-pen-to-square').forEach(editButton => {
+        editButton.addEventListener('click', (event) => {
+            const brandId = event.target.dataset.brandId;
+            const currentBrandName = event.target.closest('tr').querySelector('td').textContent.trim();
+            editedBrandNameInput.value = currentBrandName;
+            editForm.dataset.brandId = brandId;
+            editModal.style.display = 'block';
         });
     });
 
-    // Handle "Deactivate" button click
-    const deleteButtons = document.querySelectorAll('.delete.fa-regular.fa-circle-xmark');
-    deleteButtons.forEach(deleteButton => {
-        deleteButton.addEventListener('click', async (event) => {
-            const brandId = event.target.getAttribute('data-brand-id');
+    // Edit form submission
+    editForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const brandId = editForm.dataset.brandId;
+        const newBrandName = editedBrandNameInput.value;
 
-            if (confirm(`Are you sure you want to deactivate the brand with ID ${brandId}?`)) {
-                try {
-                    const response = await fetch(`/api/brand/inactivate/${brandId}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' }
-                    });
+        try {
+            const response = await fetch(`/api/brand/update/${brandId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ brand_name: newBrandName })
+            });
 
-                    if (response.ok) {
-                        alert('Brand deactivated successfully');
-                        location.reload();
-                    } else {
-                        alert('Failed to deactivate brand');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
+            if (response.ok) {
+                alert('Brand name updated successfully');
+                window.location.reload();
+            } else {
+                alert('Failed to update brand name');
             }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error updating brand name');
+        }
 
-            // Prevent the default link action
-            event.preventDefault();
+        editModal.style.display = 'none';
+    });
+
+    // Deactivate button click event
+    document.querySelectorAll('.delete.fa-regular.fa-circle-xmark').forEach(deleteButton => {
+        deleteButton.addEventListener('click', (event) => {
+            const brandId = event.target.dataset.brandId;
+            document.getElementById('deactivateBrandId').value = brandId;
+            deactivateModal.style.display = 'block';
         });
     });
 
-    // Handle clicking on a brand to redirect to wine.handlebars
-    const brandLinks = document.querySelectorAll('.brand-link'); // Assuming you have a class for brand links
-    brandLinks.forEach(brandLink => {
-        brandLink.addEventListener('click', (event) => {
-            const brandId = brandLink.getAttribute('data-brand-id'); // Get the brand ID
+    // Deactivate form submission
+    deactivateForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const brandId = document.getElementById('deactivateBrandId').value;
 
-            // Redirect to the wine page with the selected brand ID
-            window.location.href = `/wine/${brandId}`; // Update the URL as needed
-        });
+        try {
+            const response = await fetch(`/api/brand/inactivate/${brandId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            if (response.ok) {
+                alert('Brand deactivated successfully');
+                window.location.reload();
+            } else {
+                alert('Failed to deactivate brand');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error deactivating brand');
+        }
+
+        deactivateModal.style.display = 'none';
     });
 });

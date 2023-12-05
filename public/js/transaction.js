@@ -61,7 +61,8 @@ const postTransactionHandler = async (event) => {
 //- Function - Inactivate (PUT) Transaction by Transaction ID -//
 //-----------------------------------------------------------//
 
-const inactivateTrans = (transaction_id) => {
+const inactivateTrans = async (transaction_id) => {
+    try{
     let inactivateTransactionURL = `./../api/transaction/inactivate/${transaction_id}`
     let options = {
         method: 'PUT',
@@ -70,24 +71,15 @@ const inactivateTrans = (transaction_id) => {
         },
         // body: jsonString
     }        
-    fetch(inactivateTransactionURL, options )
-        .then(function (response) {                
-            if (response.ok) {                                                                  
-                    response.json()
-                .then(function (data) {                                          
-                    console.log("  Checking data received:")
-                    console.log(data)
-                });
-                window.location.reload()
-            } else {
-                console.log ("something went wrong")
-            }
-        })
-    .catch(function (error) {
-        console.log ("something else went wrong")
-    });
-    return;
-}
+    const response = await fetch(inactivateTransactionURL, options )
+    const data = await response.json()
+    console.log(data)
+    window.location.reload()        
+    } catch (err) {
+        console.error(err);
+    
+    }
+};
 
 //----------------------------------------//
 //- PUT request via Add Transcation Modal-//

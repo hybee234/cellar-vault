@@ -1,4 +1,4 @@
-<main class="text-center justify-center align-center w-full">
+<main class="justify-center w-full text-center align-center">
 
     <h1 class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-[#722F37]"> {{brandName}} - {{wineArray.Wine.wine_name}} - {{transactions.[1].vintage.vintage}} </h1>
 
@@ -11,7 +11,7 @@
     </h2>
 
 {{!-- Transaction History Table --}}
-    <table id="trans-table" class="table-auto p-1 border-2 text-center justify-center w-4/5 m-auto rounded-3xl" >
+    <table id="trans-table" class="justify-center w-4/5 p-1 m-auto text-center border-2 table-auto rounded-3xl" >
         <thead>
             <tr>
                 <th><u>Date</u></th>
@@ -27,22 +27,22 @@
         <tbody>
             {{#each transactions as |transaction|}}
             <tr>                
-                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{format_date transaction_date}}</th>
+                <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{format_date transaction_date}}</th>
                 
                 {{#if cost}} 
-                    <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{format_currency cost}}</th>
+                    <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{format_currency cost}}</th>
                 {{else}} 
-                    <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{cost}}</th>                
+                    <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{cost}}</th>                
                 {{/if}}
                 
-                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{qty_in}}</th>
-                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{qty_out}}</th>
-                <th class="font-normal xl:text-base md:text-sm sm:text-xs text-xs">{{notes}}</th>                
+                <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{qty_in}}</th>
+                <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{qty_out}}</th>
+                <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{notes}}</th>                
                 <th>
                     <button data-index = "{{transaction_id}}" class="edit fa-regular fa-pen-to-square"></a>  
                 </th>
                 <th>
-                    <button data-index = "{{transaction_id}}" class="inactivate fa-regular fa-circle-xmark text-red-600"></a>  
+                    <button data-index = "{{transaction_id}}" class="text-red-600 inactivate fa-regular fa-circle-xmark"></a>  
                 </th>
                 <th class="font-normal">{{transaction_id}}</th>
             </tr>

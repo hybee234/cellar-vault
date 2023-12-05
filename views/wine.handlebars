@@ -16,27 +16,30 @@
 </h2>
 
 <div id="brandListContainer">
-    <ul class="p-0 mt-3 text-center list-none">
-        {{#each wines as |wine|}}   
-            <div class="card flex items-center justify-center " >
-                <div class="p-2 m-2 border-2 font-bold rounded-3xl border-green-400 bg-gray-400 dark:bg-slate-900 w-96">{{wine_name}} <bttn> (PUT Inactivate wine)</bttn></div>
-                
-                    {{#each vintages}}
-                        <div class="p-2 m-2 border-2 rounded-3xl border-emerald-400 bg-white dark:bg-slate-900 hover:bg-emerald-400">
-                            <a href="/transaction/{{vintage_id}}">
-                            <header>
-                                    {{vintage}}, ({{vintage_total}})
-                                    <bttn> (PUT Inactivate vintage)</bttn>
-                            </header>
-                            </a>
-                        </div>
-                        
-                    {{/each}}                
-                    <p> (POST Vintage), wine ID is {{wine_id}} </p>
-            </div>
-        {{/each}}
-        <p> (POST Wine), brand ID is {{wines.[1].brand.brand_id}} </p>
+  <ul class="p-0 mt-3 text-center list-none">
+    {{#each wines as |wine|}}
+      <div class="flex items-center justify-center card">
+        <div
+          class="p-2 m-2 font-bold bg-gray-400 border-2 border-green-400 rounded-3xl dark:bg-slate-900 w-96"
+        >{{wine_name}} <bttn> (PUT Inactivate wine)</bttn></div>
 
+        {{#each vintages}}
+          <div
+            class="p-2 m-2 bg-white border-2 rounded-3xl border-emerald-400 dark:bg-slate-900 hover:bg-emerald-400"
+          >
+            <a href="/transaction/{{vintage_id}}">
+              <header>
+                {{vintage}}, ({{vintage_total}})
+                <bttn> (PUT Inactivate vintage)</bttn>
+              </header>
+            </a>
+          </div>
+
+        {{/each}}
+        <p> (POST Vintage), wine ID is {{wine_id}} </p>
+      </div>
+    {{/each}}
+    <p> (POST Wine), brand ID is {{wines.1.brand.brand_id}} </p>
 
     <p> Not sure where to fit in (PUT Wine) and (PUT Vintage)</p>
 
