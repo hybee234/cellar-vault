@@ -1,13 +1,16 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const handlebars = require('express-handlebars');
 const routes = require('./controllers');
+const helpers = require('./utils/helpers');
+const sequelize = require('./config/connection');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const hbs = handlebars.create({ helpers });
 
 // Configure and link a session object with the sequelize store
 const sess = {
@@ -29,13 +32,16 @@ const sess = {
 app.use(session(sess));
 
 // Sets handlebars configurations
-app.set('view engine', 'hbs');
-app.engine('hbs', handlebars({
-  layoutsDir: path.join(__dirname, '/views/layouts'),
-  partialsDir: path.join(__dirname, '/views/partials'),
-  extname: 'hbs',
-  defaultLayout: 'index'
-}));
+app.set('view engine', 'handlebars');
+app.engine('handlebars', hbs.engine
+
+// , handlebars({
+//   layoutsDir: path.join(__dirname, '/views/layouts'),
+//   partialsDir: path.join(__dirname, '/views/partials'),
+//   extname: 'handlebars',
+//   defaultLayout: 'main'
+// })
+);
 
 // Middlewares
 app.use(express.json());
