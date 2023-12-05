@@ -1,5 +1,15 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const nodemailer = require('nodemailer');
+
+// Create a transporter for Nodemailer using OAuth2
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
+  }
+});
 
 // Login route: authenticates a user
 router.post('/login', async (req, res) => {
@@ -36,7 +46,6 @@ router.post('/login', async (req, res) => {
 // Signup route: registers a new users
 router.post('/signup', async (req, res) => {
   try {
-
     // Create a new user
     const userData = await User.create({
       name: req.body.name,
@@ -44,15 +53,35 @@ router.post('/signup', async (req, res) => {
       password: req.body.password
     });
 
-    // Save user info in the session
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.status(200).json(userData);
+      const mailOptions = {
+        from: process.env.EMAIL_USERNAME,
+        to: userData.email,
+        subject: 'Welcome',
+        text: 'Hello from cellar vault!',
+      };
+
+      // Send the email
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+        } else {
+          console.log('Email sent:', info.response);
+        }
+      });
+
+      // Send the response back to the client
+      res.status(200).json({ user: userData, message: 'Signup successful, verification email sent' });
     });
+
   } catch (err) {
-    res.status(400).json(err);
+    // Ensure this is called only if no response has been sent yet
+    if (!res.headersSent) {
+      res.status(400).json(err);
+    }
   }
 });
 
@@ -91,9 +120,6 @@ router.delete('/:user_id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-
-
 
 // Export the router for use in the main app
 module.exports = router;

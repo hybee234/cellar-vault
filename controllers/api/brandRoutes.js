@@ -1,8 +1,40 @@
 const router = require('express').Router();
 const { Brand } = require('../../models');
 const checkBrandId = require('../../utils/checkBrandId');
+const withAuth = require('../../utils/auth'); // Corrected path to withAuth
 
 // Root: http://localhost:3001/api/brand/
+
+//------------------------------------------------------//
+//- GET - Route to render the homepage with Brand data -//
+//------------------------------------------------------//
+
+// API: http://localhost:3001/api/brand/
+// Example : http://localhost:3001/api/wine/
+// No JSON Body required
+
+router.get('/', withAuth, async (req, res) => { // Added withAuth middleware
+    try {
+        const getActiveBrand = await Brand.findAll({
+            attributes: ['brand_name'],
+            where: { active_ind: 1 }
+        });
+        const brands = getActiveBrand.map(brand => brand.get({ plain: true }));
+
+        // Check if the request accepts JSON
+        if (req.headers.accept && req.headers.accept.includes('application/json')) {
+            res.json(brands); // Send JSON response
+        } else {
+            res.render('homepage', {
+                brands,
+                loggedIn: req.session.loggedIn
+            }); // Render HTML page
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal Server Error', error: err });
+    }
+});
 
 //----------------------//
 //- POST - Add a Brand -//
@@ -12,11 +44,11 @@ const checkBrandId = require('../../utils/checkBrandId');
 // Example : http://localhost:3001/api/brand
 // Example JSON Body
 //  {
-//	    "brand_name" : "Diana Madeline",
-//	    "active_ind" : 1	
+//      "brand_name" : "Diana Madeline",
+//      "active_ind" : 1    
 //  }
 
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => { // Added withAuth middleware
     try {
         // POST new Brand to Brand Table
         const postNewBrand = await Brand.create(req.body);
@@ -35,11 +67,11 @@ router.post('/', async (req, res) => {
 // Example : http://localhost:3001/api/brand/1
 // Example JSON Body
 //  {
-//	    "brand_name" : "Diana Madeline",
-//	    "active_ind" : 1	
+//      "brand_name" : "Diana Madeline",
+//      "active_ind" : 1    
 //  }
 
-router.put('/:brand_id', checkBrandId, async (req, res) => {
+router.put('/:brand_id', withAuth, checkBrandId, async (req, res) => { // Added withAuth middleware
     try {
         const putBrand = await Brand.update(
             {
@@ -67,7 +99,7 @@ router.put('/:brand_id', checkBrandId, async (req, res) => {
 // Example : http://localhost:3001/api/brand/inactivate/6
 // No JSON Body Required
 
-router.put('/inactivate/:brand_id', checkBrandId, async (req, res) => {
+router.put('/inactivate/:brand_id', withAuth, checkBrandId, async (req, res) => { // Added withAuth middleware
     try {
         const inactivateBrand = await Brand.update(
             {
