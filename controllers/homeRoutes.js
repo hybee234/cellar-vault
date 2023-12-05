@@ -80,11 +80,14 @@ router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // w
         //Serialize the data
         const wines = getActiveWines.map(wine => wine.get({ plain: true }));
 
-        // Response - render the page
+        //Response - render the page
         res.status(200).render('wine', {
             wines,
             logged_in: req.session.logged_in
         });
+
+        // res.status(200).json(wines)
+
     } catch (err) {
         console.error(err);
         res.status(500).json(err); // Status 500 - Internal Server Error

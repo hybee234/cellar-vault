@@ -15,13 +15,13 @@ router.get('/:transaction_id', withAuth, checkTransactionId, async (req,res) => 
     try {
         // POST new transaction under Vintage ID
         const getOneTransaction = await Transaction.findOne({
-            where: {  
+            where: { 
                 transaction_id: req.params.transaction_id,                    
-            }});         
+            }});
 
-
-        res.status(200).json(getOneTransaction);
-
+        const transaction = getOneTransaction.get({ plain:true})      // Serialize the data 
+        console.log (transaction)
+        res.status(200).json(transaction);
     } catch (err) {
         res.status(400).json(err); // Status 400 - Bad Request
     }
