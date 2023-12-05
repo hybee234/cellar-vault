@@ -35,12 +35,12 @@ app.use(session(sess));
 app.set('view engine', 'handlebars');
 app.engine('handlebars', hbs.engine
 
-// , handlebars({
-//   layoutsDir: path.join(__dirname, '/views/layouts'),
-//   partialsDir: path.join(__dirname, '/views/partials'),
-//   extname: 'handlebars',
-//   defaultLayout: 'main'
-// })
+  // , handlebars({
+  //   layoutsDir: path.join(__dirname, '/views/layouts'),
+  //   partialsDir: path.join(__dirname, '/views/partials'),
+  //   extname: 'handlebars',
+  //   defaultLayout: 'main'
+  // })
 );
 
 // Middlewares
