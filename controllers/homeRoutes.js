@@ -33,7 +33,7 @@ router.get('/my-profile', withAuth, async (req, res) => {
         const user = userData.get({ plain: true });
 
         // Render the 'my-profile' page, passing the user data
-        res.render('my-profile', { user, user_id: req.session.user_id });
+        res.render('my-profile', { user, user_id: req.session.user_id, logged_in: req.session.logged_in });
     } catch (err) {
         console.error("Error occurred:", err);
         res.status(500).json({ message: 'Internal Server Error', error: err });
@@ -101,20 +101,21 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         const getActiveTransactions = await Transaction.findAll({
             where: {
                 active_ind: 1, // Only include active rows on all tables
-                vintage_id: req.params.vintage_id},
-            include: [{ model: Vintage}, {model: User}]            
+                vintage_id: req.params.vintage_id
+            },
+            include: [{ model: Vintage }, { model: User }]
         });
-         //Serialize the data
+        //Serialize the data
         const transactions = getActiveTransactions.map(transaction => transaction.get({ plain: true }));
 
         // GET Wine
         const getWine = await Vintage.findOne({
-            include: [{ model: Wine}],
+            include: [{ model: Wine }],
             where: {
                 active_ind: 1,
                 vintage_id: req.params.vintage_id
             },
-            
+
         })
         // const wines = getWine.map(wine => wine.get({ plain: true }));
         const wineArray = getWine.get({ plain: true });
@@ -124,29 +125,29 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         // console.log (wineArray.Wine.wine_name)
         // console.log (wineArray.Wine.wine_id)
 
-                // GET Wine
-                const getBrand = await Wine.findOne({
-                    include: [{ model: Brand}],
-                    where: {
-                        active_ind: 1,
-                        wine_id: wineArray.Wine.wine_id
-                    },
-                    
-                })
-                // const wines = getWine.map(wine => wine.get({ plain: true }));
-                const brandArray = getBrand.get({ plain: true });
-                brandName = brandArray.brand.brand_name
-                
-                // console.log (brandArray)
-                // console.log (brandArray.brand.brand_name)
-                // console.log (brandArray.brand.brand_id)
+        // GET Wine
+        const getBrand = await Wine.findOne({
+            include: [{ model: Brand }],
+            where: {
+                active_ind: 1,
+                wine_id: wineArray.Wine.wine_id
+            },
+
+        })
+        // const wines = getWine.map(wine => wine.get({ plain: true }));
+        const brandArray = getBrand.get({ plain: true });
+        brandName = brandArray.brand.brand_name
+
+        // console.log (brandArray)
+        // console.log (brandArray.brand.brand_name)
+        // console.log (brandArray.brand.brand_id)
 
 
         // Response - render the page
         res.status(200).render('transaction', {
             transactions, wineArray, brandName,
-            loggedIn: req.session.loggedIn
-    });    
+            logged_in: req.session.logged_in
+        });
 
         // // console.log(brand)
         // res.status(200).json(transactions);
