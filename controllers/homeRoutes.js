@@ -7,7 +7,10 @@ const checkVintageId = require('./../utils/checkVintageId');
 const checkTransactionId = require('./../utils/checkTransactionId');
 const withAuth = require('./../utils/auth'); // Import the withAuth middleware
 
-// Welcome page - Login/Sign Up route
+//--------------------------------------//
+//- Welcome page - Login/Sign Up route -//
+//--------------------------------------//
+
 router.get('/auth', (req, res) => {
     res.status(200).render('auth', {
         logged_in: req.session.logged_in
