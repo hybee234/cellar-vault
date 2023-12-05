@@ -17,14 +17,36 @@ router.get('/auth', (req, res) => {
     });
 });
 
+// GET route to fetch user details and render the My Profile page based on session ID
+router.get('/my-profile', withAuth, async (req, res) => {
+    try {
+        // Fetch user data based on the session's user ID
+        const userData = await User.findByPk(req.session.user_id);
+
+        // Handle case where user data is not found
+        if (!userData) {
+            res.status(404).send("User not found");
+            return;
+        }
+
+        // Serialize the user data
+        const user = userData.get({ plain: true });
+
+        // Render the 'my-profile' page, passing the user data
+        res.render('my-profile', { user, user_id: req.session.user_id });
+    } catch (err) {
+        console.error("Error occurred:", err);
+        res.status(500).json({ message: 'Internal Server Error', error: err });
+    }
+});
 //------------------------------------------------------------------------//
 //- Brand Page (Home) GET - Route to render the homepage with Brand data -//
 //------------------------------------------------------------------------//
 
-router.get('/', withAuth, async (req, res) => { // withAuth middleware added
+router.get('/', withAuth, async (req, res) => {
     try {
         // Pull all active brands
-        const getActiveBrand = await Brand.findAll({            
+        const getActiveBrand = await Brand.findAll({
             where: { active_ind: 1 }
         });
         // Serialize the Data
@@ -33,8 +55,8 @@ router.get('/', withAuth, async (req, res) => { // withAuth middleware added
         // Response - render the page
         res.status(200).render('brand', {
             brands,
-            loggedIn: req.session.loggedIn
-        });         
+            logged_in: req.session.logged_in
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal Server Error', error: err });
@@ -48,21 +70,21 @@ router.get('/', withAuth, async (req, res) => { // withAuth middleware added
 router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // withAuth middleware added
     try {
         // GET all active Wines and attached Vintages under target Brand_ID       
-        const getActiveWines = await Wine.findAll({            
+        const getActiveWines = await Wine.findAll({
             where: {
                 active_ind: 1, // Only include active rows on all tables
                 brand_id: req.params.brand_id  // where brand ID matches the brand ID in URL                        
-            },          
-            include: [{ model: Vintage }, {model: Brand}]
+            },
+            include: [{ model: Vintage }, { model: Brand }]
         });
-         //Serialize the data
+        //Serialize the data
         const wines = getActiveWines.map(wine => wine.get({ plain: true }));
 
         // Response - render the page
         res.status(200).render('wine', {
             wines,
-            loggedIn: req.session.loggedIn
-        });    
+            logged_in: req.session.logged_in
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json(err); // Status 500 - Internal Server Error

@@ -1,0 +1,99 @@
+<div
+  class="flex items-center justify-center min-h-screen bg-white md:bg-zinc-300"
+>
+  <div
+    class="flex flex-col w-full h-full max-w-md border-2 rounded-lg shadow-lg md:flex-row md:max-w-4xl md:bg-zinc-200 lg:max-w-6xl"
+  >
+
+    <!-- User Info -->
+    <div
+      class="flex flex-col items-center justify-center w-full h-full p-8 md:w-1/2"
+    >
+      <h2 class="mb-6 text-2xl font-semibold text-center text-zinc-700">User
+        Info</h2>
+      <div class="flex flex-col items-center justify-center">
+        <p>Name: {{user.name}}</p>
+        <p>Email: {{user.email}}</p>
+      </div>
+    </div>
+
+    <!-- Horizontal Divider for mobile -->
+    <div class="w-full h-px bg-zinc-300 md:hidden"></div>
+
+    <!-- Vertical Divider for medium screens and above -->
+    <div class="hidden w-px md:block bg-zinc-300"></div>
+
+    <!-- Profile Update Form -->
+    <div class="flex flex-col items-center justify-center w-full p-8 md:w-1/2">
+      <h2 class="mb-6 text-2xl font-semibold text-zinc-700">Update Password</h2>
+      <form
+        id="updatePasswordForm"
+        action="/api/users/{{user.user_id}}"
+        method="POST"
+        class="w-full space-y-4"
+      >
+        <input
+          type="password"
+          name="currentPassword"
+          placeholder="Current Password"
+          required
+          class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500"
+        />
+        <input
+          type="password"
+          name="newPassword"
+          placeholder="New Password"
+          required
+          class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500"
+        />
+        <button
+          type="submit"
+          class="w-full px-4 py-2 transition duration-300 ease-in-out bg-blue-500 rounded-xl text-zinc-100 hover:bg-blue-600"
+        >Change Password</button>
+      </form>
+    </div>
+
+    <!-- Horizontal Divider for mobile -->
+    <div class="w-full h-px bg-zinc-300 md:hidden"></div>
+
+    <!-- Vertical Divider for medium screens and above -->
+    <div class="hidden w-px md:block bg-zinc-300"></div>
+
+    <!-- Account Deletion Section -->
+    <div
+      class="flex flex-col items-center justify-center h-full p-8 md:w-1/2 md:mt-8"
+    >
+      <h2 class="mb-6 text-2xl font-semibold text-zinc-700">Delete Account</h2>
+      <button
+        id="deleteAccountButton"
+        data-user-id="{{user.user_id}}"
+        class="w-full px-4 py-2 transition duration-300 ease-in-out bg-red-500 text-zinc-100 hover:bg-red-800 rounded-xl"
+      >Delete Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Account Deletion Confirmation -->
+<div id="deleteAccountModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p class="flex items-center justify-center text-center">Are you sure you
+      want to delete your account?
+      <br />This action cannot be undone.</p>
+    <div class="mt-4 space-y-4">
+      <button
+        id="confirmDelete"
+        class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-danger"
+      >Confirm Delete</button>
+      <button
+        id="cancelDelete"
+        class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-secondary"
+      >Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast-notification" style="display: none;"></div>
+
+<script src="/js/userUpdateDelete.js"></script>
