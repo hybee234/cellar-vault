@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
+          // Assuming the response includes the user's name
+          const data = await response.json();
+          if (data.user && data.user.name) {
+            // Store the user's name in localStorage
+            localStorage.setItem('userName', data.user.name);
+          }
           showToast('Signup successful! Please check your email to verify.');
           // Redirect or update UI as needed
         } else {

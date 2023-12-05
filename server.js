@@ -12,14 +12,14 @@ const PORT = process.env.PORT || 3001;
 // Configure and link a session object with the sequelize store
 const sess = {
   secret: 'Super secret secret',
+  resave: false,
+  saveUninitialized: false,
   cookie: {
     maxAge: 86400000, // 24 hours in milliseconds
     httpOnly: true,
     secure: false, // Set to true if using HTTPS
     sameSite: 'lax',
   },
-  resave: false,
-  saveUninitialized: false,
   store: new SequelizeStore({
     db: sequelize
   })
