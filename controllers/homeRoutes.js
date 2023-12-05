@@ -66,9 +66,9 @@ router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // w
     }
 });
 
-//------------------------------------------------------------------------//
-//- Transaction Page - All active Transactions under Selected Vintage ID -//
-//------------------------------------------------------------------------//
+//------------------------------------------------------------------------------//
+//- Transaction Page - GET - All active Transactions under Selected Vintage ID -//
+//------------------------------------------------------------------------------//
 
 router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
     try {
@@ -119,7 +119,7 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
 
         // Response - render the page
         res.status(200).render('transaction', {
-            transactions, wineName, brandName,
+            transactions, wineArray, brandName,
             loggedIn: req.session.loggedIn
     });    
 
