@@ -5,7 +5,27 @@ const checkVintageId = require('../../utils/checkVintageId');
 const updateVintageTotal = require('../../utils/updateVintageTotal');
 const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 
-// Root: http://localhost:3001/api/vintage/
+// Root: http://localhost:3001/api/transaction/
+
+//-------------------------------------------//
+//- GET - One transaction by Tranasction ID -//
+//-------------------------------------------//
+
+router.get('/:transaction_id', withAuth, checkTransactionId, async (req,res) => {    
+    try {
+        // POST new transaction under Vintage ID
+        const getOneTransaction = await Transaction.findOne({
+            where: {  
+                transaction_id: req.params.transaction_id,                    
+            }});         
+
+
+        res.status(200).json(getOneTransaction);
+
+    } catch (err) {
+        res.status(400).json(err); // Status 400 - Bad Request
+    }
+});
 
 //----------------------------------------//
 // POST - Add a Transaction to Vintage ID-//
