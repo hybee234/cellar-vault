@@ -17,7 +17,7 @@
                 <div class="flex justify-between w-full item-center">
                     <div class="m-auto items-center justify-center my-0 text-lg font-bold text-center md:text-2xl text-[#722F37]">{{wine_name}}</div>                    
                     <div class="justify-start align-center">
-                        <button class="update-wine-button transition-transform duration-200 ease-in-out fa-regular fa-pen-to-square hover:scale-110" data-index = "{{wine_id}}" ></button>
+                        <button class="transition-transform duration-200 ease-in-out update-wine-button fa-regular fa-pen-to-square hover:scale-110" data-index = "{{wine_id}}" ></button>
                     </div>
                     {{!-- <div class = "justify-start">
                         <button class="p-1 text-red-600 inactivate fa-regular fa-circle-xmark" data-index = "{{wine_id}}" > {{wine_id}}</button>
@@ -25,7 +25,7 @@
                 </div>
                 <table class="my-2 justify-center w-3/4 text-center border-2 border-[#722F37] rounded-md table-auto mx-auto" >
                     <thead>
-                        <tr>
+                        <tr class="text-sm">
                             <th><u>Vintage</u></th>
                             <th><u>Format</u></th>
                             <th><u>Drink By</u></th>
@@ -43,7 +43,7 @@
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{drink_by}}</th>
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{vintage_total}}</th>                     
                             <th>
-                                <button data-index = "{{vintage_id}}" class="update-vintage-button transition-transform duration-200 ease-in-out fa-regular fa-pen-to-square hover:scale-110"></a>  
+                                <button data-index = "{{vintage_id}}" class="transition-transform duration-200 ease-in-out update-vintage-button fa-regular fa-pen-to-square hover:scale-110"></a>  
                             </th>
                             {{!-- <th>
                                 <button data-index = "{{vintage_id}}" class="text-red-600 inactivate fa-regular fa-circle-xmark"></a>  
@@ -51,7 +51,7 @@
                             {{!-- <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th> --}}
                         </tr>
                         {{/each}} 
-                        <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="add-vintage-button px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500  rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        
+                        <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500 add-vintage-button rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        
                 </table>                                 
             </div>
         {{/each}}        
@@ -127,8 +127,8 @@
             <p class="flex items-center justify-center m-2 text-center">This will also delete vintages and transactions</p>
             <p class="flex items-center justify-center m-2 text-center">This cannot be undone</p>
             <div class="mt-4 space-y-4">        
-                <button id="inactivate-wine-confirm-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-danger">Confirm Delete</button>
-                <button id="inactivate-wine-cancel-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-secondary">Cancel</button>
+                <button id="inactivate-wine-confirm-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-danger rounded-xl">Confirm Delete</button>
+                <button id="inactivate-wine-cancel-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-secondary rounded-xl">Cancel</button>
             </div>
         </div>
     </div>
