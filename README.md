@@ -20,13 +20,13 @@ Cellar Vault is a comprehensive database solution designed for efficiently manag
 
 Key Features:
 
-    - Transaction Logging: Cellar Vault excels in recording both inbound and outbound wine transactions, providing you with a detailed history of your wine inventory movements.
+Transaction Logging: Cellar Vault excels in recording both inbound and outbound wine transactions, providing you with a detailed history of your wine inventory movements.
 
-    - Interactive User Interface: Enjoy a seamless experience as you explore the Cellar Vault interface, which allows you to    effortlessly view essential information such as Brand, Vintage, and Wine Name right from the start.
+Interactive User Interface: Enjoy a seamless experience as you explore the Cellar Vault interface, which allows you to    effortlessly view essential information such as Brand, Vintage, and Wine Name right from the start.
 
-    - Streamlined Management: Cellar Vault empowers users with the ability to delete or deactivate brands, vintages, or individual wines when necessary. Keeping your database clean and up-to-date is a breeze.
+Streamlined Management: Cellar Vault empowers users with the ability to delete or deactivate brands, vintages, or individual wines when necessary. Keeping your database clean and up-to-date is a breeze.
 
-    - Real-time Updates: Stay in control by interacting with and updating server records directly from the frontend. Cellar Vault ensures that your wine inventory information remains accurate and accessible.
+Real-time Updates: Stay in control by interacting with and updating server records directly from the frontend. Cellar Vault ensures that your wine inventory information remains accurate and accessible.
 
 
 This application has been developed from scratch
