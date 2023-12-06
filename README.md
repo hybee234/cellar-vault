@@ -4,7 +4,7 @@
 
 <div align="center">
 
-# Huber's Employee Tracker
+# Cellar Vault'S Database
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Badge](https://img.shields.io/badge/Node.js-393?logo=nodedotjs&logoColor=fff&style=flat)](https://nodejs.org/en)
@@ -16,14 +16,18 @@
 
 ## Description
 
-Employee Tracker is an employee management solution that keeps track of current employees, roles (job functions) and departments.
-Employee Tracker is a command line interface (CLI) application that enables users to maintain the database. 
+Cellar Vault is a comprehensive database solution designed for efficiently managing and monitoring wine inventory transactions. This user-friendly software is equipped with an intuitive interface that simplifies the tracking of wine quantities and their movements within your cellar.
 
-High level features of the solution are:
-* Viewing the database - departments, roles and employees
-* Additions to the database - departments, roles and employees
-* Deleting from the database - departments, roles and employees
-* Updates to employee records
+Key Features:
+
+Transaction Logging: Cellar Vault excels in recording both inbound and outbound wine transactions, providing you with a detailed history of your wine inventory movements.
+
+Interactive User Interface: Enjoy a seamless experience as you explore the Cellar Vault interface, which allows you to    effortlessly view essential information such as Brand, Vintage, and Wine Name right from the start.
+
+Streamlined Management: Cellar Vault empowers users with the ability to delete or deactivate brands, vintages, or individual wines when necessary. Keeping your database clean and up-to-date is a breeze.
+
+Real-time Updates: Stay in control by interacting with and updating server records directly from the frontend. Cellar Vault ensures that your wine inventory information remains accurate and accessible.
+
 
 This application has been developed from scratch
 
@@ -45,10 +49,9 @@ This application has been developed from scratch
 This application was developed with this user story in mind:
 
 ```
-AS A business owner
+I WANT to efficiently track and manage wine brands, vintages, and inventory transactions
 
-I WANT to be able to view and manage the departments, roles, and employees in my company
-SO THAT I can organize and plan my business
+SO THAT I can maintain a well-organized and up-to-date record of my wine cellar, enabling better planning and management of my wine inventory.
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -58,68 +61,45 @@ SO THAT I can organize and plan my business
 ### This application was developed with the below User acceptance criteria:
 
 ```
-GIVEN a command-line application that accepts user input
+WHEN I Use Node.js and Express.js to create a RESTful API.
 
-WHEN I start the application
-THEN I am presented with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an 
-employee, and update an employee role
+WHEN I Use Handlebars.js as the templating engine.
 
-WHEN I choose to view all departments
-THEN I am presented with a formatted table showing department names and department ids
+WHEN I Use MySQL and the Sequelize ORM for the database.
 
-WHEN I choose to view all roles
-THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
+WHEN I Have both GET and POST routes for retrieving and adding new data.
 
-WHEN I choose to view all employees
-THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+WHEN I Be deployed using Heroku (with data).
 
-WHEN I choose to add a department
-THEN I am prompted to enter the name of the department and that department is added to the database
+WHEN I Use at least one new library, package, or technology that we haven’t discussed.
 
-WHEN I choose to add a role
-THEN I am prompted to enter the name, salary, and department for the role and that role is added to the database
+WHEN I Have a polished UI.
 
-WHEN I choose to add an employee
-THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
+WHEN I Be responsive.
 
-WHEN I choose to update an employee role
-THEN I am prompted to select an employee to update and their new role and this information is updated in the database 
+WHEN I Be interactive (i.e., accept and respond to user input).
+
+WHEN I Have a folder structure that meets the MVC paradigm.
+
+WHEN I Include authentication (express-session and cookies).
+
+WHEN I Protect API keys and sensitive information with environment variables.
+
+WHEN I Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
+
+WHEN I Have a quality README (with a unique name, description, technologies used, screenshot, and link to the deployed application).
+
 
 ```
 
 
-
-### Additional requirements:
-
-* MySQL2 package must be used to connect to MySQL database
-* Inquirer package must be used to enable interaction via command line interface
-
 #### Bonus features
 
-The below optional features have been included in this application
 
-* Ability to Update Employee Manager
-* Ability to View Employees by Manager
-* Ability to View Employees by Department
-* Ability to Delete Departments
-* Ability to Delete Roles
-* Ability to Delete Employees
-* Ability to View total Salary for a Department
+In addition to the core functionality, "Cellar Vault" offers the following optional features:
 
+* Email Notifications: Receive personalized email notifications upon signing in to Cellar Vault. Get a warm welcome message and 
 
-#### Additional Featuures
-
-Several personal challenges were set in the development of this application:
-* Optimising the user interface for the CLI by utilising ANSI colours and icons to improve usability
-* Features to improve workflow for the user:
-    * When adding a new employee - the user has the option to add a new role and department as part of the process
-    * Lists have the option of cancelling out of the process and returning to main menu
-    * Formatted headings and confirmation messages to reduce cognitive buren on where/which task is being performed
-    * When deleting records, the user is prompted again for confirmation
-    * Formatting of Salaries to be prefixed with $ and have commas introduced
-    * When viewing Department - two options are included:
-        * Summary version (department level only)
-        * Detailed version (department + associated roles and employees)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -133,23 +113,23 @@ Watch this video to learn more about the application
 
 ### Screenshots
 
-Screenshot of the application during "Add New Role" and "Add New Employee Process"\
+Screenshot of the application during "Login/signup"
 * Note the headings rendered with colour schemes used
 * Note formatting and use of icons and colours across the application
 
 <div align="center">
 
 
-![Screenshot of the application in flight](./lib/images/screenshot1.png)
+![Screenshot of the application in flight](./lib/images/LoginPage.png)
 
 </div>
 
-Screenshot of the application during "Delete Employee" process
-* Note the formatting of salary and icons and colours used in selection options
+Screenshot of the application during "Interaction with Edit Form"
+
 
 <div align="center">
 
-![Screenshot of the application during "Delete Employee" process](./lib/images/screenshot2.png)
+![Screenshot of the application during "Delete Employee" process](./lib/images/BrandNameEdit.png)
 
 </div>
 
@@ -157,40 +137,45 @@ Screenshot of the application during "Delete Employee" process
 
 ## Installation
 
-1. Clone or fork the repository
-2. Run the below in concole install necessary packages
-    * MySQL2 (Major version 3),
-    * Inquirer (Major version 8),    
-    * dotenv (Major version 8) 
-```
-npm i
-```
-3. After NPM packages have been installed, you'll need to set up your MySQL database for the application to read and write to. Log into MySQL2:
-```
-myself -u root -p
-```
-4. Within mysql2 - create the datbase with the schema provided, run the below command in the root folder (the below is the relative path):
-```
-source ./db/schema.sql
-```
-5. Optional - you can seed some data into the database while you are in mysql2 (Skip this step if you are going to use real data)
-```
-source ./db/seeds.sql
-```
-6. Exit MySQL2:
-```
-quit
-```
-7. You can run the application once packages have been installed and the database is created. Run the below in the CLI:
-```
-node index.js
-```
+1/ Clone or fork the repository to your local machine.
+
+2/ Open your terminal or command prompt and navigate to the project's root directory.
+
+3/ Run the following command to install the necessary npm packages:
+
+    - npm install
+
+ 4/ This will install the required dependencies, including bcrypt, connect-session-sequelize, dotenv, express, express-handlebars, express-session, mysql2, nodemailer, and sequelize.
+
+5/ After the npm packages have been successfully installed, you need to set up your MySQL database for the application to read and write to.
+
+6/ Log into MySQL using the following command (replace root with your MySQL username if it's different):
+
+    - mysql -u root -p
+
+7/ Once you are logged into MySQL, create the database with the provided schema by running the following command from the project's root folder (ensure you are at the root folder):
+
+    - source ./db/schema.sql
+
+8/ After executing the schema.sql script, exit MySQL by running:
+    - Quit
+
+9/ You can now run the "Cellar Vault" application. Start the server by running the following command:
+    - npm start
+        Or
+    - npm run dev
+
+ 10/ Your "Cellar Vault" application should now be up and running. You can access it by opening a web browser and navigating to the appropriate URL 
+ 
+    - (typically http://localhost:3000).
+
+11/ These installation steps cover the setup of your application and its dependencies, allowing you to run "Cellar Vault" locally on your machine.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
 
-Once in, you will immediately be presented with the Main Menu which serves as the "home page" to the application.
+Once in, you will immediately be presented with the Log in Page which serves as the "User Home Page" to the application.
 
 From here it is a matter of navigating through the processes to view, add, remove records from the database following prompts on the screen. Once processes are progressed to completion (or cancelled) the application will return back to the main menu to await the next process.
 
