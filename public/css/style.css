@@ -152,7 +152,7 @@ li {
   font-weight: bold;
 }
 .brand-name-color {
-  color: #7A2329; /* This is just an example color code */
+  color: #7a2329; /* This is just an example color code */
 }
 .close:hover,
 .close:focus {
@@ -232,4 +232,139 @@ li {
 .common-input:hover,
 .common-input:focus {
   border-color: #cbd5e1;
+}
+
+/* Custom styles for mobile devices */
+@media only screen and (max-width: 375px) {
+  .modal-content,
+  #table-container div,
+  #add-wine-modal,
+  #update-wine-modal {
+    width: 100%; /* Full width on small screens */
+    margin: 0;
+    padding: 0;
+  }
+  .modal {
+    padding: 0 5px; /* Adjust padding for small screens */
+  }
+  table {
+    font-size: 0.75rem; /* Smaller font size for tables on small screens */
+  }
+  th,
+  td {
+    padding: 0.25rem; /* Reduce cell padding */
+    font-size: 12px; /* Adjust font size for better fit */
+  }
+  .button {
+    padding: 0.5rem 1rem; /* Adjust button padding */
+  }
+  .table-auto {
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+  }
+  th > a,
+  td {
+    display: block; /* Block display for links and table cells for better control */
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed content */
+  }
+
+  .update-wine-button {
+    top: 50%;
+    transform: translateY(-50%); /* Center the button vertically */
+  }
+
+  .add-vintage-button {
+    margin: 10px auto; /* Margin top and bottom, auto on the sides to center */
+    display: flex; /* This will take the full width available */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Centering table headers */
+  table thead th {
+    text-align: center;
+  }
+
+  /* Ensure the table layout is not disturbed by the absolutely positioned button */
+  table {
+    margin-top: 50px; /* Give enough space for the edit button at the top */
+  }
+
+  /* Styles for cells in tbody to ensure they are center-aligned */
+  table tbody th,
+  table tbody td {
+    text-align: center;
+    display: table-cell; /* Display as table-cell for proper centering */
+  }
+}
+
+/* Styles for medium-sized mobile devices */
+@media only screen and (min-width: 376px) and (max-width: 768px) {
+  .modal-content,
+  #table-container div {
+    width: 95%; /* Slightly narrower on medium screens */
+    margin: 0 auto; /* Center modal and divs */
+  }
+  table {
+    font-size: 0.875rem; /* Increase font size for tables on medium screens */
+  }
+  th,
+  td {
+    padding: 0.5rem; /* Increase cell padding */
+  }
+  .button {
+    padding: 0.75rem 1.5rem; /* Increase button padding */
+  }
+
+  /* Global adjustments to ensure content fits well */
+  .table-auto th,
+  .table-auto td {
+    text-align: center; /* Center the text */
+  }
+
+  /* This style ensures that the 'Drink By' column has enough space */
+  th:nth-child(3),
+  td:nth-child(3) {
+    min-width: 80px; /* Adjust the minimum width as needed for the 'Drink By' column */
+  }
+
+  .wine-name-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* To position the edit button absolutely inside this container */
+    padding-right: 30px; /* Give space for the edit button */
+  }
+
+  .update-wine-button {
+    top: 50%;
+    transform: translateY(-50%); /* Center the button vertically */
+  }
+
+  .wine-name {
+    text-align: center;
+    flex-grow: 1; /* Ensures the wine name can grow to use available space */
+  }
+
+  .add-vintage-button {
+    margin: 10px auto; /* Margin top and bottom, auto on the sides to center */
+    display: block; /* This will take the full width available */
+  }
+
+  /* Centering table headers */
+  table thead th {
+    text-align: center;
+  }
+
+  /* Ensure the table layout is not disturbed by the absolutely positioned button */
+  table {
+    margin-top: 50px; /* Give enough space for the edit button at the top */
+  }
+
+  /* Styles for cells in tbody to ensure they are center-aligned */
+  table tbody th,
+  table tbody td {
+    text-align: center;
+    display: table-cell; /* Display as table-cell for proper centering */
+  }
 }

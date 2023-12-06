@@ -6,13 +6,6 @@
   <span class="text-[#722F37]">Cellar</span>
 </h1>
 
-<!-- Add Brand Button Container -->
-<div class="flex justify-center">
-  <button
-    id="add-brand-open-modal"
-    class="px-4 py-2 font-bold transition duration-200 ease-in-out bg-blue-500 rounded-full hover:bg-blue-700 text-zinc-100"
-  >Add Brand</button>
-</div>
 
 <!-- Add Brand Modal -->
 <div id="add-brand-modal" class="modal">
@@ -130,6 +123,14 @@
       {{/each}}
     </tbody>
   </table>
+</div>
+
+<!-- Add Brand Button Container -->
+<div class="flex justify-center mt-4"> <!-- Add 'mt-4' class for margin-top -->
+  <button
+    id="add-brand-open-modal"
+    class="px-4 py-2 font-bold transition duration-200 ease-in-out bg-blue-500 rounded-full hover:bg-blue-700 text-zinc-100"
+  >Add Brand</button>
 </div>
 
 {{! Include the brandInteract.js script }}
