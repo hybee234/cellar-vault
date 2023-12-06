@@ -10,12 +10,30 @@
 <div id="editModal" class="modal">
   <div class="modal-content">
     <span class="close" id="editModalClose">&times;</span>
-    <h2>Edit Brand</h2>
-    <form id="editForm">
-      <label for="editedBrandName">Brand Name:</label>
-      <input type="text" id="editedBrandName" name="brandName" required>
-      <button type="submit" class="edit-button">Save Changes</button>
-    </form>
+    <div class="flex flex-col items-center justify-center space-y-4">
+      <h2 class="font-bold text-zinc-900">Edit Brand</h2>
+      <form id="editForm" class="w-full">
+        <div class="flex flex-col items-center justify-center space-y-2">
+          <label
+            for="editedBrandName"
+            class="font-semibold underline text-zinc-900"
+          >Brand Name</label>
+          <input
+            type="text"
+            id="editedBrandName"
+            name="brandName"
+            required
+            class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500"
+          />
+        </div>
+        <div class="flex items-center justify-center">
+          <button
+            type="submit"
+            class="px-4 py-2 mt-4 duration-200 ease-in-out bg-blue-500 border-none edit-button hover:bg-blue-700 text-zinc-100 rounded-xl"
+          >Save Changes</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -23,21 +41,26 @@
 <div id="deactivateModal" class="modal">
   <div class="modal-content">
     <span class="close" id="cancelDeactivate">&times;</span>
-    <h2>Deactivate Brand</h2>
-    <form id="deactivateForm">
+    <form id="deactivateForm" class="flex flex-col items-center justify-center">
       <p>Are you sure you want to deactivate this brand?</p>
-      <input type="hidden" id="deactivateBrandId" name="brandId">
-      <button type="submit" class="deactivate-button">Yes</button>
-      <button type="button" id="cancelDeactivate" class="cancel-button">No</button>
+      <input type="hidden" id="deactivateBrandId" name="brandId" />
+      <div class="mt-4 space-y-3">
+        <button
+          type="submit"
+          class="w-full space-y-4 duration-200 ease-in-out btn-danger rounded-xl"
+        >Yes</button>
+        <button
+          type="button"
+          id="cancelDeactivate"
+          class="w-full duration-200 ease-in-out btn-secondary rounded-xl"
+        >No</button>
+      </div>
     </form>
   </div>
 </div>
 
-
 <div id="brandListContainer">
-  <table
-    class="justify-center w-4/5 p-1 m-auto text-center border-2 table-auto"
-  >
+  <table class="w-4/5 mx-auto text-center table-auto">
     <thead>
       <tr>
         <th><u>Brand Name</u></th>
@@ -48,7 +71,9 @@
     <tbody>
       {{#each brands as |brand|}}
         <tr>
-          <td class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">
+          <td
+            class="inline-block my-3 text-sm font-normal duration-200 ease-in-out text-zinc-900 hover:text-zinc-400 sm:text-sm md:text-lg lg:text-xl"
+          >
             <a href="/wine/{{brand.brand_id}}">
               {{brand.brand_name}}
             </a>
@@ -56,13 +81,13 @@
           <td>
             <button
               data-brand-id="{{brand.brand_id}}"
-              class="edit fa-regular fa-pen-to-square"
+              class="transition-transform duration-200 ease-in-out edit fa-regular fa-pen-to-square hover:scale-110"
             ></button>
           </td>
           <td>
             <button
               data-brand-id="{{brand.brand_id}}"
-              class="text-red-600 delete fa-regular fa-circle-xmark"
+              class="text-red-600 transition-transform duration-200 ease-in-out delete fa-regular fa-circle-xmark hover:scale-110"
             ></button>
           </td>
         </tr>

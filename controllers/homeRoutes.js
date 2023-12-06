@@ -5,7 +5,7 @@ const checkBrandId = require('./../utils/checkBrandId');
 const checkWineId = require('./../utils/checkWineId');
 const checkVintageId = require('./../utils/checkVintageId');
 const checkTransactionId = require('./../utils/checkTransactionId');
-const withAuth = require('./../utils/auth'); // Import the withAuth middleware
+const withAuth = require('./../utils/auth');
 
 //--------------------------------------//
 //- Welcome page - Login/Sign Up route -//
