@@ -52,7 +52,7 @@ router.post('/update/:brand_id', withAuth, async (req, res) => {
         const updatedBrand = await Brand.update(
             {
                 brand_name: req.body.brand_name, // Update the brand_name field
-                // You can add other fields to update here if needed
+                
             },
             {
                 where: {
@@ -127,6 +127,20 @@ router.put('/inactivate/:brand_id', withAuth, checkBrandId, async (req, res) => 
         // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(500).json(err);
+    }
+});
+
+// Add a new Brand
+router.post('/', withAuth, async (req, res) => {
+    try {
+        const newBrand = await Brand.create({
+            brand_name: req.body.brand_name,
+            active_ind: 1 // Assuming you want to set the newly created brand as active
+        });
+        res.status(200).json(newBrand);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Internal Server Error', error: err });
     }
 });
 
