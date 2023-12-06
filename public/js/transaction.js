@@ -2,13 +2,18 @@
 //- Javascript used by transaction.handlebars -//
 //---------------------------------------------//
 
-const addFormEl = document.getElementById("new-transaction-form")
-const updateFormEl = document.getElementById("update-transaction-form")
 const transTblEl = document.getElementById("trans-table")
-const addTransactionBttnEl = document.getElementById("add-button")
-const addModalEl = document.getElementById("new-transaction-modal")
-const updateModalEl = document.getElementById("update-transaction-modal")
+const addTransactionBttnEl = document.getElementById("add-Transaction-button")
 
+const addTransactionModalEl = document.getElementById("add-transaction-modal")
+const addTransactionFormEl = document.getElementById("add-transaction-form")
+const addTransactionCloseBttnEl = document.getElementById('add-transaction-close-button')
+const addTransactionCancelBttnEl = document.getElementById('add-transaction-cancel-button')
+
+const updateTransactionModalEl = document.getElementById("update-transaction-modal")
+const updateTransactionFormEl = document.getElementById("update-transaction-form")
+const updateTransactionCloseBttnEl = document.getElementById("update-transaction-close-button");
+const updateTransactionCancelBttnEl = document.getElementById('update-transaction-cancel-button')
 
 //---------------------------------//
 //- POST (Add) Transaction Record -//
@@ -132,9 +137,15 @@ const putTransactionHandler = async (event) => {
     }
 };
 
-//------------------------------------------------------------//
-//- Event listener - Show Update Modal or Delete Tranasction -// 
-//------------------------------------------------------------//
+
+
+
+
+
+
+//-----------------------------------------------------------------------------//
+//- Event listener - Modal - Update Transaction/Inactivate Transaction - Show -// 
+//-----------------------------------------------------------------------------//
 
 transTblEl.addEventListener('click', async (event) => {
     
@@ -143,13 +154,13 @@ transTblEl.addEventListener('click', async (event) => {
     let transaction_id = element.getAttribute("data-index");
     event.preventDefault();
 
-    // If the Delete button was clicked
-    if (element.matches("button") === true && element.classList.contains("inactivate")) { 
+    // Modal - Inactivate Transaction Record - Show -//
+    if (element.matches("button") === true && element.classList.contains("inactivate-transaction")) { 
         console.log("  > Delete button clicked");
         inactivateTransactionHandler(transaction_id);
     };
-// If the Update button was clicked
-    if (element.matches("button") === true && element.classList.contains("update")) { 
+    // Modal - Update Transaction Record - Show //
+    if (element.matches("button") === true && element.classList.contains("update-transaction")) { 
         console.log("  > Update button clicked");
         // GET details of transaction
         try{
@@ -172,7 +183,7 @@ transTblEl.addEventListener('click', async (event) => {
             document.getElementById('updateTransIdInput').value = transactionArray.transaction_id
 
             // Show the Update modal window 
-            updateModalEl.style.display = 'block';   
+            updateTransactionModalEl.style.display = 'block';   
         }  catch (err) {
             console.error(err);
         
@@ -180,41 +191,59 @@ transTblEl.addEventListener('click', async (event) => {
     }
 });
 
-//----------------------------------------------------//
-//- Event listener - Update Transaction Modal - Hide -//
-//----------------------------------------------------//
-document.getElementById('cancelUpdate').addEventListener('click', function () {
-    updateModalEl.style.display = 'none';
-});
 
-//------------------------------------------------------//
-//- Event listener - Update Transaction Modal - Submit -//
-//------------------------------------------------------//
-updateFormEl.addEventListener('submit', (event) => {
-    event.preventDefault();
-    console.log ("Update Submit button clicked")    
+//---------------------------------------------------------------//
+//- Event listener - Modal - Update Transaction Record - Submit -//
+//---------------------------------------------------------------//
+updateTransactionFormEl.addEventListener('submit', (event) => {  
     putTransactionHandler(event);
 })
 
-//-------------------------------------------------------//
-//- Event listener - Add Transaction Modal - Submission -//
-//-------------------------------------------------------//
-addFormEl.addEventListener('submit', (event) => {
-    event.preventDefault();
-    console.log ("Add Submit button clicked")    
+//--------------------------------------------------------------------//
+//- Event Listener - Modal Update Transaction Record - Hide (Cancel) -//
+//--------------------------------------------------------------------//
+updateTransactionCancelBttnEl.addEventListener('click', function () {
+    updateTransactionModalEl.style.display = 'none';
+});
+
+//-------------------------------------------------------------------//
+//- Event Listener - Modal Update Transaction Record - Hide (Close) -//
+//-------------------------------------------------------------------//
+updateTransactionCloseBttnEl.addEventListener('click', function () {    
+    updateTransactionModalEl.style.display = 'none';
+});
+
+//----------------------------------------------------------//
+//- Event Listener - Modal - Add Transaction Record - Show -//
+//----------------------------------------------------------//
+addTransactionBttnEl.addEventListener('click', function () {
+    addTransactionModalEl.style.display = 'block';
+});
+
+//-----------------------------------------------------------//
+//- Event listener - Modal - Add Transaction Modal - Submit -//
+//-----------------------------------------------------------//
+addTransactionFormEl.addEventListener('submit', (event) => {    
     postTransactionHandler(event);
 })
 
-//------------------------------------------------------//
-//- Event Listener - Add Transaction Modal - Hide/Show -//
-//------------------------------------------------------//
-
-//Show "Add Transaction Modal" when "Add Transaction" button is clicked
-addTransactionBttnEl.addEventListener('click', function () {
-    addModalEl.style.display = 'block';
+//-------------------------------------------------------------------//
+//- Event Listener - Modal - Add Transaction Record - Hide (Cancel) -//
+//-------------------------------------------------------------------//
+addTransactionCancelBttnEl.addEventListener('click', function () {
+    addTransactionModalEl.style.display = 'none';
 });
 
-//Hide "Add Transaction Modal" when "Cancel" button is clicked
-document.getElementById('cancelAdd').addEventListener('click', function () {
-    addModalEl.style.display = 'none';
+//----------------------------------------------------------------//
+//- Event Listener - Modal Add Transaction Record - Hide (Close) -//
+//----------------------------------------------------------------//
+addTransactionCloseBttnEl.addEventListener('click', function () {
+    addTransactionModalEl.style.display = 'none';
 });
+
+
+
+
+
+
+

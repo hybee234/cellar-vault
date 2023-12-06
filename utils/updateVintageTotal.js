@@ -3,6 +3,7 @@ const { Vintage, Transaction } = require('../models');
 // const updateVintageTotal = async (req, res, next) => {
 const updateVintageTotal = async (vintage_id) => {
 
+    
     // Find SUM of qty_in for the Vintage ID of interest (active transactions only)
     const totalQtyIn = await Transaction.sum('qty_in',  
         {where: { vintage_id: vintage_id , active_ind: 1}}
@@ -15,6 +16,7 @@ const updateVintageTotal = async (vintage_id) => {
 
     // Determine difference for total buttles for vintage
     const vintageTotal = totalQtyIn - totalQtyOut
+    console.log (`\x1b[32m Vintage ID: \x1b[0m${vintage_id}`)
         console.log (`\x1b[32m Total Qty In: \x1b[0m${totalQtyIn}`)
         console.log (`\x1b[32m Total Qty OUt: \x1b[0m${totalQtyOut}`)
         console.log (`\x1b[32m Updated Vintage Total: \x1b[0m${vintageTotal}`)

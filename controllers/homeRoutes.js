@@ -116,7 +116,8 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
                 active_ind: 1, // Only include active rows on all tables
                 vintage_id: req.params.vintage_id
             },
-            include: [{model: Transaction,
+            include: [{model: Transaction, 
+                where: {active_ind: 1},
                 include: [{model: User}]            // nested include
             }]
         });
