@@ -3,7 +3,7 @@
     <h1 class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-[#722F37]"> {{brandName}} - {{wineArray.Wine.wine_name}} - {{vintageTransactions.[0].vintage}} </h1>
 
     <p class="flex items-center justify-center my-4 text-lg font-semibold text-center md:text-2xl text-zinc-900">
-        <span class="font-bold text-[#722F37]">{{transactions.[0].vintage_total}}</span> &nbsp;in stock
+        <span class="font-bold text-[#722F37]">{{vintageTransactions.[0].vintage_total}}</span> &nbsp;in stock
     </p>
 
     <h2 class="flex items-center justify-center my-4 text-lg font-semibold text-center md:text-2xl text-zinc-900" >
@@ -21,12 +21,12 @@
                 <th><u>Notes</u></th>
                 <th><u>Update</u></th>
                 <th><u>Delete</u></th>
+                {{!-- <th><u>Active Ind</u></th> --}}
                 {{!-- <th><u>Trans ID</u></th> --}}
             </tr>
         </thead>
         <tbody>
             {{#each vintageTransactions as |vintage|}}
-            Test
                 {{#each transactions}}
                 <tr>                
                     <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{format_date transaction_date}}</th>
@@ -41,11 +41,12 @@
                     <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{qty_out}}</th>
                     <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{notes}}</th>                
                     <th>
-                        <button data-index = "{{transaction_id}}" class="transition-transform duration-200 ease-in-out edit fa-regular fa-pen-to-square hover:scale-110 update"></a>  
+                        <button data-index = "{{transaction_id}}" class="update-transaction transition-transform duration-200 ease-in-out edit fa-regular fa-pen-to-square hover:scale-110 "></a>  
                     </th>
                     <th>
-                        <button data-index = "{{transaction_id}}" class="text-red-600 transition-transform duration-200 ease-in-out fa-regular fa-circle-xmark hover:scale-110 inactivate"></a>  
+                        <button data-index = "{{transaction_id}}" class="inactivate-transaction text-red-600 transition-transform duration-200 ease-in-out fa-regular fa-circle-xmark hover:scale-110 "></a>  
                     </th>
+                    {{!-- <th class="font-normal">{{active_ind}}</th>  --}}
                     {{!-- <th class="font-normal">{{transaction_id}}</th>  --}}
                 </tr>
                 {{/each}}
@@ -54,11 +55,12 @@
     </table>    
 
 {{!-- Add Tranasction Button --}}
-<button id="add-button" class= "px-4 py-2 my-5 font-bold text-white duration-200 ease-in-out bg-blue-500 border rounded-xl hover:bg-blue-700" type="submit" value="Add"> Add Transaction </button>
+<button id="add-Transaction-button" class= "px-4 py-2 my-5 font-bold text-white duration-200 ease-in-out bg-blue-500 border rounded-xl hover:bg-blue-700" type="submit" value="Add"> Add Transaction </button>
 
 {{!-- Add Transaction Modal Form --}}
-    <div id="new-transaction-modal" class="modal">
-        <form id="new-transaction-form" class="w-full p-1 m-auto my-5 bg-orange-300 border-2 rounded-3xl modal-content">    
+    <div id="add-transaction-modal" class="modal">
+        <form id="add-transaction-form" class="w-full p-1 m-auto my-5 bg-orange-300 border-2 rounded-3xl modal-content">
+            <span id="add-transaction-close-button" class="close">&times;</span>    
             <h2 id="post-heading" class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Add Transaction</h2>    
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-0 md:w-2/5">
@@ -94,13 +96,14 @@
             {{!-- submit button --}}
             <button id="submitAdd" class="px-4 py-2 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
             {{!-- cancel button --}}
-            <button id="cancelAdd" class="px-4 py-2 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
+            <button id="add-transaction-cancel-button" class="px-4 py-2 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
         </form>
     </div>   
 
 {{!-- Update Transaction Modal Form --}}
-    <div id="update-transaction-modal" class="modal">
+    <div id="update-transaction-modal" class="modal">        
         <form id="update-transaction-form" class="w-full p-1 m-auto my-5 bg-orange-300 border-2 rounded-3xl modal-content">    
+            <span id="update-transaction-close-button" class="close">&times;</span>
             <h2 id="put-heading" class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Update Transaction</h2>    
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-0 md:w-2/5">
@@ -137,7 +140,7 @@
             {{!-- submit button --}}
             <button class="px-4 py-2 font-bold text-white duration-200 ease-in-out bg-blue-500 border rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
             {{!-- cancel button --}}
-            <button id="cancelUpdate" class="px-4 py-2 font-bold text-white duration-200 ease-in-out bg-blue-500 border rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
+            <button id="update-transaction-cancel-button" class="px-4 py-2 font-bold text-white duration-200 ease-in-out bg-blue-500 border rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
         </form>
     </div>   
 </main>
