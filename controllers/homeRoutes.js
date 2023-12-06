@@ -80,9 +80,19 @@ router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // w
         //Serialize the data
         const wines = getActiveWines.map(wine => wine.get({ plain: true }));
 
-        //Response - render the page
+        const getBrand = await Brand.findAll({
+            where: {
+                active_ind: 1, // Only include active rows on all tables
+                brand_id: req.params.brand_id  // where brand ID matches the brand ID in URL                        
+            },
+        });
+        //Serialize the data
+        const brand = getBrand.map(data => data.get({ plain: true }));
+
+        // Response - render the page
         res.status(200).render('wine', {
             wines,
+            brand,
             logged_in: req.session.logged_in
         });
 

@@ -2,7 +2,6 @@
 //- Javascript used by transaction.handlebars -//
 //---------------------------------------------//
 
-const inactivateBttnEl = document.getElementsByClassName("inactivate")
 const addFormEl = document.getElementById("new-transaction-form")
 const updateFormEl = document.getElementById("update-transaction-form")
 const transTblEl = document.getElementById("trans-table")
@@ -10,9 +9,10 @@ const addTransactionBttnEl = document.getElementById("add-button")
 const addModalEl = document.getElementById("new-transaction-modal")
 const updateModalEl = document.getElementById("update-transaction-modal")
 
-//-----------------------------//
-//- POST request via add form -//
-//-----------------------------//
+
+//---------------------------------------//
+//- POST (Add) tranasction via add form -//
+//---------------------------------------//
 
 const postTransactionHandler = async (event) => {
     event.preventDefault();
@@ -51,7 +51,7 @@ const postTransactionHandler = async (event) => {
     });
 
     if (response.ok) {
-        window.location.reload() // Reload screen
+        window.location.reload() // Reload screen 
     } else {
         alert('Failed to add transaction');
     }
@@ -74,7 +74,7 @@ const inactivateTrans = async (transaction_id) => {
     const response = await fetch(inactivateTransactionURL, options )
     const data = await response.json()
     console.log(data)
-    window.location.reload()        
+    window.location.reload() // Reload screen 
     } catch (err) {
         console.error(err);
     

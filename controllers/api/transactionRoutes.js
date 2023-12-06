@@ -13,7 +13,7 @@ const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 
 router.get('/:transaction_id', withAuth, checkTransactionId, async (req,res) => {    
     try {
-        // POST new transaction under Vintage ID
+        // GET one transaction under Vintage ID
         const getOneTransaction = await Transaction.findOne({
             where: { 
                 transaction_id: req.params.transaction_id,                    
