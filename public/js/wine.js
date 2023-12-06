@@ -2,21 +2,21 @@
 //- Javascript used by wine.handlebars -//
 //--------------------------------------//
 
-const addWineOpenModalEl = document.getElementById("add-wine-open-modal")           // Add Wine Button
-const addWineCancelBttnEl = document.getElementById("add-wine-cancel-button")       // Add Wine Cancel Button
-const addWineModalEl = document.getElementById("add-wine-modal")                    // Add Wine Modal Window
-const addWineFormEl = document.getElementById("add-wine-form")                      // Add Wine Form
+const addWineOpenModalEl = document.getElementById("add-wine-open-modal")                           // Add Wine Button
+const addWineCancelBttnEl = document.getElementById("add-wine-cancel-button")                       // Add Wine Cancel Button
+const addWineModalEl = document.getElementById("add-wine-modal")                                    // Add Wine Modal Window
+const addWineFormEl = document.getElementById("add-wine-form")                                      // Add Wine Form
 
-const wineTableContinerEl = document.getElementById("wine-tables-container")          // Create listener that triggers when any wine-table is clicked
-const updateWineModalEl = document.getElementById("update-wine-modal")                // Update Wine Modal Window
-const updateWineFormEl = document.getElementById("update-wine-form")                  // Update Wine Form
-const updateWineCancelBttnEl = document.getElementById("update-wine-cancel-button")   // Update Wine Cancel Button
-const updateWineDeleteBttnEl = document.getElementById("update-wine-delete-button")   // UPdate Wine Delete Button
+const wineTableContinerEl = document.getElementById("wine-tables-container")                        // Create listener that triggers when any wine-table is clicked
+const updateWineModalEl = document.getElementById("update-wine-modal")                              // Update Wine Modal Window
+const updateWineFormEl = document.getElementById("update-wine-form")                                // Update Wine Form
+const updateWineCancelBttnEl = document.getElementById("update-wine-cancel-button")                 // Update Wine Cancel Button
+const updateWineDeleteBttnEl = document.getElementById("update-wine-delete-button")                 // Update Wine Delete Button
 
-const inactivateWineModalEl = document.getElementById('inactivate-wine-modal')      // Inactivate Wine Modal Window
-const inactivateWineConfirmButtonEl = document.getElementById('inactivate-wine-confirm-button')      // Inactivate Wine Confirm Button
-const inactivateWineCancelButtonEl = document.getElementById('inactivate-wine-cancel-button')      // Inacitvate Wine Cancel Button
-const inactivateWineCloseButtonEl = document.getElementById('inactivate-wine-close-button')      // Inacitvate Wine Cancel Button
+const inactivateWineModalEl = document.getElementById('inactivate-wine-modal')                      // Inactivate Wine Modal Window
+const inactivateWineConfirmButtonEl = document.getElementById('inactivate-wine-confirm-button')     // Inactivate Wine Confirm Button
+const inactivateWineCancelButtonEl = document.getElementById('inactivate-wine-cancel-button')       // Inacitvate Wine Cancel Button
+const inactivateWineCloseButtonEl = document.getElementById('inactivate-wine-close-button')         // Inacitvate Wine Cancel Button
 
 
 //--------------------------//
@@ -234,17 +234,17 @@ const inactivateModal = async (wine_id) => {
     }
 };
 
-// Hide Inactivate Modal - "Cancel" button
+// Hide Inactivate Wine Modal - "Cancel" button
 inactivateWineCancelButtonEl.addEventListener('click', function () {
     inactivateWineModalEl.style.display = 'none';
 });
 
-// Hide Inactivate Modal - "Close" button
+// Hide Inactivate Wine Modal - "Close" button
 inactivateWineCloseButtonEl.addEventListener('click', function () {
     inactivateWineModalEl.style.display = 'none';
 });
 
-// Hide Inactivate Modal - "Close" button
+// Hide Inactivate Wine Modal - "Close" button
 inactivateWineConfirmButtonEl.addEventListener('click', function (event) {
     event.preventDefault();
     // console.log ("Update Wine Delete button clicked") 

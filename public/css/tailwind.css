@@ -563,12 +563,12 @@ video {
   top: 65px;
 }
 
-.m-auto{
-  margin: auto;
-}
-
 .m-2{
   margin: 0.5rem;
+}
+
+.m-auto{
+  margin: auto;
 }
 
 .mx-1{
