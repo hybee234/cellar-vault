@@ -59,27 +59,27 @@
             <h2 id="post-heading" class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Add Transaction</h2>    
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-0 md:w-2/5">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="transaction_date"> Date </label>
-                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="transaction_date" type="date" placeholder="MM/DD/YYYY" required>
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-800" for="transaction_date"> Date </label>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="transaction_date" type="date" placeholder="MM/DD/YYYY" required>
                 </div>
                 <div class="w-1/3 px-1 md:w-1/4">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="cost"> Unit Cost ($) </label>
-                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="cost" type="number" step="0.01">
-                    <p class="text-xs italic text-red-500">Numbers only</p>
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-800" for="cost"> Unit Cost ($) </label>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="cost" type="number" step="0.01">
+                    <p class="mt-2 mb-4 text-xs text-red-500 uppercase">Numbers only</p>
                 </div>
                 <div class="w-1/3 px-1 md:w-1/6">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="qty_in"> Qty In</label>
-                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="qty_in" type="text">
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-800" for="qty_in"> Qty In</label>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="qty_in" type="text">
                 </div>
                 <div class="w-1/3 px-1 md:w-1/6">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="qty_out"> Qty Out</label>
-                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="qty_out" type="text">
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-800" for="qty_out"> Qty Out</label>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="qty_out" type="text">
                 </div>
             </div>
-            <div class="flex flex-wrap mx-1 mb-2">
+            <div class="flex flex-wrap mx-1 mb-4">
                 <div class="w-full px-1 md:w-full">
-                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="notes">Notes</label>
-                <textarea class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="notes" type="text" placeholder="Retailer, Tastings Notes ..." rows="2" cols="30"></textarea>
+                <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-800" for="notes">Notes</label>
+                <textarea class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="notes" type="text" placeholder="Retailer, Tastings Notes ..." rows="2" cols="30"></textarea>
                 </div>
             </div>
             <div class="flex flex-wrap mx-1">
@@ -101,27 +101,27 @@
             <h2 id="put-heading" class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Update Transaction</h2>    
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-0 md:w-2/5">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="transaction_date"> Date </label>
-                    <input id="updateDateInput" class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" type="date" placeholder="MM/DD/YYYY" required>
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-800" for="transaction_date"> Date </label>
+                    <input id="updateDateInput" class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" type="date" placeholder="MM/DD/YYYY" required>
                 </div>
                 <div class="w-1/3 px-1 md:w-1/4">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="cost"> Unit Cost ($) </label>
-                    <input id="updateCostInput" class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" type="number" step="0.01">
-                    <p class="text-xs italic text-red-500">Numbers only</p>
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-700" for="cost"> Unit Cost ($) </label>
+                    <input id="updateCostInput" class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" type="number" step="0.01">
+                    <p class="text-xs text-red-500 uppercase">Numbers only</p>
                 </div>
                 <div class="w-1/3 px-1 md:w-1/6">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="qty_in"> Qty In</label>
-                    <input id="updateQtyInInput" class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" type="text">
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-700" for="qty_in"> Qty In</label>
+                    <input id="updateQtyInInput" class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" type="text">
                 </div>
                 <div class="w-1/3 px-1 md:w-1/6">
-                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="qty_out"> Qty Out</label>
-                    <input id="updateQtyOutInput" class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" type="text">
+                    <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-700" for="qty_out"> Qty Out</label>
+                    <input id="updateQtyOutInput" class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" type="text">
                 </div>
             </div>
-            <div class="flex flex-wrap mx-1 mb-2">
+            <div class="flex flex-wrap mx-1 mb-4">
                 <div class="w-full px-1 md:w-full">
-                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="notes">Notes</label>
-                <textarea id="updateNotesInput" class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" type="text" placeholder="Retailer, Tastings Notes ..." rows="2" cols="30"></textarea>
+                <label class="block mb-2 text-xs font-bold tracking-wide uppercase text-zinc-700" for="notes">Notes</label>
+                <textarea id="updateNotesInput" class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" type="text" placeholder="Retailer, Tastings Notes ..." rows="2" cols="30"></textarea>
                 </div>
             </div>
             <div class="flex flex-wrap mx-1">

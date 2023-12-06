@@ -17,7 +17,7 @@
                 <div class="flex justify-between w-full item-center">
                     <div class="m-auto items-center justify-center my-0 text-lg font-bold text-center md:text-2xl text-[#722F37]">{{wine_name}}</div>                    
                     <div class="justify-start align-center">
-                        <button class="p-1 update-wine fa-regular fa-pen-to-square" data-index = "{{wine_id}}" ></button>
+                        <button class="transition-transform duration-200 ease-in-out update-wine fa-regular fa-pen-to-square hover:scale-110" data-index = "{{wine_id}}" ></button>
                     </div>
                     {{!-- <div class = "justify-start">
                         <button class="p-1 text-red-600 inactivate fa-regular fa-circle-xmark" data-index = "{{wine_id}}" > {{wine_id}}</button>
@@ -51,7 +51,7 @@
                             {{!-- <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th> --}}
                         </tr>
                         {{/each}} 
-                        <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="add-vintage px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500 rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        
+                        <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500 add-vintage rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        
                 </table>                                 
             </div>
         {{/each}}        
@@ -97,7 +97,7 @@
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-0">
                     <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="update-wine-name"> Wine Name </label>
-                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="update-wine-name" type="text" required>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="update-wine-name" type="text" required placeholder="Enter wine name...">
                 </div>
             </div>
             {{!-- Hidden IDs to support PUT and POST --}}        
@@ -105,7 +105,7 @@
                 <div class="w-full px-1 md:w-full">
                     <input type="hidden" name="brand_id" id="update-wine-brand-id" value="" "readonly"/>                    
                 </div>
-                <div class="w-full md:w-full px-1">
+                <div class="w-full px-1 md:w-full">
                     <input type="hidden" name="wine_id" id="update-wine-wine-id" value="" "readonly"/>  
                 </div> 
             </div>            
@@ -126,9 +126,9 @@
         <div class="modal-content">
             <span id="inactivate-wine-close-button" class="close">&times;</span>
             <h1 class = "text-2xl"> You are about to delete: </h1>
-            <h2 id="inactivate-wine-heading" class = "text-2xl m-2"> </h2>        
-            <p class="flex items-center justify-center text-center m-2">This will also delete vintages and transactions</p>
-            <p class="flex items-center justify-center text-center m-2">This cannot be undone</p>
+            <h2 id="inactivate-wine-heading" class = "m-2 text-2xl"> </h2>        
+            <p class="flex items-center justify-center m-2 text-center">This will also delete vintages and transactions</p>
+            <p class="flex items-center justify-center m-2 text-center">This cannot be undone</p>
             <div class="mt-4 space-y-4">        
                 <button id="inactivate-wine-confirm-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-danger">Confirm Delete</button>
                 <button id="inactivate-wine-cancel-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-secondary">Cancel</button>
@@ -146,19 +146,19 @@
 {{!----------------------------}}
 
     <div id="add-vintage-modal" class="modal">
-        <form id="add-vintage-form" class="w-full bg-orange-300 m-auto p-1 border-2 my-5 rounded-3xl modal-content">    
+        <form id="add-vintage-form" class="w-full p-1 m-auto my-5 bg-orange-300 border-2 rounded-3xl modal-content">    
             <h2 class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Add Vintage</h2>    
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-1 md:w-1/3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="add-vintage-vintage"> Vintage </label>
-                    <input class="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-0 leading-tight focus:outline-none focus:bg-white focus:border-rose-800" id="add-vintage-vintage" type="number" required>
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="add-vintage-vintage"> Vintage </label>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="add-vintage-vintage" type="number" required>
                 </div>                
                 {{!-- Format Dropdown --}}
                 
                 <div class="w-full px-1 md:w-1/3">
                     <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="add-vintage-format"> Format </label>
                     <div class="relative">
-                        <select class="block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="add-vintage-format" required>
+                        <select class="block w-full px-4 py-3 leading-tight bg-gray-200 border border-transparent appearance-none text-zinc-800 rounded-xl focus:outline-none focus:border-zinc-500 hover:border-zinc-500" id="add-vintage-format" required>
                             <option>750 mL</option>
                             <option>1500 mL</option>
                             <option>3 L</option>
@@ -171,17 +171,17 @@
                 </div>
                 <div class="w-full px-1 md:w-1/3">
                     <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="add-vintage-drink-by"> Drink By </label>
-                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="add-vintage-drink-by" type="number">
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="add-vintage-drink-by" type="number">
                 </div>
             </div>
             {{!-- Hidden IDs to support PUT and POST --}}        
             <div class="flex flex-wrap mx-1">
-                <div class="w-full md:w-full px-1">
+                <div class="w-full px-1 md:w-full">
                     <input type="hidden" name="wine_id" id="add-vintage-wine-id" value="" "readonly"/>                    
                 </div> 
             </div>
-            <button id="add-vintage-submit-button" class="my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit" value="submit"> Submit </button>
-            <button id="add-vintage-cancel-button" class="my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="button" value="cancel"> Cancel </button>
+            <button id="add-vintage-submit-button" class="px-4 py-2 my-3 font-bold text-white duration-200 ease-in-out bg-blue-500 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
+            <button id="add-vintage-cancel-button" class="px-4 py-2 my-3 font-bold text-white duration-200 ease-in-out bg-blue-500 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
         </form>
     </div> 
 
