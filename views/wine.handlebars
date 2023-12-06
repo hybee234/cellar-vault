@@ -17,7 +17,7 @@
                 <div class="flex justify-between w-full item-center">
                     <div class="m-auto items-center justify-center my-0 text-lg font-bold text-center md:text-2xl text-[#722F37]">{{wine_name}}</div>                    
                     <div class="justify-start align-center">
-                        <button class="transition-transform duration-200 ease-in-out update-wine fa-regular fa-pen-to-square hover:scale-110" data-index = "{{wine_id}}" ></button>
+                        <button class="update-wine-button transition-transform duration-200 ease-in-out fa-regular fa-pen-to-square hover:scale-110" data-index = "{{wine_id}}" ></button>
                     </div>
                     {{!-- <div class = "justify-start">
                         <button class="p-1 text-red-600 inactivate fa-regular fa-circle-xmark" data-index = "{{wine_id}}" > {{wine_id}}</button>
@@ -43,7 +43,7 @@
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{drink_by}}</th>
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{vintage_total}}</th>                     
                             <th>
-                                <button data-index = "{{vintage_id}}" class="transition-transform duration-200 ease-in-out update fa-regular fa-pen-to-square hover:scale-110"></a>  
+                                <button data-index = "{{vintage_id}}" class="update-vintage-button transition-transform duration-200 ease-in-out fa-regular fa-pen-to-square hover:scale-110"></a>  
                             </th>
                             {{!-- <th>
                                 <button data-index = "{{vintage_id}}" class="text-red-600 inactivate fa-regular fa-circle-xmark"></a>  
@@ -51,7 +51,7 @@
                             {{!-- <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th> --}}
                         </tr>
                         {{/each}} 
-                        <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500 add-vintage rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        
+                        <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="add-vintage-button px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500  rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        
                 </table>                                 
             </div>
         {{/each}}        
@@ -109,12 +109,9 @@
                     <input type="hidden" name="wine_id" id="update-wine-wine-id" value="" "readonly"/>  
                 </div> 
             </div>            
-            {{!-- submit button --}}
             <button id="update-wine-submit-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
-            {{!-- cancel button --}}
             <button id="update-wine-cancel-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
-            {{!-- delete button --}}
-            <button id="update-wine-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="submit" value="submit"> Delete </button>
+            <button id="update-wine-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="button" value="button"> Delete </button>
         </form>
     </div> 
 
@@ -151,7 +148,7 @@
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-1 md:w-1/3">
                     <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="add-vintage-vintage"> Vintage </label>
-                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="add-vintage-vintage" type="number" required>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" value="2023" id="add-vintage-vintage" type="number" required>
                 </div>                
                 {{!-- Format Dropdown --}}
                 
@@ -189,7 +186,46 @@
 {{!-- Update Vintage Modal Form --}}
 {{!-------------------------------}}
 
-
+    <div id="update-vintage-modal" class="modal">
+        <form id="update-vintage-form" class="w-full p-1 m-auto my-5 bg-orange-300 border-2 rounded-3xl modal-content">    
+            <h2 class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Update Vintage</h2>    
+            <div class="flex flex-wrap mx-1 my-2">
+                <div class="w-full px-1 md:w-1/3">
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="update-vintage-vintage"> Vintage </label>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="update-vintage-vintage" type="number" required>
+                </div>                
+                {{!-- Format Dropdown --}}
+                
+                <div class="w-full px-1 md:w-1/3">
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="update-vintage-format"> Format </label>
+                    <div class="relative">
+                        <select class="block w-full px-4 py-3 leading-tight bg-gray-200 border border-transparent appearance-none text-zinc-800 rounded-xl focus:outline-none focus:border-zinc-500 hover:border-zinc-500" id="update-vintage-format" required>
+                            <option>750 mL</option>
+                            <option>1500 mL</option>
+                            <option>3 L</option>
+                            <option>6 L</option>
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
+                            <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full px-1 md:w-1/3">
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="update-vintage-drink-by"> Drink By </label>
+                    <input class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="update-vintage-drink-by" type="number">
+                </div>
+            </div>
+            {{!-- Hidden IDs to support PUT and POST --}}        
+            <div class="flex flex-wrap mx-1">
+                <div class="w-full px-1 md:w-full">
+                    <input type="hidden" name="wine_id" id="update-vintage-vintage-id" value="" "readonly"/>                    
+                </div> 
+            </div>
+            <button id="update-vintage-submit-button" class="px-4 py-2 my-3 font-bold text-white duration-200 ease-in-out bg-blue-500 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
+            <button id="update-vintage-cancel-button" class="px-4 py-2 my-3 font-bold text-white duration-200 ease-in-out bg-blue-500 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
+            <button id="update-vintage-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="button" value="delete"> Delete </button>
+        </form>
+    </div> 
 
 
 

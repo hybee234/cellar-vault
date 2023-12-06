@@ -6,25 +6,25 @@ const withAuth = require('../../utils/auth');
 
 // Root: http://localhost:3001/api/vintage/
 
-//---------------------------------------------------//
-//- GET - All active Vintage under Selected Wine ID -//
-//---------------------------------------------------// 
+//-----------------------------------//
+//- GET - One Vintage by Vintage ID -//
+//-----------------------------------// 
 
-// API: http://localhost:3001/api/vintage/:wine_id
+// API: http://localhost:3001/api/vintage/:vintage_id
 // Example : http://localhost:3001/api/vintage/:1
 // No JSON Body required
 
-router.get('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAuth middleware added
+router.get('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // Get all active Vintages under target Wine_ID
-        const getActiveVintages = await Vintage.findAll({
-            //attributes: ['wine_id', 'wine_name', 'active_ind', 'brand_id'], // Specify the columns to fetch
+        const getOneVintage = await Vintage.findOne({
             where: {
-                active_ind: 1, // This will only include brands where active_ind is 1
-                wine_id: req.params.wine_id  // where brand ID matches the brand ID in URL
+                active_ind: 1,                
+                vintage_id: req.params.vintage_id 
             }
         });
-        res.status(200).json(getActiveVintages);
+        const oneVintage = getOneVintage.get({ plain: true })      // Serialize the data 
+        res.status(200).json(oneVintage);
     } catch (err) {
         console.error(err);
         res.status(500).json(err); // Status 500 - Internal Server Error
