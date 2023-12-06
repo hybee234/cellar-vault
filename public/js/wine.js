@@ -7,16 +7,15 @@ const addWineCancelBttnEl = document.getElementById("add-wine-cancel-button")   
 const addWineModalEl = document.getElementById("add-wine-modal")                    // Add Wine Modal Window
 const addWineFormEl = document.getElementById("add-wine-form")                      // Add Wine Form
 
-// const updateWineOpenModalEl = document.getElementById("update-wine-open-modal")    // Update Wine Button
-const updateWineCancelBttnEl = document.getElementById("update-wine-cancel-button")   // Update Wine Cancel Button
+const wineTableContinerEl = document.getElementById("wine-tables-container")          // Create listener that triggers when any wine-table is clicked
 const updateWineModalEl = document.getElementById("update-wine-modal")                // Update Wine Modal Window
 const updateWineFormEl = document.getElementById("update-wine-form")                  // Update Wine Form
-const wineTableContinerEl = document.getElementById("wine-tables-container")                     // Create listener that triggers when any wine-table is clicked
+const updateWineCancelBttnEl = document.getElementById("update-wine-cancel-button")   // Update Wine Cancel Button
+const updateWineDeleteBttnEl = document.getElementById("update-wine-delete-button")   // UPdate Wine Delete Button
 
-
-//--------------------------------//
-//- POST (Add) Wine via Add Form -//
-//--------------------------------//
+//--------------------------//
+//- POST (Add) Wine Record -//
+//--------------------------//
 
 const postWineHandler = async (event) => {
     event.preventDefault();
@@ -50,7 +49,41 @@ const postWineHandler = async (event) => {
         }
 }
 
+//----------------------------//
+//- PUT (update) Wine Record -//
+//----------------------------//
 
+const putWineHandler = async (event) => {
+    event.preventDefault();
+    // Create JSON Body
+    let JSONBody = {}
+
+    JSONBody.wine_name = document.querySelector('#update-wine-name').value
+    
+    // console.log("JSONBody")
+    // console.log(JSONBody)
+
+    //Stringify the Array to prepare for FETCH
+    const bodyStringified = JSON.stringify(JSONBody)
+
+    // console.log("bodyStringified")
+    // console.log(bodyStringified)
+
+    // FETCH Request (POST Method)
+    const response = await fetch(`/api/wine/${document.querySelector('#update-wine-wine-id').value}`, {
+    method: 'PUT',
+    body: bodyStringified,        
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (response.ok) {
+        window.location.reload() // Reload screen
+    } else {
+        alert('Failed to add transaction');
+    }
+};
 
 
 
@@ -62,7 +95,7 @@ const postWineHandler = async (event) => {
 
 
 //-----------------------------------------------//
-//- Event Listener - Add Wine Modal - Hide/Show -//
+//- Event Listener - Add Wine Modal - Show/Hide -//
 //-----------------------------------------------//
 
 //Show "Add Wine Modal" when "Add Wine" button is clicked
@@ -84,9 +117,9 @@ addWineFormEl.addEventListener('submit', (event) => {
     postWineHandler(event)
 })
 
-//-----------------------------------------------------------------//
-//- Event listener - triggered by clicking with Transaction Table -// 
-//-----------------------------------------------------------------//
+//--------------------------------------------------//
+//- Event listener - Update Wine Modal - Show/Hide -// 
+//--------------------------------------------------//
 
 //Show "Update Wine Modal" when "Update" button is clicked within "Wine Table"
 wineTableContinerEl.addEventListener('click', async (event) => {
@@ -98,29 +131,28 @@ wineTableContinerEl.addEventListener('click', async (event) => {
         let wine_id = element.getAttribute("data-index");
         event.preventDefault();
         console.log("  > Update wine button clicked")
+        try{                
+            // GET details of transaction
+            let getOneWineURL = `./../api/wine/${wine_id}`
+            let options = {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },            
+            }
+            const response = await fetch(getOneWineURL, options )
+            const wineArray = await response.json() 
+            console.log(wineArray)
+            // Pre-populate fiends in Update Modal Window with Transaction Values
+            document.getElementById('update-wine-name').value = wineArray.wine_name
+            document.getElementById('update-wine-wine-id').value = wineArray.wine_id
 
-    try{                
-        // GET details of transaction
-        let getOneWineURL = `./../api/wine/${wine_id}`
-        let options = {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            },            
+            // Show the Update modal window 
+            updateWineModalEl.style.display = 'block';
+        } catch (err) {
+            console.error(err);
+        
         }
-        const response = await fetch(getOneWineURL, options )
-        const wineArray = await response.json() 
-        console.log(wineArray)
-        // Pre-populate fiends in Update Modal Window with Transaction Values
-        document.getElementById('update-wine-name').value = wineArray.wine_name
-        document.getElementById('update-wine-brand-id').value = wineArray.brand_id
-
-        // Show the Update modal window 
-        updateWineModalEl.style.display = 'block';
-    } catch (err) {
-        console.error(err);
-    
-    }
     };
     return
 });
@@ -129,3 +161,22 @@ wineTableContinerEl.addEventListener('click', async (event) => {
 updateWineCancelBttnEl.addEventListener('click', function () {
     updateWineModalEl.style.display = 'none';
 });
+
+//-----------------------------------------------//
+//- Event listener - Update Wine Modal - Submit -//
+//-----------------------------------------------//
+updateWineFormEl.addEventListener('submit', (event) => {
+    event.preventDefault();
+    console.log ("Update Wine Submit button clicked")    
+    putWineHandler(event)
+})
+
+
+//-----------------------------------------------//
+//- Event listener - Update Wine Modal - Delete -//
+//-----------------------------------------------//
+updateWineDeleteBttnEl.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log ("Update Wine Delete button clicked")    
+    inactivateWineHandler(event)
+})

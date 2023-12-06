@@ -38,7 +38,7 @@ router.get('/:wine_id', withAuth, checkWineId, async (req,res) => {
 //	    "active_ind" : 1	
 //  }
 
-router.post('/:brand_id', checkBrandId, async (req, res) => {
+router.post('/:brand_id', withAuth, checkBrandId, async (req, res) => {
     try {
         // POST new Wine under Brand ID
         const postNewWine = await Wine.create(
@@ -67,7 +67,7 @@ router.post('/:brand_id', checkBrandId, async (req, res) => {
 //     "brand_id": 6
 // }
 
-router.put('/:wine_id', checkWineId, async (req, res) => {
+router.put('/:wine_id', withAuth, checkWineId, async (req, res) => {
     try {
         // PUT - Update Wine by Wine ID
         const putWine = await Wine.update( 
@@ -97,7 +97,7 @@ router.put('/:wine_id', checkWineId, async (req, res) => {
 // Example : http://localhost:3001/api/wine/inactivate/21
 // No JSON Body required.
 
-router.put('/inactivate/:wine_id', checkWineId, async (req, res) => {
+router.put('/inactivate/:wine_id', withAuth, checkWineId, async (req, res) => {
     try {
         // PUT - Soft Delete Wine by Wine ID
         const inactivateWine = await Wine.update( 
