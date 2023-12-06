@@ -59,7 +59,7 @@ const postWineHandler = async (event) => {
         if (response.ok) {
             window.location.reload() // Reload screen 
         } else {
-            alert('Failed to add transaction');
+            alert('Failed to Add Wine Record');
         }
 }
 
@@ -92,7 +92,7 @@ const putWineHandler = async (event) => {
     if (response.ok) {
         window.location.reload() // Reload screen
     } else {
-        alert('Failed to add transaction');
+        alert('Failed to Update Wine Record');
     }
 };
 
@@ -128,6 +128,42 @@ const inactivateWineHandler = async (wine_id) => {
         //- Vintage Functions -//
         //---------------------//
 
+//--------------------------//
+//- POST (Add) Vintage Record -//
+//--------------------------//
+
+const postVintageHandler = async (event) => {
+    event.preventDefault();
+    // Build JSON body
+    // {
+    //     "vintage": 2009,
+    //     "format": "750mL",
+    //     "drink_by": 2039,
+    //     "active_ind": 1   
+    // }
+    
+    let JSONBody = {}    
+    JSONBody.vintage = document.getElementById('add-vintage-vintage').value
+    JSONBody.format = document.getElementById('add-vintage-format').value
+    JSONBody.drink_by = document.getElementById('add-vintage-drink-by').value
+    //Stringify the Array to prepare for FETCH
+    const bodyStringified = JSON.stringify(JSONBody)
+
+    // FETCH Request (POST Method)
+    const response = await fetch(`/api/vintage/${document.getElementById('add-vintage-wine-id').value}`, {
+        method: 'POST',
+        body: bodyStringified,        
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    
+        if (response.ok) {
+            window.location.reload() // Reload screen 
+        } else {
+            alert('Failed to add vintage');
+        }
+}
 
 
 
@@ -278,7 +314,7 @@ updateWineDeleteBttnEl.addEventListener('click', (event) => {
 // Show Inactivate Modal 
 const inactivateModal = async (wine_id) => {
     try{                
-        // GET details of transaction
+        // GET details of Wine
         let getOneWineURL = `./../api/wine/${wine_id}`
         let options = {
             method: 'GET',
@@ -288,10 +324,10 @@ const inactivateModal = async (wine_id) => {
         }
         const response = await fetch(getOneWineURL, options )
         const wineArray = await response.json()             
-        // Pre-populate fields in Update Modal Window with Transaction Values
+        // Pre-populate fields in Inactivate Modal Window 
         document.getElementById('inactivate-wine-heading').textContent = wineArray.wine_name
         document.getElementById('inactivate-wine-confirm-button').value = wineArray.wine_id  //set value of delete button so that it can be passsed through
-        // Show the inactivate  modal window 
+        // Show the Inactivate  modal window 
         inactivateWineModalEl.style.display = 'block';
 
     } catch (err) {
@@ -338,6 +374,16 @@ inactivateWineConfirmButtonEl.addEventListener('click', function (event) {
 addVintageCancelBttnEl.addEventListener('click', function () {
     addVintageModalEl.style.display = 'none';
 });
+
+//-------------------------------------//
+//- Modal Add Vintage Record - Submit -//
+//-------------------------------------//
+
+addVintageFormEl.addEventListener('submit', (event) => {
+    event.preventDefault();
+    // console.log ("Update Wine Submit button clicked")    
+    postVintageHandler(event)
+})
 
 
 
