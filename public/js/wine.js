@@ -13,26 +13,29 @@ const updateWineFormEl = document.getElementById("update-wine-form")            
 const updateWineCancelBttnEl = document.getElementById("update-wine-cancel-button")   // Update Wine Cancel Button
 const updateWineDeleteBttnEl = document.getElementById("update-wine-delete-button")   // UPdate Wine Delete Button
 
+const inactivateWineModalEl = document.getElementById('inactivate-wine-modal')      // Inactivate Wine Modal Window
+const inactivateWineConfirmButtonEl = document.getElementById('inactivate-wine-confirm-button')      // Inactivate Wine Confirm Button
+const inactivateWineCancelButtonEl = document.getElementById('inactivate-wine-cancel-button')      // Inacitvate Wine Cancel Button
+const inactivateWineCloseButtonEl = document.getElementById('inactivate-wine-close-button')      // Inacitvate Wine Cancel Button
+
+
 //--------------------------//
 //- POST (Add) Wine Record -//
 //--------------------------//
 
 const postWineHandler = async (event) => {
     event.preventDefault();
-    // Create JSON body
+    // Build JSON body
     // {
     //     "wine_name" : "Diana Madeline",
     //     "active_ind" : 1	    
     // }
+    
+    let JSONBody = {}    
+    JSONBody.wine_name = document.getElementById('add-wine-name').value
+    //Stringify the Array to prepare for FETCH
+    const bodyStringified = JSON.stringify(JSONBody)
 
-    console.log(document.getElementById('add-wine-name').value)
-    let bodyArray = {}
-    // bodyArray.wine_name = document.querySelector('#add-wine-name').value
-    bodyArray.wine_name = document.getElementById('add-wine-name').value
-    console.log ("stuck here at 1")
-    const bodyStringified = JSON.stringify(bodyArray)
-
-    console.log (bodyStringified)
     // FETCH Request (POST Method)
     const response = await fetch(`/api/wine/${document.getElementById('add-wine-brand-id').value}`, {
         method: 'POST',
@@ -55,19 +58,16 @@ const postWineHandler = async (event) => {
 
 const putWineHandler = async (event) => {
     event.preventDefault();
-    // Create JSON Body
+    // Build JSON body
+    // {
+    //     "wine_name" : "Diana Madeline",
+    //     "active_ind" : 1	    
+    // }
+
     let JSONBody = {}
-
     JSONBody.wine_name = document.querySelector('#update-wine-name').value
-    
-    // console.log("JSONBody")
-    // console.log(JSONBody)
-
     //Stringify the Array to prepare for FETCH
     const bodyStringified = JSON.stringify(JSONBody)
-
-    // console.log("bodyStringified")
-    // console.log(bodyStringified)
 
     // FETCH Request (POST Method)
     const response = await fetch(`/api/wine/${document.querySelector('#update-wine-wine-id').value}`, {
@@ -85,6 +85,33 @@ const putWineHandler = async (event) => {
     }
 };
 
+
+//--------------------------------//
+//- PUT (inactivate) Wine Record -//
+//--------------------------------//
+
+const inactivateWineHandler = async (wine_id) => {
+    
+    console.log(wine_id)
+    
+    try{
+    let inactivateWineURL = `./../api/wine/inactivate/${wine_id}`
+    let options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        // body: jsonString
+    }        
+    const response = await fetch(inactivateWineURL, options )
+    const data = await response.json()
+    console.log(data)
+    window.location.reload() // Reload screen 
+    } catch (err) {
+        console.error(err);
+    
+    }
+};
 
 
 
@@ -124,8 +151,7 @@ addWineFormEl.addEventListener('submit', (event) => {
 //Show "Update Wine Modal" when "Update" button is clicked within "Wine Table"
 wineTableContinerEl.addEventListener('click', async (event) => {
     console.log ("wine table area click registered")
-    const element = event.target;
-    console.log(element)
+    const element = event.target;    
    // If the Update button was clicked
     if (element.matches("button") === true && element.classList.contains("update-wine")) { 
         let wine_id = element.getAttribute("data-index");
@@ -141,17 +167,16 @@ wineTableContinerEl.addEventListener('click', async (event) => {
                 },            
             }
             const response = await fetch(getOneWineURL, options )
-            const wineArray = await response.json() 
-            console.log(wineArray)
+            const wineArray = await response.json()             
             // Pre-populate fiends in Update Modal Window with Transaction Values
             document.getElementById('update-wine-name').value = wineArray.wine_name
             document.getElementById('update-wine-wine-id').value = wineArray.wine_id
+            document.getElementById('update-wine-delete-button').value = wineArray.wine_id  //set value of delete button so that it can be passsed through
 
             // Show the Update modal window 
             updateWineModalEl.style.display = 'block';
         } catch (err) {
-            console.error(err);
-        
+            console.error(err);        
         }
     };
     return
@@ -167,16 +192,62 @@ updateWineCancelBttnEl.addEventListener('click', function () {
 //-----------------------------------------------//
 updateWineFormEl.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log ("Update Wine Submit button clicked")    
+    // console.log ("Update Wine Submit button clicked")    
     putWineHandler(event)
 })
-
 
 //-----------------------------------------------//
 //- Event listener - Update Wine Modal - Delete -//
 //-----------------------------------------------//
 updateWineDeleteBttnEl.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log ("Update Wine Delete button clicked")    
-    inactivateWineHandler(event)
+    // console.log ("Update Wine Delete button clicked") 
+    let wine_id = event.target.getAttribute("value")     
+    inactivateModal(wine_id)
 })
+
+//------------------------------------------------//
+//- Modal (inactivate) Wine Record - Show / Hide -//
+//------------------------------------------------//
+
+// Show Inactivate Modal 
+const inactivateModal = async (wine_id) => {
+    try{                
+        // GET details of transaction
+        let getOneWineURL = `./../api/wine/${wine_id}`
+        let options = {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            },            
+        }
+        const response = await fetch(getOneWineURL, options )
+        const wineArray = await response.json()             
+        // Pre-populate fiends in Update Modal Window with Transaction Values
+        document.getElementById('inactivate-wine-heading').textContent = wineArray.wine_name
+        document.getElementById('inactivate-wine-confirm-button').value = wineArray.wine_id  //set value of delete button so that it can be passsed through
+        // Show the inactivate  modal window 
+        inactivateWineModalEl.style.display = 'block';
+
+    } catch (err) {
+        console.error(err);        
+    }
+};
+
+// Hide Inactivate Modal - "Cancel" button
+inactivateWineCancelButtonEl.addEventListener('click', function () {
+    inactivateWineModalEl.style.display = 'none';
+});
+
+// Hide Inactivate Modal - "Close" button
+inactivateWineCloseButtonEl.addEventListener('click', function () {
+    inactivateWineModalEl.style.display = 'none';
+});
+
+// Hide Inactivate Modal - "Close" button
+inactivateWineConfirmButtonEl.addEventListener('click', function (event) {
+    event.preventDefault();
+    // console.log ("Update Wine Delete button clicked") 
+    let wine_id = event.target.getAttribute("value")        
+    inactivateWineHandler(wine_id)
+});
