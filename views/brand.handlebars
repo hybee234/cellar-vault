@@ -1,12 +1,17 @@
 {{! Template title }}
-<h1 class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-zinc-900">
+<h1
+  class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-zinc-900"
+>
   Select a brand from your&nbsp;
   <span class="text-[#722F37]">Cellar</span>
 </h1>
 
 <!-- Add Brand Button Container -->
 <div class="flex justify-center">
-  <button id="add-brand-open-modal" class="transition duration-200 ease-in-out bg-blue-500 hover:bg-blue-700 text-zinc-100 font-bold py-2 px-4 rounded-full">Add Brand</button>
+  <button
+    id="add-brand-open-modal"
+    class="px-4 py-2 font-bold transition duration-200 ease-in-out bg-blue-500 rounded-full hover:bg-blue-700 text-zinc-100"
+  >Add Brand</button>
 </div>
 
 <!-- Add Brand Modal -->
@@ -14,10 +19,25 @@
   <div class="modal-content">
     <span class="close" id="add-brand-close">&times;</span>
     <h2>Add New Brand</h2>
-    <form id="add-brand-form" class="flex flex-col items-center justify-center space-y-2">
-      <label for="new-brand-name" class="font-semibold underline text-zinc-900">Brand Name:</label>
-      <input type="text" id="new-brand-name" name="brandName" required class="w-full px-3 py-2 border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500">
-      <button type="submit" class="px-4 py-2 mt-4 bg-blue-500 border-none hover:bg-blue-700 text-zinc-100 rounded-xl">Submit</button>
+    <form
+      id="add-brand-form"
+      class="flex flex-col items-center justify-center space-y-2"
+    >
+      <label
+        for="new-brand-name"
+        class="font-semibold underline text-zinc-900"
+      >Brand Name:</label>
+      <input
+        type="text"
+        id="new-brand-name"
+        name="brandName"
+        required
+        class="w-full px-3 py-2 border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500"
+      />
+      <button
+        type="submit"
+        class="px-4 py-2 mt-4 bg-blue-500 border-none hover:bg-blue-700 text-zinc-100 rounded-xl"
+      >Submit</button>
     </form>
   </div>
 </div>
@@ -30,11 +50,23 @@
       <h2 class="font-bold text-zinc-900">Edit Brand</h2>
       <form id="editForm" class="w-full">
         <div class="flex flex-col items-center justify-center space-y-2">
-          <label for="editedBrandName" class="font-semibold underline text-zinc-900">Brand Name</label>
-          <input type="text" id="editedBrandName" name="brandName" required class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500" />
+          <label
+            for="editedBrandName"
+            class="font-semibold underline text-zinc-900"
+          >Brand Name</label>
+          <input
+            type="text"
+            id="editedBrandName"
+            name="brandName"
+            required
+            class="w-full px-3 py-2 transition duration-300 ease-in-out border border-transparent rounded-xl hover:border-zinc-500 focus:outline-none focus:border-zinc-500"
+          />
         </div>
         <div class="flex items-center justify-center">
-          <button type="submit" class="px-4 py-2 mt-4 duration-200 ease-in-out bg-blue-500 border-none edit-button hover:bg-blue-700 text-zinc-100 rounded-xl">Save Changes</button>
+          <button
+            type="submit"
+            class="px-4 py-2 mt-4 duration-200 ease-in-out bg-blue-500 border-none edit-button hover:bg-blue-700 text-zinc-100 rounded-xl"
+          >Save Changes</button>
         </div>
       </form>
     </div>
@@ -48,7 +80,10 @@
     <form id="deactivateForm" class="flex flex-col items-center justify-center">
       <p>Are you sure you want to deactivate this brand?</p>
       <input type="hidden" id="deactivateBrandId" name="brandId" />
-      <button type="submit" class="w-full space-y-4 duration-200 ease-in-out btn-danger rounded-xl">Yes</button>
+      <button
+        type="submit"
+        class="my-4 space-y-4 duration-200 ease-in-out btn-danger rounded-xl"
+      >Yes</button>
     </form>
   </div>
 </div>
@@ -65,16 +100,24 @@
     <tbody>
       {{#each brands as |brand|}}
         <tr>
-          <td class="inline-block my-3 text-sm font-normal duration-200 ease-in-out brand-name-color sm:text-sm md:text-lg lg:text-xl">
-            <a href="/wine/{{brand.brand_id}}" class="brand-name-color">
+          <td
+            class="inline-block my-3 text-sm font-normal duration-200 ease-in-out text-zinc-900 md:text-lg lg:text-xl hover:text-zinc-400"
+          >
+            <a href="/wine/{{brand.brand_id}}">
               {{brand.brand_name}}
             </a>
           </td>
           <td>
-            <button data-brand-id="{{brand.brand_id}}" class="transition-transform duration-200 ease-in-out edit fa-regular fa-pen-to-square hover:scale-110"></button>
+            <button
+              data-brand-id="{{brand.brand_id}}"
+              class="transition-transform duration-200 ease-in-out edit fa-regular fa-pen-to-square hover:scale-110"
+            ></button>
           </td>
           <td>
-            <button data-brand-id="{{brand.brand_id}}" class="text-red-600 transition-transform duration-200 ease-in-out delete fa-regular fa-circle-xmark hover:scale-110"></button>
+            <button
+              data-brand-id="{{brand.brand_id}}"
+              class="text-red-600 transition-transform duration-200 ease-in-out delete fa-regular fa-circle-xmark hover:scale-110"
+            ></button>
           </td>
         </tr>
       {{/each}}
@@ -82,5 +125,5 @@
   </table>
 </div>
 
-{{!-- Include the brandInteract.js script --}}
+{{! Include the brandInteract.js script }}
 <script src="/js/brandInteract.js"></script>
