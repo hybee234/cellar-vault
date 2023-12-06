@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editModalClose = document.getElementById('editModalClose');
     const addBrandModalClose = document.getElementById('add-brand-close');
     const cancelDeactivate = document.getElementById('cancelDeactivate');
+    const cancelDeactivateNo = document.getElementById('cancelDeactivateNo');
 
     // Form elements
     const editForm = document.getElementById('editForm');
@@ -24,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     editModalClose.addEventListener('click', () => editModal.style.display = 'none');
     addBrandModalClose.addEventListener('click', () => addBrandModal.style.display = 'none');
     cancelDeactivate.addEventListener('click', () => deactivateModal.style.display = 'none');
+    cancelDeactivateNo.addEventListener('click', () => deactivateModal.style.display = 'none');
 
     // Add Brand form submission
     addBrandForm.addEventListener('submit', async (e) => {
@@ -90,8 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
             deactivateModal.style.display = 'block';
         });
     });
-
-    
 
     // Deactivate Form Submission
     deactivateForm.addEventListener('submit', async (e) => {
