@@ -12,18 +12,18 @@
 
     <ul id="wine-tables-container" class="p-0 mt-3 text-center ">
         {{#each wines as |wine|}}
-            <div class="w-4/5 justify-center text-right align-center border-2 rounded-md mx-auto my-4 ">
+            <div class="justify-center w-4/5 mx-auto my-4 text-right border-2 rounded-md align-center ">
 
-                <div class="flex w-full item-center justify-between">
+                <div class="flex justify-between w-full item-center">
                     <div class="m-auto items-center justify-center my-0 text-lg font-bold text-center md:text-2xl text-[#722F37]">{{wine_name}}</div>                    
                     <div class="justify-start align-center">
-                        <button class="update-wine p-1 fa-regular fa-pen-to-square" data-index = "{{wine_id}}" ></button>
+                        <button class="p-1 update-wine fa-regular fa-pen-to-square" data-index = "{{wine_id}}" ></button>
                     </div>
                     {{!-- <div class = "justify-start">
-                        <button class="inactivate text-red-600 p-1 fa-regular fa-circle-xmark" data-index = "{{wine_id}}" > {{wine_id}}</button>
+                        <button class="p-1 text-red-600 inactivate fa-regular fa-circle-xmark" data-index = "{{wine_id}}" > {{wine_id}}</button>
                     </div>  --}}
                 </div>
-                <table class="my-1 justify-center w-3/4 p-1 m-auto text-center border-2 border-[#722F37] rounded-md table-auto " >
+                <table class="my-2 justify-center w-3/4 text-center border-2 border-[#722F37] rounded-md table-auto mx-auto" >
                     <thead>
                         <tr>
                             <th><u>Vintage</u></th>
@@ -38,28 +38,27 @@
                     <tbody>
                         {{#each vintages}}
                         <tr>                
-                            <th class="text-xs xl:text-base md:text-sm sm:text-xs p-2 "><a href="/transaction/{{vintage_id}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-6 border border-blue-700 rounded my-5">{{vintage}}</a></th>                            
+                            <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs "><a href="/transaction/{{vintage_id}}" class="px-6 py-1 my-5 font-bold duration-200 ease-in bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700">{{vintage}}</a></th>                            
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{format}}</th>               
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{drink_by}}</th>
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{vintage_total}}</th>                     
                             <th>
-                                <button data-index = "{{vintage_id}}" class="update fa-regular fa-pen-to-square"></a>  
+                                <button data-index = "{{vintage_id}}" class="transition-transform duration-200 ease-in-out update fa-regular fa-pen-to-square hover:scale-110"></a>  
                             </th>
                             {{!-- <th>
                                 <button data-index = "{{vintage_id}}" class="text-red-600 inactivate fa-regular fa-circle-xmark"></a>  
                             </th> --}}
-                            {{!-- <th class="text-xs xl:text-base md:text-sm sm:text-xs p-2">{{vintage_id}}</th> --}}
+                            {{!-- <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th> --}}
                         </tr>
                         {{/each}} 
-                        <th class="text-xs xl:text-base md:text-sm sm:text-xs p-2" > <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-6 border border-blue-700 rounded my-1" >Add Vintage, Wine ID: {{wine_id}} </button> </th>  
+                        <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs" > <button class="px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500 rounded-xl hover:bg-blue-700" >Add Vintage, Wine ID: {{wine_id}} </button> </th>  
                     </tbody>        
-                </table>                                  
+                </table>                                 
             </div>
         {{/each}}        
-        <button id="add-wine-open-modal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-6 border border-blue-700 rounded my-1" >Add Wine</button>
+        <button id="add-wine-open-modal" class="px-6 py-2 my-1 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" >Add Wine</button>
     </ul>
 
-{{!-----------------}}
 {{!-- Wine Modals --}}
 {{!-----------------}}
 
@@ -67,25 +66,25 @@
 {{!-- Add Wine Modal Form --}}
 {{!-------------------------}}
     <div id="add-wine-modal" class="modal">
-        <form id="add-wine-form" class="w-full bg-orange-300 m-auto p-1 border-2 my-5 rounded-3xl modal-content">    
-            <h2 class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Add Wine</h2>    
+        <form id="add-wine-form" class="w-full p-1 m-auto my-5 bg-orange-300 border-2 rounded-3xl modal-content">    
+            <h2 class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Add Your Wine</h2>    
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="add-wine-name"> Wine Name </label>
-                    <input class="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-0 leading-tight focus:outline-none focus:bg-white focus:border-rose-800" id="add-wine-name" type="text" required>
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="add-wine-name"> Wine Name </label>
+                    <input class="w-full px-4 py-3 mb-0 leading-tight duration-200 ease-in-out bg-gray-200 border border-gray-200 appearance-none rounded-xl text-zinc-900 hover:border-zinc-500 focus:outline-none focus:border-zinc-500" id="add-wine-name" type="text" required placeholder="Enter wine name">
                 </div>
             </div>
             {{!-- Hidden IDs to support PUT and POST --}}        
             <div class="flex flex-wrap mx-1">
-                <div class="w-full md:w-full px-1">
+                <div class="w-full px-1 md:w-full">
                     <input type="hidden" name="brand_id" id="add-wine-brand-id" value="{{brand.0.brand_id}}" "readonly"/>                    
                 </div> 
             </div>
             
             {{!-- submit button --}}
-            <button id="add-wine-submit-button" class="my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit" value="submit"> Submit </button>
+            <button id="add-wine-submit-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
             {{!-- cancel button --}}
-            <button id="add-wine-cancel-button" class="my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="button" value="cancel"> Cancel </button>
+            <button id="add-wine-cancel-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
         </form>
     </div> 
 
@@ -93,27 +92,27 @@
 {{!-- Update Wine Modal Form --}}
 {{!----------------------------}}
     <div id="update-wine-modal" class="modal">
-        <form id="update-wine-form" class="w-full bg-orange-300 m-auto p-1 border-2 my-5 rounded-3xl modal-content">    
+        <form id="update-wine-form" class="w-full p-1 m-auto my-5 bg-orange-300 border-2 rounded-3xl modal-content">    
             <h2 class="block uppercase text-lg font-semibold md:text-2xl text-[#722F37] mt-5"> Update Wine</h2>    
             <div class="flex flex-wrap mx-1 my-2">
                 <div class="w-full px-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="update-wine-name"> Wine Name </label>
-                    <input class="appearance-none block w-full  bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-0 leading-tight focus:outline-none focus:bg-white focus:border-rose-800" id="update-wine-name" type="text" required>
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="update-wine-name"> Wine Name </label>
+                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="update-wine-name" type="text" required>
                 </div>
             </div>
             {{!-- Hidden IDs to support PUT and POST --}}        
             <div class="flex flex-wrap mx-1">
-                <div class="w-full md:w-full px-1">
+                <div class="w-full px-1 md:w-full">
                     <input type="hidden" name="brand_id" id="update-wine-brand-id" value="" "readonly"/>                    
                 </div> 
             </div>
             
             {{!-- submit button --}}
-            <button id="update-wine-submit-button" class="my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit" value="submit"> Submit </button>
+            <button id="update-wine-submit-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
             {{!-- cancel button --}}
-            <button id="update-wine-cancel-button" class="my-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="button" value="cancel"> Cancel </button>
+            <button id="update-wine-cancel-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
             {{!-- delete button --}}
-            <button id="update-wine-delete-button" class="my-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" type="submit" value="submit"> Delete </button>
+            <button id="update-wine-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="submit" value="submit"> Delete </button>
         </form>
     </div> 
 
@@ -130,23 +129,23 @@
 
             {{!-- format dropdown
             <div class="flex flex-wrap mx-1 mb-2">
-                <div class="w-full md:w-1/2 px-1">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="add-wine-format"> Format </label>
+                <div class="w-full px-1 md:w-1/2">
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="add-wine-format"> Format </label>
                     <div class="relative">
-                        <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="add-wine-format" required>
+                        <select class="block w-full px-4 py-3 pr-8 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="add-wine-format" required>
                             <option>750 mL</option>
                             <option>1500 mL</option>
                             <option>3 L</option>
                             <option>6 L</option>
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
+                            <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 px-1">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="add-wine-drink-by"> Drink By </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-0 leading-tight focus:outline-none focus:bg-white  focus:border-rose-800" id="add-wine-drink-by" type="number">
+                <div class="w-full px-1 md:w-1/2">
+                    <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="add-wine-drink-by"> Drink By </label>
+                    <input class="block w-full px-4 py-3 mb-0 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-rose-800" id="add-wine-drink-by" type="number">
                 </div>                
             </div> --}}
 
