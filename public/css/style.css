@@ -151,7 +151,9 @@ li {
   font-size: 28px;
   font-weight: bold;
 }
-
+.brand-name-color {
+  color: #7A2329; /* This is just an example color code */
+}
 .close:hover,
 .close:focus {
   color: black;
