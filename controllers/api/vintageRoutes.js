@@ -14,9 +14,11 @@ const withAuth = require('../../utils/auth');
 // Example : http://localhost:3001/api/vintage/:1
 // No JSON Body required
 
-router.get('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
+router.get('/:vintage_id', withAuth, checkVintageId, async (req, res) => { 
     try {
-        // Get all active Vintages under target Wine_ID
+        // GET ONE Vintage by Vintage_ID
+        console.log (`\x1b[36m GET - Vintage routes: '/:vintage_id'\x1b[0m`)
+        console.log (`\x1b[36m GET - ONE Vintage Record by Vintage_ID: \x1b[0m`) 
         const getOneVintage = await Vintage.findOne({
             where: {
                 active_ind: 1,                
@@ -47,9 +49,11 @@ router.get('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // wi
 //  }
 //  Note: vintage_total will default to zero
 
-router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAuth middleware added
-    try {
-        // POST new Vintage under Wine ID        
+router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { 
+    try{
+        // POST new Vintage under Wine ID
+        console.log (`\x1b[36m POST - Vintage routes: '/:wine_id'\x1b[0m`)
+        console.log (`\x1b[36m POST - ADD Vintage Record under Wine ID: \x1b[0m`)         
         const postNewVintage = await Vintage.create(
             {
                 vintage: req.body.vintage,
@@ -78,9 +82,11 @@ router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAut
 //        "active_ind": 1   
 //      }
 
-router.put('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
+router.put('/:vintage_id', withAuth, checkVintageId, async (req, res) => { 
     try {
         // PUT - Update Vintage by Vintage ID
+        console.log (`\x1b[36m PUT - Vintage routes: '/:vintage_id'\x1b[0m`)
+        console.log (`\x1b[36m PUT - UPDATE Vintage Record by Vintage ID: \x1b[0m`) 
         const putVintage = await Vintage.update(
             {
                 vintage: req.body.vintage,
@@ -110,10 +116,12 @@ router.put('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // wi
 // Example : http://localhost:3001/api/vintage/inactivate/10
 // No JSON Body required.
 
-router.put('/inactivate/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
+router.put('/inactivate/:vintage_id', withAuth, checkVintageId, async (req, res) => { 
     try {
-        // PUT - Soft Delete Vintage by Vintage ID
-        const inactivateVintage = await Vintage.update(
+        // PUT - Inactivate Vintage by Vintage ID
+        console.log (`\x1b[36m PUT - Vintage routes: '/inactivate/:vintage_id'\x1b[0m`)
+        console.log (`\x1b[36m PUT - INACTIVATE Vintage Record by Vintage ID: \x1b[0m`) 
+        await Vintage.update(
             {
                 active_ind: 0,
             },

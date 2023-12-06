@@ -30,7 +30,8 @@
                             <th><u>Drink By</u></th>
                             <th><u>Stock</u></th>
                             <th><u>Update</u></th>
-                            {{!-- <th><u>Vintage ID</u></th> --}}
+                            <th><u>active_id</u></th>
+                            <th><u>Vintage ID</u></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,12 +39,13 @@
                         <tr>                
                             <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs "><a href="/transaction/{{vintage_id}}" class="px-6 py-1 my-5 font-bold duration-200 ease-in bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700">{{vintage}}</a></th>                            
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{format}}</th>               
-                            <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{drink_by}}</th>
+                            <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{drink_by}}</th>                            
                             <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{vintage_total}}</th>                     
                             <th>
                                 <button data-index = "{{vintage_id}}" class="update-vintage-button transition-transform duration-200 ease-in-out  fa-regular fa-pen-to-square hover:scale-110"></a>  
                             </th>
-                            {{!-- <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th> --}}
+                            <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{active_ind}}</th>
+                            <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th>
                         </tr>
                         {{/each}} 
                         <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="inline-flex px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500 add-vintage-button rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        

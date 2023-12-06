@@ -241,7 +241,7 @@ const putVintageHandler = async (event) => {
 //- PUT (inactivate) Wine Record -//
 //--------------------------------//
 
-const inactivateVintageHandler = async (wine_id) => {
+const inactivateVintageHandler = async (vintage_id) => {
     
     // console.log(vintage)
     
@@ -589,6 +589,9 @@ const inactivateVintageModal = async (vintage_id) => {
         document.getElementById('inactivate-vintage-heading-two').textContent = `${vintageArray.vintage_total} bottle(s) remaining`
         document.getElementById('inactivate-vintage-confirm-button').value = vintageArray.vintage_id  //set value of delete button so that it can be passsed through
         
+        // console.log("document.getElementById('inactivate-vintage-confirm-button').value")
+        // console.log(document.getElementById('inactivate-vintage-confirm-button').value)
+
         // Show the Inactivate  modal window 
         inactivateVintageModalEl.style.display = 'block';
 
@@ -623,6 +626,7 @@ inactivateVintageCloseButtonEl.addEventListener('click', function () {
 inactivateVintageConfirmButtonEl.addEventListener('click', function (event) {
     event.preventDefault();
     // console.log ("Update Vintage Delete button clicked") 
-    let vintage_id = event.target.getAttribute("value")        
-    inactivateVintageHandler(wine_id)
+    let vintage_id = event.target.getAttribute("value")
+    console.log (vintage_id)        
+    inactivateVintageHandler(vintage_id)
 });
