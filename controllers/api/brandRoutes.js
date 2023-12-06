@@ -135,7 +135,7 @@ router.post('/', withAuth, async (req, res) => {
     try {
         const newBrand = await Brand.create({
             brand_name: req.body.brand_name,
-            active_ind: 1 // Assuming you want to set the newly created brand as active
+            active_ind: 1
         });
         res.status(200).json(newBrand);
     } catch (err) {
