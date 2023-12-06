@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Brand } = require('../../models');
 const checkBrandId = require('../../utils/checkBrandId');
-const withAuth = require('../../utils/auth'); // Corrected path to withAuth
+const withAuth = require('../../utils/auth');
 
 // Root: http://localhost:3001/api/brand/
 
@@ -13,7 +13,7 @@ const withAuth = require('../../utils/auth'); // Corrected path to withAuth
 // Example : http://localhost:3001/api/wine/
 // No JSON Body required
 
-router.get('/', withAuth, async (req, res) => { // Added withAuth middleware
+router.get('/', withAuth, async (req, res) => {
     try {
         const getActiveBrand = await Brand.findAll({
             attributes: ['brand_name'],
@@ -61,7 +61,7 @@ router.post('/update/:brand_id', withAuth, async (req, res) => {
             }
         );
 
-        if(updatedBrand[0] > 0) {
+        if (updatedBrand[0] > 0) {
             res.status(200).json({ message: `Brand ID ${req.params.brand_id} updated successfully` });
         } else {
             res.status(404).json({ message: 'No brand found with this ID' });

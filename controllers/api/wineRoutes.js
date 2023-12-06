@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Vintage, Wine } = require('../../models'); 
+const { Vintage, Wine } = require('../../models');
 const checkBrandId = require('../../utils/checkBrandId');
 const checkWineId = require('../../utils/checkWineId');
 const withAuth = require('../../utils/auth'); // Import the withAuth middleware
@@ -45,7 +45,7 @@ router.post('/:brand_id', withAuth, checkBrandId, async (req, res) => {
             {
                 wine_name: req.body.wine_name,
                 active_ind: req.body.active_ind,
-                brand_id: req.params.brand_id      
+                brand_id: req.params.brand_id
             });
         res.status(200).json(postNewWine);
         // TODO: Refresh page to show changes 
@@ -70,23 +70,23 @@ router.post('/:brand_id', withAuth, checkBrandId, async (req, res) => {
 router.put('/:wine_id', withAuth, checkWineId, async (req, res) => {
     try {
         // PUT - Update Wine by Wine ID
-        const putWine = await Wine.update( 
+        const putWine = await Wine.update(
             {
                 wine_name: req.body.wine_name,
                 active_ind: req.body.active_ind,
-                brand_id: req.body.brand_id,        
+                brand_id: req.body.brand_id,
             },
             {
-                where: {  
-                    wine_id: req.params.wine_id,                    
+                where: {
+                    wine_id: req.params.wine_id,
                 },
-            }        
+            }
         )
         res.status(200).json(`Wine ID ${req.params.wine_id} updated`);
         // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(500).json(err); // Status 400 - Bad Request
-    }        
+    }
 });
 
 //-------------------------------------//
@@ -100,21 +100,21 @@ router.put('/:wine_id', withAuth, checkWineId, async (req, res) => {
 router.put('/inactivate/:wine_id', withAuth, checkWineId, async (req, res) => {
     try {
         // PUT - Soft Delete Wine by Wine ID
-        const inactivateWine = await Wine.update( 
-            {                
-                active_ind: 0,      
+        const inactivateWine = await Wine.update(
+            {
+                active_ind: 0,
             },
             {
-                where: {  
-                    wine_id: req.params.wine_id,                    
+                where: {
+                    wine_id: req.params.wine_id,
                 },
-            }        
+            }
         )
         res.status(200).json(`Wine ID ${req.params.wine_id} inactivated`);
         // TODO: Refresh page to show changes 
     } catch (err) {
-        res.status(500).json(err); 
-    }        
+        res.status(500).json(err);
+    }
 });
 
 module.exports = router;
