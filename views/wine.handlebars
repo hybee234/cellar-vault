@@ -30,8 +30,7 @@
                             <th><u>Drink By</u></th>
                             <th><u>Stock</u></th>
                             <th><u>Update</u></th>
-                            {{!-- <th><u>Delete</u></th> --}}
-                            <th><u>Vintage ID</u></th>
+                            {{!-- <th><u>Vintage ID</u></th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -44,10 +43,7 @@
                             <th>
                                 <button data-index = "{{vintage_id}}" class="update-vintage-button transition-transform duration-200 ease-in-out  fa-regular fa-pen-to-square hover:scale-110"></a>  
                             </th>
-                            {{!-- <th>
-                                <button data-index = "{{vintage_id}}" class="text-red-600 inactivate fa-regular fa-circle-xmark"></a>  
-                            </th> --}}
-                            <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th>
+                            {{!-- <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs">{{vintage_id}}</th> --}}
                         </tr>
                         {{/each}} 
                         <th class="p-2 text-xs xl:text-base md:text-sm sm:text-xs"> <button class="inline-flex px-6 py-2 my-1 font-bold text-white duration-200 ease-in-out bg-blue-500 add-vintage-button rounded-xl hover:bg-blue-700" data-index="{{wine_id}}" >Add Vintage</button> </th>                      </tbody>        
@@ -108,9 +104,9 @@
                     <input type="hidden" name="wine_id" id="update-wine-wine-id" value="" "readonly"/>  
                 </div> 
             </div>            
-            <button id="update-wine-submit-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
+            <button id="update-wine-submit-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Save Changes </button>
             <button id="update-wine-cancel-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
-            <button id="update-wine-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="button" value="button"> Delete </button>
+            <button id="update-wine-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="button" value="button"> Delete Wine </button>
         </form>
     </div> 
 
@@ -121,9 +117,9 @@
     <div id="inactivate-wine-modal" class="modal">
         <div class="modal-content">
             <span id="inactivate-wine-close-button" class="close">&times;</span>
-            <h1 class = "text-2xl"> You are about to delete (wine): </h1>
-            <h2 id="inactivate-wine-heading" class = "m-2 text-2xl"> </h2>        
-            <p class="flex items-center justify-center m-2 text-center">This will also delete vintages and transactions</p>
+            <h1 class = "text-2xl"> ⚠️🚨 Are you sure?🚨⚠️ </h1>
+            <h2 id="inactivate-wine-heading" class = "m-2 text-2xl">Dyanmically Updated</h2>        
+            <p class="flex items-center justify-center m-2 text-center">Deleting a Wine will also delete its Vintages and Transactions</p>
             <p class="flex items-center justify-center m-2 text-center">This cannot be undone</p>
             <div class="mt-4 space-y-4">        
                 <button id="inactivate-wine-confirm-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-danger rounded-xl">Confirm Delete</button>
@@ -219,9 +215,9 @@
                     <input type="hidden" name="wine_id" id="update-vintage-vintage-id" value="" "readonly"/>                    
                 </div> 
             </div>
-            <button id="update-vintage-submit-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Submit </button>
+            <button id="update-vintage-submit-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="submit" value="submit"> Save Changes </button>
             <button id="update-vintage-cancel-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700" type="button" value="cancel"> Cancel </button>
-            <button id="update-vintage-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="button" value="button"> Delete </button>
+            <button id="update-vintage-delete-button" class="px-4 py-2 my-3 font-bold duration-200 ease-in-out bg-red-500 text-zinc-100 rounded-xl hover:bg-red-700" type="button" value="button"> Delete Vintage </button>
         </form>
     </div> 
 
@@ -232,11 +228,12 @@
     <div id="inactivate-vintage-modal" class="modal">
         <div class="modal-content">
             <span id="inactivate-vintage-close-button" class="close">&times;</span>
-            <h1 class = "text-2xl"> You are about to delete(vintage): </h1>
-            <h2 id="inactivate-vintage-heading-one" class = "m-2 text-2xl">Test1</h2>        
-            <h3 id="inactivate-vintage-heading-two" class = "m-2 text-2xl">Test2</h3>        
-            <p class="flex items-center justify-center m-2 text-center">This will also delete transactions</p>
+            <h1 class = "text-2xl"> ⚠️🚨 Are you sure?🚨⚠️ </h1>
+            <h2 id="inactivate-vintage-heading-one" class = "m-2 text-2xl">Dynamically updated</h2>        
+            <h3 id="inactivate-vintage-heading-two" class = "m-2 text-2xl">Dynamically updated</h3>        
+            <p class="flex items-center justify-center m-2 text-center">Deleting a Vintage will also delete Transactions</p>
             <p class="flex items-center justify-center m-2 text-center">This cannot be undone</p>
+
             <div class="mt-4 space-y-4">        
                 <button id="inactivate-vintage-confirm-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-danger rounded-xl">Confirm Delete</button>
                 <button id="inactivate-vintage-cancel-button" class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-secondary rounded-xl">Cancel</button>
