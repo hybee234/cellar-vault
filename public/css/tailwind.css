@@ -563,6 +563,11 @@ video {
   margin: auto;
 }
 
+=======
+.m-2{
+  margin: 0.5rem;
+}
+
 .mx-1{
   margin-left: 0.25rem;
   margin-right: 0.25rem;
@@ -1443,6 +1448,7 @@ li {
   .md\:top-\[65px\]{
     top: 65px;
   }
+
 
   .md\:mt-8{
     margin-top: 2rem;

@@ -102,8 +102,13 @@
             </div>
             {{!-- Hidden IDs to support PUT and POST --}}        
             <div class="flex flex-wrap mx-1">
+            
                 <div class="w-full px-1 md:w-full">
                     <input type="hidden" name="brand_id" id="update-wine-brand-id" value="" "readonly"/>                    
+
+                <div class="w-full md:w-full px-1">
+                    <input type="hidden" name="wine_id" id="update-wine-wine-id" value="" "readonly"/>                    
+
                 </div> 
             </div>
             
@@ -116,6 +121,29 @@
         </form>
     </div> 
 
+{{!---------------------------}}
+{{!-- Inactivate Wine Modal --}}
+{{!---------------------------}}
+
+<div id="inactivate-wine-modal" class="modal">
+    <div class="modal-content">
+        <span id="inactivate-wine-close-button" class="close">&times;</span>
+        <h1 class = "text-2xl"> You are about to delete: </h1>
+        <h2 id="inactivate-wine-heading" class = "text-2xl m-2"> </h2>        
+        <p class="flex items-center justify-center text-center m-2">This will also delete vintages and transactions</p>
+        <p class="flex items-center justify-center text-center m-2">This cannot be undone</p>
+        <div class="mt-4 space-y-4">        
+        <button
+            id="inactivate-wine-confirm-button"
+            class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-danger"
+        >Confirm Delete</button>
+        <button
+            id="inactivate-wine-cancel-button"
+            class="flex items-center justify-center mx-auto duration-200 ease-in-out btn-secondary"
+        >Cancel</button>
+        </div>
+    </div>
+</div>
 
 
 {{!--------------------}}
