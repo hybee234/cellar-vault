@@ -1409,6 +1409,11 @@ li {
   color: rgb(244 244 245 / var(--tw-text-opacity));
 }
 
+.hover\:text-zinc-400:hover{
+  --tw-text-opacity: 1;
+  color: rgb(161 161 170 / var(--tw-text-opacity));
+}
+
 .focus\:border-zinc-500:focus{
   --tw-border-opacity: 1;
   border-color: rgb(113 113 122 / var(--tw-border-opacity));

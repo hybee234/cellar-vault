@@ -6,6 +6,7 @@ const checkWineId = require('./../utils/checkWineId');
 const checkVintageId = require('./../utils/checkVintageId');
 const checkTransactionId = require('./../utils/checkTransactionId');
 const withAuth = require('./../utils/auth');
+const sequelize = require('./../config/connection');
 
 //--------------------------------------//
 //- Welcome page - Login/Sign Up route -//
@@ -111,20 +112,27 @@ router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // w
 router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
     try {
         // GET all active Transactions under target Vintage_ID
+        console.log (`\x1b[32m getVintageTransactions: \x1b[0m`)
+
+
+//ORIGINAL START
         const getVintageTransactions = await Vintage.findAll({
             where: {
                 active_ind: 1, // Only include active rows on all tables
-                vintage_id: req.params.vintage_id
+                vintage_id: req.params.vintage_id,             
             },
-            include: [{model: Transaction, 
+            include: [{model: Transaction,
                 where: {active_ind: 1},
-                include: [{model: User}]            // nested include
+                required:false    
             }]
         });
+//ORIGINAL END
+
         //Serialize the data
         const vintageTransactions = getVintageTransactions.map(transaction => transaction.get({ plain: true }));
 
         // GET Wine details
+        console.log (`\x1b[32m getWine: \x1b[0m`)
         const getWine = await Vintage.findOne({
             include: [{ model: Wine }],
             where: {
@@ -140,7 +148,8 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         // console.log (wineArray.Wine.wine_name)
         // console.log (wineArray.Wine.wine_id)
 
-        // GET Wine
+        // GET brand
+        console.log (`\x1b[32m getBrand: \x1b[0m`)
         const getBrand = await Wine.findOne({
             include: [{ model: Brand }],
             where: {
@@ -167,7 +176,7 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         });
 
         // console.log(brand)
-        // res.status(200).json(transactions);
+        // res.status(200).json(vintageTransactions);
 
     } catch (err) {
         console.error(err);

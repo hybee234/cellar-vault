@@ -49,7 +49,7 @@ router.get('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // wi
 
 router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAuth middleware added
     try {
-        // POST new Vintage under Wine ID
+        // POST new Vintage under Wine ID        
         const postNewVintage = await Vintage.create(
             {
                 vintage: req.body.vintage,
@@ -58,8 +58,7 @@ router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAut
                 active_ind: req.body.active_ind,
                 wine_id: req.params.wine_id
             });
-        res.status(200).json(postNewVintage);
-        // TODO: Refresh page to show changes 
+        res.status(200).json(postNewVintage);        
     } catch (err) {
         res.status(400).json(err); // Status 400 - Bad Request
     }

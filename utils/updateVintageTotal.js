@@ -16,7 +16,7 @@ const updateVintageTotal = async (vintage_id) => {
 
     // Determine difference for total buttles for vintage
     const vintageTotal = totalQtyIn - totalQtyOut
-    console.log (`\x1b[32m Vintage ID: \x1b[0m${vintage_id}`)
+        console.log (`\x1b[32m Vintage ID: \x1b[0m${vintage_id}`)
         console.log (`\x1b[32m Total Qty In: \x1b[0m${totalQtyIn}`)
         console.log (`\x1b[32m Total Qty OUt: \x1b[0m${totalQtyOut}`)
         console.log (`\x1b[32m Updated Vintage Total: \x1b[0m${vintageTotal}`)
