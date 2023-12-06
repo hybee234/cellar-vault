@@ -111,17 +111,19 @@ router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // w
 router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
     try {
         // GET all active Transactions under target Vintage_ID
-        const getActiveTransactions = await Transaction.findAll({
+        const getVintageTransactions = await Vintage.findAll({
             where: {
                 active_ind: 1, // Only include active rows on all tables
                 vintage_id: req.params.vintage_id
             },
-            include: [{ model: Vintage }, { model: User }]
+            include: [{model: Transaction,
+                include: [{model: User}]            // nested include
+            }]
         });
         //Serialize the data
-        const transactions = getActiveTransactions.map(transaction => transaction.get({ plain: true }));
+        const vintageTransactions = getVintageTransactions.map(transaction => transaction.get({ plain: true }));
 
-        // GET Wine
+        // GET Wine details
         const getWine = await Vintage.findOne({
             include: [{ model: Wine }],
             where: {
@@ -132,8 +134,7 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         })
         // const wines = getWine.map(wine => wine.get({ plain: true }));
         const wineArray = getWine.get({ plain: true });
-        const wineName = wineArray.Wine.wine_name
-
+        
         // console.log (wineArray)
         // console.log (wineArray.Wine.wine_name)
         // console.log (wineArray.Wine.wine_id)
@@ -158,11 +159,13 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
 
         // Response - render the page
         res.status(200).render('transaction', {
-            transactions, wineArray, brandName,
+            vintageTransactions,
+            wineArray,
+            brandName,
             logged_in: req.session.logged_in
         });
 
-        // // console.log(brand)
+        // console.log(brand)
         // res.status(200).json(transactions);
 
     } catch (err) {
