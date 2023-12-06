@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const { Transaction } = require('../../models'); 
+const { Transaction } = require('../../models');
 const checkTransactionId = require('../../utils/checkTransactionId');
 const checkVintageId = require('../../utils/checkVintageId');
 const updateVintageTotal = require('../../utils/updateVintageTotal');
-const withAuth = require('../../utils/auth'); // Import the withAuth middleware
+const withAuth = require('../../utils/auth');
 
 // Root: http://localhost:3001/api/transaction/
 
@@ -11,16 +11,17 @@ const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 //- GET - One transaction by Tranasction ID -//
 //-------------------------------------------//
 
-router.get('/:transaction_id', withAuth, checkTransactionId, async (req,res) => {    
+router.get('/:transaction_id', withAuth, checkTransactionId, async (req, res) => {
     try {
         // GET one transaction under Vintage ID
         const getOneTransaction = await Transaction.findOne({
-            where: { 
-                transaction_id: req.params.transaction_id,                    
-            }});
+            where: {
+                transaction_id: req.params.transaction_id,
+            }
+        });
 
-        const transaction = getOneTransaction.get({ plain:true})      // Serialize the data 
-        console.log (transaction)
+        const transaction = getOneTransaction.get({ plain: true })      // Serialize the data 
+        console.log(transaction)
         res.status(200).json(transaction);
     } catch (err) {
         res.status(400).json(err); // Status 400 - Bad Request
@@ -54,14 +55,14 @@ router.post('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // w
                 transaction_date: req.body.transaction_date,
                 qty_in: req.body.qty_in,
                 qty_out: req.body.qty_out,
-                notes: req.body.notes,           
+                notes: req.body.notes,
                 active_ind: req.body.active_ind,
                 user_id: req.body.user_id,
-                vintage_id: req.params.vintage_id      
+                vintage_id: req.params.vintage_id
             });
-        
+
         // Recalculate Vintage Total
-        updateVintageTotal (req.params.vintage_id) 
+        updateVintageTotal(req.params.vintage_id)
 
         res.status(200).json(postNewTransaction);
 
@@ -90,41 +91,41 @@ router.post('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // w
 router.put('/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Update Tranasction by Transaction ID
-        const putTransaction = await Transaction.update( 
+        const putTransaction = await Transaction.update(
             {
                 cost: req.body.cost,
                 transaction_date: req.body.transaction_date,
                 qty_in: req.body.qty_in,
                 qty_out: req.body.qty_out,
-                notes: req.body.notes,           
+                notes: req.body.notes,
                 active_ind: req.body.active_ind,
                 user_id: req.body.user_id,
                 vintage_id: req.params.vintage_id
             },
             {
-                where: {  
-                    transaction_id: req.params.transaction_id,                    
+                where: {
+                    transaction_id: req.params.transaction_id,
                 },
-            }        
+            }
         )
 
         // Recalculate Vintage Total
-        
+
         // Find the Vintage_ID to pass through to be recalculated
-        const transactionData = await Transaction.findOne ({        // Pull the transaction 
+        const transactionData = await Transaction.findOne({        // Pull the transaction 
             attributes: ['vintage_id'],
             where: { transaction_id: req.params.transaction_id }
-        });            
-        const transaction = transactionData.get({ plain:true})      // Serialize the data            
+        });
+        const transaction = transactionData.get({ plain: true })      // Serialize the data            
         const vintage_id = transaction.vintage_id                   // Grab the Vintage_ID
-        
-        // Call updateVintage Total - passing through Vintage_ID
-        updateVintageTotal (vintage_id)   
 
-        res.status(200).json(`Transaction ID ${req.params.transaction_id} updated`); 
+        // Call updateVintage Total - passing through Vintage_ID
+        updateVintageTotal(vintage_id)
+
+        res.status(200).json(`Transaction ID ${req.params.transaction_id} updated`);
     } catch (err) {
         res.status(500).json(err); // Status 400 - Bad Request
-    }        
+    }
 });
 
 //---------------------------------------------------//
@@ -138,35 +139,35 @@ router.put('/:transaction_id', withAuth, checkTransactionId, async (req, res) =>
 router.put('/inactivate/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         //PUT - Soft Delete Transaction by Transaction ID
-        const inactivateTransaction = await Transaction.update( 
-            {                
-                active_ind: 0,      
+        const inactivateTransaction = await Transaction.update(
+            {
+                active_ind: 0,
             },
             {
-                where: {  
-                    transaction_id: req.params.transaction_id,                    
+                where: {
+                    transaction_id: req.params.transaction_id,
                 },
-            }        
+            }
         )
 
         // Recalculate Vintage Total
-        
+
         // Find the Vintage_ID to pass through to be recalculated
-        const transactionData = await Transaction.findOne ({        // Pull the transaction 
+        const transactionData = await Transaction.findOne({        // Pull the transaction 
             attributes: ['vintage_id'],
             where: { transaction_id: req.params.transaction_id }
-        });            
-        const transaction = transactionData.get({ plain:true})      // Serialize the data            
+        });
+        const transaction = transactionData.get({ plain: true })      // Serialize the data            
         const vintage_id = transaction.vintage_id                   // Grab the Vintage_ID
-        
+
         // Call updateVintage Total - passing through Vintage_ID
-        updateVintageTotal (vintage_id)  
+        updateVintageTotal(vintage_id)
 
         res.status(200).json(`Transaction ID ${req.params.transaction_id} inactivated`);
 
     } catch (err) {
-        res.status(500).json(err); 
-    }        
+        res.status(500).json(err);
+    }
 });
 
 module.exports = router;

@@ -158,8 +158,7 @@ router.put('/:user_id', async (req, res) => {
       return res.status(401).json({ message: 'Incorrect current password' });
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await userData.update({ password: hashedPassword });
+    await userData.update({ password: newPassword });
 
     res.json({ message: 'Password updated successfully' });
   } catch (err) {

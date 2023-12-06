@@ -24,11 +24,15 @@ document.getElementById('updatePasswordForm').addEventListener('submit', functio
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ currentPassword, newPassword })
   })
-    .then(response => {
-      if (response.ok) {
+    .then(response => response.json()) // Parse the JSON response
+    .then(data => {
+      if (data.message === 'Password updated successfully') {
         showToast('Password changed successfully', 'green');
+        setTimeout(() => {
+          window.location.href = '/auth'; // Redirect to the authentication page
+        }, 3000); // Redirect after showing the toast
       } else {
-        showToast('Error changing password', 'red');
+        showToast(data.message, 'red'); // Show error message from server
       }
     })
     .catch(error => {

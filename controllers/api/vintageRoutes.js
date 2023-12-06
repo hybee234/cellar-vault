@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { Vintage } = require('../../models'); 
+const { Vintage } = require('../../models');
 const checkVintageId = require('../../utils/checkVintageId');
 const checkWineId = require('../../utils/checkWineId');
-const withAuth = require('../../utils/auth'); // Import the withAuth middleware
+const withAuth = require('../../utils/auth');
 
 // Root: http://localhost:3001/api/vintage/
 
@@ -54,9 +54,9 @@ router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAut
             {
                 vintage: req.body.vintage,
                 format: req.body.format,
-                drink_by: req.body.drink_by,                
+                drink_by: req.body.drink_by,
                 active_ind: req.body.active_ind,
-                wine_id: req.params.wine_id      
+                wine_id: req.params.wine_id
             });
         res.status(200).json(postNewVintage);
         // TODO: Refresh page to show changes 
@@ -82,25 +82,25 @@ router.post('/:wine_id', withAuth, checkWineId, async (req, res) => { // withAut
 router.put('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Update Vintage by Vintage ID
-        const putVintage = await Vintage.update( 
+        const putVintage = await Vintage.update(
             {
                 vintage: req.body.vintage,
                 format: req.body.format,
-                drink_by: req.body.drink_by,                
+                drink_by: req.body.drink_by,
                 active_ind: req.body.active_ind,
-                wine_id: req.params.wine_id      
+                wine_id: req.params.wine_id
             },
             {
-                where: {  
-                    vintage_id: req.params.vintage_id,                    
+                where: {
+                    vintage_id: req.params.vintage_id,
                 },
-            }        
+            }
         )
         res.status(200).json(`Vintage ID ${req.params.vintage} updated`);
         // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(500).json(err); // Status 400 - Bad Request
-    }        
+    }
 });
 
 //-------------------------------------------//
@@ -114,21 +114,21 @@ router.put('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // wi
 router.put('/inactivate/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Soft Delete Vintage by Vintage ID
-        const inactivateVintage = await Vintage.update( 
-            {                
-                active_ind: 0,      
+        const inactivateVintage = await Vintage.update(
+            {
+                active_ind: 0,
             },
             {
-                where: {  
-                    vintage_id: req.params.vintage_id,                    
+                where: {
+                    vintage_id: req.params.vintage_id,
                 },
-            }        
+            }
         )
         res.status(200).json(`Vintage ID ${req.params.vintage_id} inactivated`);
         // TODO: Refresh page to show changes 
     } catch (err) {
-        res.status(500).json(err); 
-    }        
+        res.status(500).json(err);
+    }
 });
 
 module.exports = router;
