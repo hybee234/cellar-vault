@@ -2,8 +2,29 @@ const router = require('express').Router();
 const { Vintage, Wine } = require('../../models'); 
 const checkBrandId = require('../../utils/checkBrandId');
 const checkWineId = require('../../utils/checkWineId');
+const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 
 // Root: http://localhost:3001/api/wine/
+
+//-----------------------------//
+//- GET - One Wine by Wine_ID -//
+//-----------------------------//
+
+router.get('/:wine_id', withAuth, checkWineId, async (req,res) => {    
+    try {
+        // POST new transaction under Vintage ID
+        const getOneWine = await Wine.findOne({
+            where: { 
+                wine_id: req.params.wine_id,                    
+            }});
+
+        const wine = getOneWine.get({ plain:true})      // Serialize the data 
+        console.log (wine)
+        res.status(200).json(wine);
+    } catch (err) {
+        res.status(400).json(err); // Status 400 - Bad Request
+    }
+});
 
 //---------------------------------//
 //- POST - Add a Wine to Brand ID -//
