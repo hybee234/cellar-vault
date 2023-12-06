@@ -11,7 +11,7 @@ const withAuth = require('../../utils/auth');
 //- GET - One transaction by Tranasction ID -//
 //-------------------------------------------//
 
-router.get('/:transaction_id', withAuth, checkTransactionId, async (req, res) => {
+router.get('/:transaction_id', checkTransactionId, async (req, res) => {
     try {
         // GET one transaction under Vintage ID
         const getOneTransaction = await Transaction.findOne({
@@ -19,7 +19,6 @@ router.get('/:transaction_id', withAuth, checkTransactionId, async (req, res) =>
                 transaction_id: req.params.transaction_id,
             }
         });
-
         const transaction = getOneTransaction.get({ plain: true })      // Serialize the data 
         console.log(transaction)
         res.status(200).json(transaction);

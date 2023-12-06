@@ -47,7 +47,7 @@ router.get('/', withAuth, async (req, res) => {
 //      "brand_name": "New Brand Name"
 //  }
 
-router.post('/update/:brand_id', withAuth, async (req, res) => {
+router.post('/update/:brand_id', withAuth, checkBrandId, async (req, res) => {
     try {
         const updatedBrand = await Brand.update(
             {

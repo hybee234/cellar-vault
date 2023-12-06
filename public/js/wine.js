@@ -20,10 +20,14 @@ const inactivateWineCancelButtonEl = document.getElementById('inactivate-wine-ca
 const inactivateWineCloseButtonEl = document.getElementById('inactivate-wine-close-button')         // Inacitvate Wine Cancel Button
 
 
-const addVintageCancelBttnEl = document.getElementById("add-vintage-cancel-button")                 // Add Wine Cancel Button
-const addVintageModalEl = document.getElementById("add-vintage-modal")                              // Add Wine Modal Window
-const addVintageFormEl = document.getElementById("add-vintage-form")                                // Add Wine Form
+const addVintageCancelBttnEl = document.getElementById("add-vintage-cancel-button")                 // Add Vintage Cancel Button
+const addVintageModalEl = document.getElementById("add-vintage-modal")                              // Add Vintage Modal Window
+const addVintageFormEl = document.getElementById("add-vintage-form")                                // Add Vintage Form
 
+const updateVintageModalEl = document.getElementById("update-vintage-modal")                        // Update Vintage Modal Window
+const updateVintageFormEl = document.getElementById("update-vintage-form")                          // Update Vintage Form
+const updateVintageCancelBttnEl = document.getElementById("update-vintage-cancel-button")           // Update Vintage Cancel Button
+const updateVintageDeleteBttnEl = document.getElementById("update-vintage-delete-button")           // Update Vintage Delete Button
 
 
         //------------------//
@@ -166,6 +170,49 @@ const postVintageHandler = async (event) => {
 }
 
 
+//----------------------------//
+//- PUT (update) Vintage Record -//
+//----------------------------//
+
+const putVintageHandler = async (event) => {
+    event.preventDefault();
+    // Build JSON body
+    // {
+    //     "vintage_id": 2,
+    //     "vintage": 2010,
+    //     "format": "750mL",
+    //     "drink_by": 2040,
+    //     "vintage_total": 10,
+    //     "active_ind": 1,
+    //     "wine_id": 1
+    // }
+
+    let JSONBody = {}
+    JSONBody.vintage = document.querySelector('#update-vintage-vintage').value
+    JSONBody.format = document.querySelector('#update-vintage-format').value
+    JSONBody.drink_by = document.querySelector('#update-vintage-drink-by').value
+    
+    //Stringify the Array to prepare for FETCH
+    const bodyStringified = JSON.stringify(JSONBody)
+
+    // FETCH Request (POST Method)
+    const response = await fetch(`/api/vintage/${document.querySelector('#update-vintage-vintage-id').value}`, {
+    method: 'PUT',
+    body: bodyStringified,        
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (response.ok) {
+        window.location.reload() // Reload screen
+    } else {
+        alert('Failed to Update Wine Record');
+    }
+};
+
+
+
 
 
         //------------------//
@@ -199,16 +246,16 @@ addWineFormEl.addEventListener('submit', (event) => {
     postWineHandler(event)
 })
 
-//---------------------------------------------------------------------------------------------//
-//- Event listener - Table Area - Update Wine/ Add Vintage / Update Vintage Modal - Show/Hide -// 
-//---------------------------------------------------------------------------------------------//
+//----------------------------------------------------------------------------------------//
+//- Event listener - Table Area - Update Wine/ Add Vintage / Update Vintage Modal - Show -// 
+//----------------------------------------------------------------------------------------//
 
 //Listen for a click within the Table area - the body of the page ...
 tableContinerEl.addEventListener('click', async (event) => {
     console.log ("Table area click registered")
     const element = event.target;    
    // If the UPDATE WINE button is clicked - pull wine details, pre-render Update Wine Modal and show.
-    if (element.matches("button") === true && element.classList.contains("update-wine")) { 
+    if (element.matches("button") === true && element.classList.contains("update-wine-button")) { 
         let update_wine_wine_id = element.getAttribute("data-index");
         event.preventDefault();
         console.log("  > Update wine button clicked")
@@ -236,7 +283,7 @@ tableContinerEl.addEventListener('click', async (event) => {
     }
 
     // If the ADD VINTAGE button is clicked (VINTAGE) - show modal 
-    if (element.matches("button") === true && element.classList.contains("add-vintage")) { 
+    if (element.matches("button") === true && element.classList.contains("add-vintage-button")) { 
         let add_vintage_wine_id = element.getAttribute("data-index");
         event.preventDefault();
         console.log("  > ADD Vintage button clicked")
@@ -250,32 +297,46 @@ tableContinerEl.addEventListener('click', async (event) => {
     }
     
     // If the Update Vintage button is clicked - pull vintage details, pre-render Update Vintage Modal and show.
-    // if (element.matches("button") === true && element.classList.contains("update-wine")) { 
-    //     let wine_id = element.getAttribute("data-index");
-    //     event.preventDefault();
-    //     console.log("  > Update wine button clicked")
-    //     try{                
-    //         // GET details of transaction
-    //         let getOneWineURL = `./../api/wine/${wine_id}`
-    //         let options = {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Accept': 'application/json'
-    //             },            
-    //         }
-    //         const response = await fetch(getOneWineURL, options )
-    //         const wineArray = await response.json()             
-    //         // Pre-populate fiends in Update Modal Window with Transaction Values
-    //         document.getElementById('update-wine-name').value = wineArray.wine_name
-    //         document.getElementById('update-wine-wine-id').value = wineArray.wine_id
-    //         document.getElementById('update-wine-delete-button').value = wineArray.wine_id  //set value of delete button so that it can be passsed through
+    if (element.matches("button") === true && element.classList.contains("update-vintage-button")) { 
+        let update_vintage_wine_id = element.getAttribute("data-index");
+        event.preventDefault();
+        console.log("  > Update Vintage button clicked")
+        try{        
+            // console.log(update_vintage_wine_id)        
+            // GET details of vintage
+            let getOneVintageURL = `./../api/vintage/${update_vintage_wine_id}`
+            let options = {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                },            
+            }
+            const response = await fetch(getOneVintageURL, options )
+            const vintageArray = await response.json()      
+            // console.log(vintageArray)
 
-    //         // Show the Update modal window 
-    //         updateWineModalEl.style.display = 'block';
-    //     } catch (err) {
-    //         console.error(err);        
-    //     }
-    //}
+            // {
+            //     "vintage_id": 2,
+            //     "vintage": 2010,
+            //     "format": "750mL",
+            //     "drink_by": 2040,
+            //     "vintage_total": 10,
+            //     "active_ind": 1,
+            //     "wine_id": 1
+            // }
+
+            // Pre-populate fiends in Update Modal Window with Transaction Values
+            document.getElementById('update-vintage-vintage').value = vintageArray.vintage
+            document.getElementById('update-vintage-format').value = vintageArray.format
+            document.getElementById('update-vintage-drink-by').value = vintageArray.drink_by  //set value of delete button so that it can be passsed through
+            document.getElementById('update-vintage-vintage-id').value = vintageArray.vintage_id
+
+            // Show the Update modal window 
+            updateVintageModalEl.style.display = 'block';
+        } catch (err) {
+            console.error(err);        
+        }
+    }
     
 });
 
@@ -368,7 +429,7 @@ inactivateWineConfirmButtonEl.addEventListener('click', function (event) {
 
 
 //-----------------------------------------------//
-//- Modal - Add Vintage Record - Hide (Ccancel) -//
+//- Modal - Add Vintage Record - Hide (Cancel) -//
 //-----------------------------------------------//
 
 addVintageCancelBttnEl.addEventListener('click', function () {
@@ -385,9 +446,21 @@ addVintageFormEl.addEventListener('submit', (event) => {
     postVintageHandler(event)
 })
 
+//------------------------------------------//
+//- Modal - Update Vintage - Hide (cancel) -// 
+//------------------------------------------//
 
+updateVintageCancelBttnEl.addEventListener('click', function () {
+    updateVintageModalEl.style.display = 'none';
+});
 
-//--------------------------------------------------//
-//- Event listener - Add Vintage Modal - Show/Hide -// 
-//--------------------------------------------------//
+//------------------------------------------//
+//- Modal - Update Vintage Record - Submit -//
+//------------------------------------------//
 
+updateVintageFormEl.addEventListener('submit', (event) => {
+    event.preventDefault();
+    // console.log ("Update Wine Submit button clicked")
+    console.log ("Submit Update")    
+    putVintageHandler(event)
+})
