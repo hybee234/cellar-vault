@@ -12,16 +12,16 @@
     </h3>
 
 {{!-- Transaction History Table --}}
-    <table id="trans-table" class="justify-center w-4/5 p-1 m-auto text-center border-2 table-auto rounded-3xl" >
+    <table id="trans-table" class="w-full table-auto">
         <thead>
             <tr>
-                <th><u>Date</u></th>
-                <th><u>Unit Cost</u></th>
-                <th><u>Qty In</u></th>
-                <th><u>Qty Out</u></th>
-                <th><u>Notes</u></th>
-                <th><u>Update</u></th>
-                <th><u>Delete</u></th>
+                <th class="px-4 py-2 text-xs font-medium "><u>Date</u></th>
+                <th class="px-4 py-2 text-xs font-medium "><u>Unit Cost</u></th>
+                <th class="px-4 py-2 text-xs font-medium "><u>Qty In</u></th>
+                <th class="px-4 py-2 text-xs font-medium "><u>Qty Out</u></th>
+                <th class="px-4 py-2 text-xs font-medium "><u>Notes</u></th>
+                <th class="px-4 py-2 text-xs font-medium "><u>Update</u></th>
+                <th class="px-4 py-2 text-xs font-medium "><u>Delete</u></th>
                 {{!-- <th><u>Active Ind</u></th> --}}
                 {{!-- <th><u>Trans ID</u></th> --}}
             </tr>
@@ -30,7 +30,7 @@
             {{#each vintageTransactions as |vintage|}}
                 {{#each transactions}}
                 <tr>                
-                    <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{format_date transaction_date}}</th>
+                    <th class="text-xs md:text-sm xl:text-base">{{format_date transaction_date}}</th>
                     
                     {{#if cost}} 
                         <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{format_currency cost}}</th>
@@ -42,10 +42,10 @@
                     <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{qty_out}}</th>
                     <th class="text-xs font-normal xl:text-base md:text-sm sm:text-xs">{{notes}}</th>                
                     <th>
-                        <button data-index = "{{transaction_id}}" class="update-transaction transition-transform duration-200 ease-in-out edit fa-regular fa-pen-to-square hover:scale-110 "></a>  
+                        <button data-index = "{{transaction_id}}" class="transition-transform duration-200 ease-in-out update-transaction edit fa-regular fa-pen-to-square hover:scale-110 "></a>  
                     </th>
                     <th>
-                        <button data-index = "{{transaction_id}}" class="inactivate-transaction text-red-600 transition-transform duration-200 ease-in-out fa-regular fa-circle-xmark hover:scale-110 "></a>  
+                        <button data-index = "{{transaction_id}}" class="text-red-600 transition-transform duration-200 ease-in-out inactivate-transaction fa-regular fa-circle-xmark hover:scale-110 "></a>  
                     </th>
                     {{!-- <th class="font-normal">{{active_ind}}</th>  --}}
                     {{!-- <th class="font-normal">{{transaction_id}}</th>  --}}
@@ -53,10 +53,10 @@
                 {{/each}}
             {{/each}}
         </tbody>        
-    </table>    
+    </table>   
 
 {{!-- Add Tranasction Button --}}
-<button id="add-Transaction-button" class= "px-4 py-2 my-5 font-bold text-white duration-200 ease-in-out bg-blue-500 border rounded-xl hover:bg-blue-700" type="submit" value="Add"> Add Transaction </button>
+<button id="add-Transaction-button" class= "w-full px-4 py-2 my-5 font-bold duration-200 ease-in-out bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700 md:w-auto" type="submit" value="Add"> Add Transaction </button>
 
 {{!-- Add Transaction Modal Form --}}
     <div id="add-transaction-modal" class="modal">
