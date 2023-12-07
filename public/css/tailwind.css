@@ -577,11 +577,6 @@ video {
   margin-right: auto;
 }
 
-.my-0{
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
 .my-1{
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
@@ -1597,6 +1592,11 @@ li {
   color: rgb(244 244 245 / var(--tw-text-opacity));
 }
 
+.hover\:text-zinc-400:hover{
+  --tw-text-opacity: 1;
+  color: rgb(161 161 170 / var(--tw-text-opacity));
+}
+
 .focus\:border-zinc-500:focus{
   --tw-border-opacity: 1;
   border-color: rgb(113 113 122 / var(--tw-border-opacity));
@@ -1619,29 +1619,12 @@ li {
     top: 65px;
   }
 
-  .md\:mx-2{
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-  }
-
   .md\:mt-8{
     margin-top: 2rem;
   }
 
-  .md\:ml-4{
-    margin-left: 1rem;
-  }
-
-  .md\:ml-2{
-    margin-left: 0.5rem;
-  }
-
   .md\:block{
     display: block;
-  }
-
-  .md\:flex{
-    display: flex;
   }
 
   .md\:hidden{
@@ -1684,14 +1667,6 @@ li {
     flex-direction: row;
   }
 
-  .md\:justify-between{
-    justify-content: space-between;
-  }
-
-  .md\:justify-around{
-    justify-content: space-around;
-  }
-
   .md\:space-x-6 > :not([hidden]) ~ :not([hidden]){
     --tw-space-x-reverse: 0;
     margin-right: calc(1.5rem * var(--tw-space-x-reverse));
@@ -1724,10 +1699,6 @@ li {
   .md\:px-6{
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }
-
-  .md\:pl-2{
-    padding-left: 0.5rem;
   }
 
   .md\:text-left{

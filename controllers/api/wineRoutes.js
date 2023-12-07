@@ -12,7 +12,9 @@ const withAuth = require('../../utils/auth'); // Import the withAuth middleware
 
 router.get('/:wine_id', withAuth, checkWineId, async (req,res) => {    
     try {
-        // POST new transaction under Vintage ID
+        // GET One Wine by Wine ID
+        console.log (`\x1b[33m GET - Wine routes: '/:wine_id'\x1b[0m`)
+        console.log (`\x1b[33m GET - ONE Wine Record by Wine ID \x1b[0m`)
         const getOneWine = await Wine.findOne({
             where: { 
                 wine_id: req.params.wine_id,                    
@@ -41,6 +43,8 @@ router.get('/:wine_id', withAuth, checkWineId, async (req,res) => {
 router.post('/:brand_id', withAuth, checkBrandId, async (req, res) => {
     try {
         // POST new Wine under Brand ID
+        console.log (`\x1b[33m POST - Wine routes: '/:brand_id'\x1b[0m`)
+        console.log (`\x1b[33m POST - ADD Wine Record under Brand ID \x1b[0m`)
         const postNewWine = await Wine.create(
             {
                 wine_name: req.body.wine_name,
@@ -70,6 +74,8 @@ router.post('/:brand_id', withAuth, checkBrandId, async (req, res) => {
 router.put('/:wine_id', withAuth, checkWineId, async (req, res) => {
     try {
         // PUT - Update Wine by Wine ID
+        console.log (`\x1b[33m PUT - Wine routes: '/:wine_id'\x1b[0m`)
+        console.log (`\x1b[33m PUT - UPDATE Wine Record by Wind ID \x1b[0m`)
         const putWine = await Wine.update(
             {
                 wine_name: req.body.wine_name,
@@ -100,6 +106,8 @@ router.put('/:wine_id', withAuth, checkWineId, async (req, res) => {
 router.put('/inactivate/:wine_id', withAuth, checkWineId, async (req, res) => {
     try {
         // PUT - Soft Delete Wine by Wine ID
+        console.log (`\x1b[33m PUT - Wine routes: '/inactivate/:wine_id'\x1b[0m`)
+        console.log (`\x1b[33m PUT - INACTIVATE Wine Record by Wind ID \x1b[0m`)
         const inactivateWine = await Wine.update(
             {
                 active_ind: 0,

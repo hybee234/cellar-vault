@@ -6,12 +6,16 @@ const checkWineId = require('./../utils/checkWineId');
 const checkVintageId = require('./../utils/checkVintageId');
 const checkTransactionId = require('./../utils/checkTransactionId');
 const withAuth = require('./../utils/auth');
+// const sequelize = require('./../config/connection');
 
 //--------------------------------------//
 //- Welcome page - Login/Sign Up route -//
 //--------------------------------------//
 
 router.get('/auth', (req, res) => {
+    // GET Login Page
+    console.log (`\x1b[34m GET - Home routes: '/auth'\x1b[0m`)
+    console.log (`\x1b[34m GET - Login Page: \x1b[0m`) 
     res.status(200).render('auth', {
         logged_in: req.session.logged_in
     });
@@ -20,7 +24,9 @@ router.get('/auth', (req, res) => {
 // GET route to fetch user details and render the My Profile page based on session ID
 router.get('/my-profile', withAuth, async (req, res) => {
     try {
-        // Fetch user data based on the session's user ID
+        // GET User data based on the session's user ID
+        console.log (`\x1b[34m GET - Home routes: '/my-profile'\x1b[0m`)
+        console.log (`\x1b[34m GET - ONE User data by session's User ID: \x1b[0m`) 
         const userData = await User.findByPk(req.session.user_id);
 
         // Handle case where user data is not found
@@ -39,13 +45,16 @@ router.get('/my-profile', withAuth, async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error', error: err });
     }
 });
+
 //------------------------------------------------------------------------//
 //- Brand Page (Home) GET - Route to render the homepage with Brand data -//
 //------------------------------------------------------------------------//
 
 router.get('/', withAuth, async (req, res) => {
     try {
-        // Pull all active brands
+        // GET ALL Active Brands
+        console.log (`\x1b[34m GET - Home routes: '/'\x1b[0m`)
+        console.log (`\x1b[34m GET - ALL Brand Records: \x1b[0m`) 
         const getActiveBrand = await Brand.findAll({
             where: { active_ind: 1 }
         });
@@ -69,17 +78,26 @@ router.get('/', withAuth, async (req, res) => {
 
 router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // withAuth middleware added
     try {
-        // GET all active Wines and attached Vintages under target Brand_ID       
+        // GET ALL Active Wine Records by Brand_ID, LEFT JOIN ALL Active Vintages
+        console.log (`\x1b[34m GET - Home routes: '/wine/:brand_id'\x1b[0m`)
+        console.log (`\x1b[34m GET ALL Active Wine Records by Brand_ID, LEFT JOIN ALL Active Vintages (1/2): \x1b[0m`)     
         const getActiveWines = await Wine.findAll({
             where: {
                 active_ind: 1, // Only include active rows on all tables
-                brand_id: req.params.brand_id  // where brand ID matches the brand ID in URL                        
+                brand_id: req.params.brand_id,             
             },
-            include: [{ model: Vintage }, { model: Brand }]
+            include: [{model: Vintage,
+                where: {active_ind: 1},
+                required:false    
+            }]
         });
+
         //Serialize the data
         const wines = getActiveWines.map(wine => wine.get({ plain: true }));
 
+        // GET one Brand by Brand ID
+        console.log (`\x1b[34m GET - Home routes: '/wine/:brand_id'\x1b[0m`)
+        console.log (`\x1b[34m GET - ONE Brand Record by Brand ID (2/2): \x1b[0m`)               
         const getBrand = await Brand.findAll({
             where: {
                 active_ind: 1, // Only include active rows on all tables
@@ -111,20 +129,27 @@ router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // w
 router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
     try {
         // GET all active Transactions under target Vintage_ID
+        console.log (`\x1b[34m GET - Home routes: '/transaction/:vintage_id'\x1b[0m`)
+        console.log (`\x1b[34m GET - ALL Transaction Records under Vintage_ID (1/3): \x1b[0m`)
+
+        // GET ALL Active Vintages, LEFT JOIN ALL Active Transactions
         const getVintageTransactions = await Vintage.findAll({
             where: {
                 active_ind: 1, // Only include active rows on all tables
-                vintage_id: req.params.vintage_id
+                vintage_id: req.params.vintage_id,             
             },
-            include: [{model: Transaction, 
+            include: [{model: Transaction,
                 where: {active_ind: 1},
-                include: [{model: User}]            // nested include
+                required:false    
             }]
         });
+
         //Serialize the data
         const vintageTransactions = getVintageTransactions.map(transaction => transaction.get({ plain: true }));
 
-        // GET Wine details
+        // GET ONE Wine Record by Vintage ID 
+        console.log (`\x1b[34m GET - Home routes: '/transaction/:vintage_id'\x1b[0m`)
+        console.log (`\x1b[34m GET - ONE Wine Record by Vintage ID (2/3): \x1b[0m`)
         const getWine = await Vintage.findOne({
             include: [{ model: Wine }],
             where: {
@@ -140,7 +165,9 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         // console.log (wineArray.Wine.wine_name)
         // console.log (wineArray.Wine.wine_id)
 
-        // GET Wine
+        // GET ONE Brand Record by Wine_id 
+        console.log (`\x1b[34m GET - Home routes: '/transaction/:vintage_id'\x1b[0m`)
+        console.log (`\x1b[34m GET - ONE Brand Record by Wine_id (3/3): \x1b[0m`)
         const getBrand = await Wine.findOne({
             include: [{ model: Brand }],
             where: {
@@ -157,7 +184,6 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         // console.log (brandArray.brand.brand_name)
         // console.log (brandArray.brand.brand_id)
 
-
         // Response - render the page
         res.status(200).render('transaction', {
             vintageTransactions,
@@ -167,7 +193,7 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         });
 
         // console.log(brand)
-        // res.status(200).json(transactions);
+        // res.status(200).json(vintageTransactions);
 
     } catch (err) {
         console.error(err);

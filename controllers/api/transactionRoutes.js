@@ -14,6 +14,8 @@ const withAuth = require('../../utils/auth');
 router.get('/:transaction_id', checkTransactionId, async (req, res) => {
     try {
         // GET one transaction under Vintage ID
+        console.log (`\x1b[35m GET - Transaction routes: '/:transaction_id'\x1b[0m`)
+        console.log (`\x1b[35m GET - ONE Transaction Record by Transaction ID \x1b[0m`)
         const getOneTransaction = await Transaction.findOne({
             where: {
                 transaction_id: req.params.transaction_id,
@@ -48,6 +50,8 @@ router.get('/:transaction_id', checkTransactionId, async (req, res) => {
 router.post('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // withAuth middleware added
     try {
         // POST new transaction under Vintage ID
+        console.log (`\x1b[35m POST - Transaction routes: '/:vintage_id'\x1b[0m`)
+        console.log (`\x1b[35m POST - ADD Transaction Record under Vintage ID \x1b[0m`)
         const postNewTransaction = await Transaction.create(
             {
                 cost: req.body.cost,
@@ -90,6 +94,8 @@ router.post('/:vintage_id', withAuth, checkVintageId, async (req, res) => { // w
 router.put('/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         // PUT - Update Tranasction by Transaction ID
+        console.log (`\x1b[35m PUT - Transaction routes: '/:transaction_id'\x1b[0m`)
+        console.log (`\x1b[35m PUT - UPDATE Transaction Record by Tranasaction ID \x1b[0m`)
         const putTransaction = await Transaction.update(
             {
                 cost: req.body.cost,
@@ -108,15 +114,17 @@ router.put('/:transaction_id', withAuth, checkTransactionId, async (req, res) =>
             }
         )
 
-        // Recalculate Vintage Total
+        //- Recalculate Vintage Total -//
 
-        // Find the Vintage_ID to pass through to be recalculated
-        const transactionData = await Transaction.findOne({        // Pull the transaction 
+        // GET Vintage_ID by Transaction_ID (to recalculate vintage_total)
+        console.log (`\x1b[35m GET - Transaction routes: '/:transaction_id'\x1b[0m`)
+        console.log (`\x1b[35m GET - ONE Vintage_ID by Transaction_ID (to recalculate vintage_total) \x1b[0m`)
+        const transactionData = await Transaction.findOne({             // Pull the transaction 
             attributes: ['vintage_id'],
             where: { transaction_id: req.params.transaction_id }
         });
-        const transaction = transactionData.get({ plain: true })      // Serialize the data            
-        const vintage_id = transaction.vintage_id                   // Grab the Vintage_ID
+        const transaction = transactionData.get({ plain: true })        // Serialize the data            
+        const vintage_id = transaction.vintage_id                       // Grab the Vintage_ID
 
         // Call updateVintage Total - passing through Vintage_ID
         updateVintageTotal(vintage_id)
@@ -138,6 +146,8 @@ router.put('/:transaction_id', withAuth, checkTransactionId, async (req, res) =>
 router.put('/inactivate/:transaction_id', withAuth, checkTransactionId, async (req, res) => { // withAuth middleware added
     try {
         //PUT - Soft Delete Transaction by Transaction ID
+        console.log (`\x1b[35m PUT - Transaction routes: '/inactivate/:transaction_id'\x1b[0m`)
+        console.log (`\x1b[35m PUT - INACTIVATE Transaction Record by Transaction_ID \x1b[0m`)
         const inactivateTransaction = await Transaction.update(
             {
                 active_ind: 0,
@@ -149,15 +159,17 @@ router.put('/inactivate/:transaction_id', withAuth, checkTransactionId, async (r
             }
         )
 
-        // Recalculate Vintage Total
+        //- Recalculate Vintage Total -//
 
-        // Find the Vintage_ID to pass through to be recalculated
-        const transactionData = await Transaction.findOne({        // Pull the transaction 
+        // GET Vintage_ID by Transaction_ID (to recalculate vintage_total)
+        console.log (`\x1b[35m GET - Transaction routes: '/inactivate/:transaction_id'\x1b[0m`)
+        console.log (`\x1b[35m GET - ONE Vintage_ID by Transaction_ID (to recalculate vintage_total) \x1b[0m`)
+        const transactionData = await Transaction.findOne({             // Pull the transaction 
             attributes: ['vintage_id'],
             where: { transaction_id: req.params.transaction_id }
         });
-        const transaction = transactionData.get({ plain: true })      // Serialize the data            
-        const vintage_id = transaction.vintage_id                   // Grab the Vintage_ID
+        const transaction = transactionData.get({ plain: true })        // Serialize the data            
+        const vintage_id = transaction.vintage_id                       // Grab the Vintage_ID
 
         // Call updateVintage Total - passing through Vintage_ID
         updateVintageTotal(vintage_id)
