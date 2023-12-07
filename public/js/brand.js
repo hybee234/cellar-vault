@@ -124,8 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(event.target)
         const brandName = event.target.dataset.brandName;
         document.getElementById('inactivate-wine-heading').textContent = brandName;
-        deactivateModal.style.display = 'block';
-
+        deactivateModal.style.display = 'block';    // Show ianctivate brand modal
+        editModal.style.display = 'none';           // Hide edit brand modal
     });
 
 
