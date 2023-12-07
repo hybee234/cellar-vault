@@ -51,8 +51,7 @@ router.post('/:brand_id', withAuth, checkBrandId, async (req, res) => {
                 active_ind: req.body.active_ind,
                 brand_id: req.params.brand_id
             });
-        res.status(200).json(postNewWine);
-        // TODO: Refresh page to show changes 
+        res.status(200).json(postNewWine);        
     } catch (err) {
         res.status(400).json(err); // Status 400 - Bad Request
     }
@@ -89,7 +88,6 @@ router.put('/:wine_id', withAuth, checkWineId, async (req, res) => {
             }
         )
         res.status(200).json(`Wine ID ${req.params.wine_id} updated`);
-        // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(500).json(err); // Status 400 - Bad Request
     }
@@ -119,7 +117,6 @@ router.put('/inactivate/:wine_id', withAuth, checkWineId, async (req, res) => {
             }
         )
         res.status(200).json(`Wine ID ${req.params.wine_id} inactivated`);
-        // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(500).json(err);
     }

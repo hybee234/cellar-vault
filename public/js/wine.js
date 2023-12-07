@@ -5,15 +5,17 @@
 const tableContinerEl = document.getElementById("table-container")                                  // Create listener that triggers when any wine-table is clicked
 
 // Add Wine
-const addWineOpenModalEl = document.getElementById("add-wine-open-modal")                           // Add Wine Button
-const addWineCancelBttnEl = document.getElementById("add-wine-cancel-button")                       // Add Wine Cancel Button
 const addWineModalEl = document.getElementById("add-wine-modal")                                    // Add Wine Modal Window
 const addWineFormEl = document.getElementById("add-wine-form")                                      // Add Wine Form
+const addWineOpenModalEl = document.getElementById("add-wine-open-modal")                           // Add Wine Button
+const addWineCancelBttnEl = document.getElementById("add-wine-cancel-button")                       // Add Wine Cancel Button
+const addWineCloseBttnEl = document.getElementById("add-wine-close-button")                         // Add Wine close Button
 
 // Update Wine
 const updateWineModalEl = document.getElementById("update-wine-modal")                              // Update Wine Modal Window
 const updateWineFormEl = document.getElementById("update-wine-form")                                // Update Wine Form
 const updateWineCancelBttnEl = document.getElementById("update-wine-cancel-button")                 // Update Wine Cancel Button
+const updateWineCloseBttnEl = document.getElementById("update-wine-close-button")                   // Update Wine Close Button
 const updateWineDeleteBttnEl = document.getElementById("update-wine-delete-button")                 // Update Wine Delete Button
 
 // Inactivate Wine
@@ -23,14 +25,16 @@ const inactivateWineCancelButtonEl = document.getElementById('inactivate-wine-ca
 const inactivateWineCloseButtonEl = document.getElementById('inactivate-wine-close-button')         // Inacitvate Wine Close Button
 
 // Add Vintage
-const addVintageCancelBttnEl = document.getElementById("add-vintage-cancel-button")                 // Add Vintage Cancel Button
 const addVintageModalEl = document.getElementById("add-vintage-modal")                              // Add Vintage Modal Window
 const addVintageFormEl = document.getElementById("add-vintage-form")                                // Add Vintage Form
+const addVintageCancelBttnEl = document.getElementById("add-vintage-cancel-button")                 // Add Vintage Cancel Button
+const addVintageCloseBttnEl = document.getElementById("add-vintage-close-button")                   // Add Vintage Close Button
 
 // Update Vintage
 const updateVintageModalEl = document.getElementById("update-vintage-modal")                        // Update Vintage Modal Window
 const updateVintageFormEl = document.getElementById("update-vintage-form")                          // Update Vintage Form
 const updateVintageCancelBttnEl = document.getElementById("update-vintage-cancel-button")           // Update Vintage Cancel Button
+const updateVintageCloseBttnEl = document.getElementById("update-vintage-close-button")             // Update Vintage Close Button
 const updateVintageDeleteBttnEl = document.getElementById("update-vintage-delete-button")           // Update Vintage Delete Button
 
 // Inactivate Vintage
@@ -59,7 +63,7 @@ const postWineHandler = async (event) => {
     JSONBody.wine_name = document.getElementById('add-wine-name').value
     //Stringify the Array to prepare for FETCH
     const bodyStringified = JSON.stringify(JSONBody)
-
+    
     // FETCH Request (POST Method)
     const response = await fetch(`/api/wine/${document.getElementById('add-wine-brand-id').value}`, {
         method: 'POST',
@@ -394,13 +398,23 @@ addWineOpenModalEl.addEventListener('click', function () {
     addWineModalEl.style.display = 'block';
 });
 
-//------------------------------------------//
-//- Event Listener - Add Wine Modal - Hide -//
-//------------------------------------------//
+//---------------------------------------------------//
+//- Event Listener - Add Wine Modal - Hide (Cancel) -//
+//---------------------------------------------------//
 
 //Hide "Add Wine Modal" when "Cancel" button is clicked
 addWineCancelBttnEl.addEventListener('click', function () {
     // console.log ("Add Wine Record Modal - Hide(Cancel)")     
+    addWineModalEl.style.display = 'none';
+});
+
+//---------------------------------------------------//
+//- Event Listener - Add Wine Modal - Hide (Cancel) -//
+//---------------------------------------------------//
+
+//Hide "Add Wine Modal" when "Close" button is clicked
+addWineCloseBttnEl.addEventListener('click', function () {
+    // console.log ("Add Wine Record Modal - Hide(Close)")     
     addWineModalEl.style.display = 'none';
 });
 
@@ -411,15 +425,26 @@ addWineFormEl.addEventListener('submit', (event) => {
     event.preventDefault(); 
     // console.log ("Add Wine Record Modal - Submit")     
     postWineHandler(event)
+    addWineModalEl.style.display = 'none';
 })
 
-//---------------------------------------------//
-//- Event listener - Update Wine Modal - Hide -//
-//---------------------------------------------//
+//------------------------------------------------------//
+//- Event listener - Update Wine Modal - Hide (cancel) -//
+//------------------------------------------------------//
 
 //Hide "Update Wine Modal" when "Cancel" button is clicked
 updateWineCancelBttnEl.addEventListener('click', function () {
     // console.log ("Update Wine Record Modal - Hide (Cancel)")  
+    updateWineModalEl.style.display = 'none';
+});
+
+//------------------------------------------------------//
+//- Event listener - Update Wine Modal - Hide (close) -//
+//------------------------------------------------------//
+
+//Hide "Update Wine Modal" when "Close" button is clicked
+updateWineCloseBttnEl.addEventListener('click', function () {
+    // console.log ("Update Wine Record Modal - Hide (Close)")  
     updateWineModalEl.style.display = 'none';
 });
 
@@ -428,7 +453,8 @@ updateWineCancelBttnEl.addEventListener('click', function () {
 //-----------------------------------------------//
 updateWineFormEl.addEventListener('submit', (event) => {
     event.preventDefault();
-    // console.log ("Update Wine Record Modal - Submit")  
+    // console.log ("Update Wine Record Modal - Submit")
+    updateWineModalEl.style.display = 'none';  
     putWineHandler(event)
 })
 
@@ -438,7 +464,8 @@ updateWineFormEl.addEventListener('submit', (event) => {
 updateWineDeleteBttnEl.addEventListener('click', (event) => {
     event.preventDefault();
     // console.log ("Update Wine Record Modal - Delete Clicked - updateWineDeleteBttnEl")  
-    let wine_id = event.target.getAttribute("value")     
+    let wine_id = event.target.getAttribute("value")
+    updateWineModalEl.style.display = 'none';     
     inactivateWineModal(wine_id)
 })
 
@@ -497,7 +524,8 @@ inactivateWineCloseButtonEl.addEventListener('click', function () {
 inactivateWineConfirmButtonEl.addEventListener('click', function (event) {
     event.preventDefault();
     // console.log ("Inactivate Wine Record Modal - Submit")  
-    let wine_id = event.target.getAttribute("value")        
+    let wine_id = event.target.getAttribute("value")    
+    inactivateWineModalEl.style.display = 'none';    
     inactivateWineHandler(wine_id)
 });
 
@@ -515,6 +543,15 @@ addVintageCancelBttnEl.addEventListener('click', function () {
     addVintageModalEl.style.display = 'none';
 });
 
+//-----------------------------------------------//
+//- Modal - Add Vintage Record - Hide (Close) -//
+//-----------------------------------------------//
+
+addVintageCloseBttnEl.addEventListener('click', function () {
+    // console.log ("Add Vintage Record Modal - Hide (Close)")  
+    addVintageModalEl.style.display = 'none';
+});
+
 //-------------------------------------//
 //- Modal Add Vintage Record - Submit -//
 //-------------------------------------//
@@ -522,7 +559,7 @@ addVintageCancelBttnEl.addEventListener('click', function () {
 addVintageFormEl.addEventListener('submit', (event) => {
     // console.log ("Add Vintage Record Modal - Submit Clicked")    
     event.preventDefault();
-    // console.log ("Update Wine Submit button clicked")    
+    addVintageModalEl.style.display = 'none'; 
     postVintageHandler(event)
 })
 
@@ -536,12 +573,24 @@ updateVintageCancelBttnEl.addEventListener('click', function () {
 });
 
 //------------------------------------------//
+//- Modal - Update Vintage - Hide (Close) -// 
+//------------------------------------------//
+
+updateVintageCloseBttnEl.addEventListener('click', function () {
+    // console.log ("Update Vintage Record Modal - Hide (Cancel)")    
+    updateVintageModalEl.style.display = 'none';
+});
+
+
+
+//------------------------------------------//
 //- Modal - Update Vintage Record - Submit -//
 //------------------------------------------//
 
 updateVintageFormEl.addEventListener('submit', (event) => {
     event.preventDefault();
-    // console.log (" Update Vintage Record Modal - Submit clicked")    
+    // console.log (" Update Vintage Record Modal - Submit clicked")
+    updateVintageModalEl.style.display = 'none';    
     putVintageHandler(event)
 })
 
@@ -551,7 +600,8 @@ updateVintageFormEl.addEventListener('submit', (event) => {
 updateVintageDeleteBttnEl.addEventListener('click', (event) => {
     event.preventDefault();
     // console.log (" Update Vintage Record Modal - Delete clicked")    
-    let vintage_id = event.target.getAttribute("value")       
+    let vintage_id = event.target.getAttribute("value")
+    updateVintageModalEl.style.display = 'none';      
     inactivateVintageModal(vintage_id)
 })
 
@@ -585,8 +635,9 @@ const inactivateVintageModal = async (vintage_id) => {
         const vintageArray = await response.json()             
         
         // Pre-populate fields in Inactivate Modal Window 
-        document.getElementById('inactivate-vintage-heading-one').textContent = `Vintage: ${vintageArray.vintage}, Format: ${vintageArray.format}`
-        document.getElementById('inactivate-vintage-heading-two').textContent = `${vintageArray.vintage_total} bottle(s) remaining`
+        document.getElementById('inactivate-vintage-heading-one').textContent = `Vintage: ${vintageArray.vintage}`
+        document.getElementById('inactivate-vintage-heading-two').textContent = `Format: ${vintageArray.format}`
+        document.getElementById('inactivate-vintage-heading-three').textContent = `Current Stock: ${vintageArray.vintage_total}`
         document.getElementById('inactivate-vintage-confirm-button').value = vintageArray.vintage_id  //set value of delete button so that it can be passsed through
         
         // console.log("document.getElementById('inactivate-vintage-confirm-button').value")
@@ -626,6 +677,7 @@ inactivateVintageCloseButtonEl.addEventListener('click', function () {
 inactivateVintageConfirmButtonEl.addEventListener('click', function (event) {
     event.preventDefault();
     // console.log ("Update Vintage Delete button clicked") 
+    inactivateVintageModalEl.style.display = 'none';    
     let vintage_id = event.target.getAttribute("value")
     console.log (vintage_id)        
     inactivateVintageHandler(vintage_id)

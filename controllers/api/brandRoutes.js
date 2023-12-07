@@ -6,76 +6,30 @@ const withAuth = require('../../utils/auth');
 // Root: http://localhost:3001/api/brand/
 
 //------------------------------------------------------//
-//- GET - Route to render the homepage with Brand data -//
-//------------------------------------------------------//
-
-// API: http://localhost:3001/api/brand/
-// Example : http://localhost:3001/api/wine/
-// No JSON Body required
-
-// router.get('/', withAuth, async (req, res) => {
-//     try {
-//         //GET All active Brands
-//         console.log (`\x1b[31m GET - brand routes: '/'\x1b[0m`)
-//         console.log (`\x1b[31m GET - GET All active Brands: \x1b[0m`) 
-//         console.log (`\x1b[31m DON'T THINK THIS IS BEING USED \x1b[0m`) 
-//         const getActiveBrand = await Brand.findAll({
-//             attributes: ['brand_name'],
-//             where: { active_ind: 1 }
-//         });
-//         const brands = getActiveBrand.map(brand => brand.get({ plain: true }));
-
-//         // Check if the request accepts JSON
-//         if (req.headers.accept && req.headers.accept.includes('application/json')) {
-//             res.json(brands); // Send JSON response
-//         } else {
-//             res.render('homepage', {
-//                 brands,
-//                 loggedIn: req.session.loggedIn
-//             }); // Render HTML page
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: 'Internal Server Error', error: err });
-//     }
-// });
-
-//------------------------------------------------------//
 //- POST - Update Brand by Brand ID                    -//
 //------------------------------------------------------//
 
-// API: http://localhost:3001/api/brand/update/:brand_id
-// Example : http://localhost:3001/api/brand/update/1
+// API: http://localhost:3001/api/brand/
+// Example : http://localhost:3001/api/brand/
 // Example JSON Body
 //  {
 //      "brand_name": "New Brand Name"
 //  }
 
-router.post('/update/:brand_id', withAuth, checkBrandId, async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
     try {
         //Update Brand Record
         console.log (`\x1b[31m POST - brand routes: '/update/:brand_id'\x1b[0m`)
         console.log (`\x1b[31m POST - Update Brand Record: \x1b[0m`) 
         console.log (`\x1b[31m THIS WAS ORIGINALLY AN ADD BRAND ROUTE !!! \x1b[0m`) 
-        const updatedBrand = await Brand.update(
+        const postBrand = await Brand.create(
             {
-                brand_name: req.body.brand_name,
-                
-            },
-            {
-                where: {
-                    brand_id: req.params.brand_id,
-                },
+                brand_name: req.body.brand_name,                
             }
         );
-
-        if (updatedBrand[0] > 0) {
-            res.status(200).json({ message: `Brand ID ${req.params.brand_id} updated successfully` });
-        } else {
-            res.status(404).json({ message: 'No brand found with this ID' });
-        }
+        res.status(200).json(postBrand);
     } catch (err) {
-        res.status(500).json({ message: 'Internal Server Error', error: err });
+        res.status(400).json(err); // Status 400 - Bad Request        
     }
 });
 
@@ -140,23 +94,6 @@ router.put('/inactivate/:brand_id', withAuth, checkBrandId, async (req, res) => 
         res.status(200).json(`Brand ID ${req.params.brand_id} inactivated`);
     } catch (err) {
         res.status(500).json(err);
-    }
-});
-
-// Add a new Brand
-router.post('/', withAuth, async (req, res) => {
-    try {
-        //POST -  Add Brand Record
-        console.log (`\x1b[31m brand routes: '/' - POST\x1b[0m`)
-        console.log (`\x1b[31m POST -  Add Brand Record: \x1b[0m`) 
-        const newBrand = await Brand.create({
-            brand_name: req.body.brand_name,
-            active_ind: 1
-        });
-        res.status(200).json(newBrand);
-    } catch (err) {
-        console.error('Error:', err);
-        res.status(500).json({ message: 'Internal Server Error', error: err });
     }
 });
 
