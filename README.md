@@ -1,5 +1,3 @@
-# cellar-vault
-
 <a ID="readme-top"></a>
 
 <div align="center">
@@ -37,7 +35,7 @@ Cellar Vault simplifies wine collection management by offering the following fea
 
 - **Wine and Vintage Management:** Add, update, or delete wines and their associated vintages effortlessly.
 
-- **Transaction Tracking:** Keep records of wine transactions, including purchases, sales, and consumption, for accurate inventory management.
+- **Transaction Tracking:** Keep records of wine transactions, including purchases, and consumption for accurate inventory management.
 
 - **Flexible Vintage Details:** Store information about each vintage, such as the vintage year, format, and drink-by date.
 
@@ -47,7 +45,7 @@ Cellar Vault simplifies wine collection management by offering the following fea
 
 In addition to the core functionality, "Cellar Vault" offers the following optional features:
 
-- Email Notifications: Receive personalized email notifications upon signing in to Cellar Vault. Get a warm welcome message and
+- Email Notifications: Receive personalized email notifications upon signing in to Cellar Vault. Get a warm welcome message.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -188,6 +186,8 @@ To start using Cellar Vault, follow these basic usage instructions:
 - **Dotenv**: Utility for loading environment variables.
 - **Nodemailer**: Library for sending email notifications.
 - **Tailwind CSS**: Utility-first CSS framework for styling the application's frontend.
+- **JawsDB**: Providing managed MySQL databases, ideal for scalable web applications.
+- **Heroku**: A cloud platform that offers easy deployment and management of web applications.
 
 **Development Tools**:
 
