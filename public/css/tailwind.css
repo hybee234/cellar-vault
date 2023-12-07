@@ -718,6 +718,22 @@ video {
   width: 1px;
 }
 
+.w-\[50vw\]{
+  width: 50vw;
+}
+
+.w-\[5100vw\]{
+  width: 5100vw;
+}
+
+.w-\[100vw\]{
+  width: 100vw;
+}
+
+.min-w-full{
+  min-width: 100%;
+}
+
 .max-w-md{
   max-width: 28rem;
 }
@@ -780,6 +796,10 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.overflow-x-auto{
+  overflow-x: auto;
 }
 
 .rounded-3xl{
@@ -935,6 +955,10 @@ video {
 .py-6{
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.text-left{
+  text-align: left;
 }
 
 .text-center{
@@ -1645,6 +1669,14 @@ li {
 
   .md\:w-px{
     width: 1px;
+  }
+
+  .md\:w-4\/5{
+    width: 80%;
+  }
+
+  .md\:w-auto{
+    width: auto;
   }
 
   .md\:max-w-4xl{
