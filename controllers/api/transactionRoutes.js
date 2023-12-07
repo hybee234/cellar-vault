@@ -11,7 +11,7 @@ const withAuth = require('../../utils/auth');
 //- GET - One transaction by Tranasction ID -//
 //-------------------------------------------//
 
-router.get('/:transaction_id', checkTransactionId, async (req, res) => {
+router.get('/:transaction_id', withAuth, checkTransactionId, async (req, res) => {
     try {
         // GET one transaction under Vintage ID
         console.log (`\x1b[35m GET - Transaction routes: '/:transaction_id'\x1b[0m`)
