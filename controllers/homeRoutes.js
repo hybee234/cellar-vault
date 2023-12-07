@@ -21,6 +21,10 @@ router.get('/auth', (req, res) => {
     });
 });
 
+//-----------------------------------//
+//- Welcome page - My Profile route -//
+//-----------------------------------//
+
 // GET route to fetch user details and render the My Profile page based on session ID
 router.get('/my-profile', withAuth, async (req, res) => {
     try {
@@ -126,7 +130,7 @@ router.get('/wine/:brand_id', withAuth, checkBrandId, async (req, res) => { // w
 //- Transaction Page - GET - All active Transactions under Selected Vintage ID -//
 //------------------------------------------------------------------------------//
 
-router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
+router.get('/transaction/:vintage_id', withAuth, checkVintageId, async (req, res) => {
     try {
         // GET all active Transactions under target Vintage_ID
         console.log (`\x1b[34m GET - Home routes: '/transaction/:vintage_id'\x1b[0m`)
@@ -160,10 +164,6 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         })
         // const wines = getWine.map(wine => wine.get({ plain: true }));
         const wineArray = getWine.get({ plain: true });
-        
-        // console.log (wineArray)
-        // console.log (wineArray.Wine.wine_name)
-        // console.log (wineArray.Wine.wine_id)
 
         // GET ONE Brand Record by Wine_id 
         console.log (`\x1b[34m GET - Home routes: '/transaction/:vintage_id'\x1b[0m`)
@@ -179,10 +179,6 @@ router.get('/transaction/:vintage_id', checkVintageId, async (req, res) => {
         // const wines = getWine.map(wine => wine.get({ plain: true }));
         const brandArray = getBrand.get({ plain: true });
         brandName = brandArray.brand.brand_name
-
-        // console.log (brandArray)
-        // console.log (brandArray.brand.brand_name)
-        // console.log (brandArray.brand.brand_id)
 
         // Response - render the page
         res.status(200).render('transaction', {

@@ -5,9 +5,9 @@ const withAuth = require('../../utils/auth');
 
 // Root: http://localhost:3001/api/brand/
 
-//------------------------------------------------------//
-//- POST - Update Brand by Brand ID                    -//
-//------------------------------------------------------//
+//--------------------//
+//- POST - ADD Brand -//
+//--------------------//
 
 // API: http://localhost:3001/api/brand/
 // Example : http://localhost:3001/api/brand/
@@ -18,7 +18,7 @@ const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => {
     try {
-        //Update Brand Record
+        //Post Brand Record
         console.log (`\x1b[31m POST - brand routes: '/update/:brand_id'\x1b[0m`)
         console.log (`\x1b[31m POST - Update Brand Record: \x1b[0m`) 
         console.log (`\x1b[31m THIS WAS ORIGINALLY AN ADD BRAND ROUTE !!! \x1b[0m`) 
