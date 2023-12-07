@@ -102,7 +102,6 @@ router.put('/:vintage_id', withAuth, checkVintageId, async (req, res) => {
             }
         )
         res.status(200).json(`Vintage ID ${req.params.vintage} updated`);
-        // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(500).json(err); // Status 400 - Bad Request
     }
@@ -132,7 +131,6 @@ router.put('/inactivate/:vintage_id', withAuth, checkVintageId, async (req, res)
             }
         )
         res.status(200).json(`Vintage ID ${req.params.vintage_id} inactivated`);
-        // TODO: Refresh page to show changes 
     } catch (err) {
         res.status(500).json(err);
     }

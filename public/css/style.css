@@ -125,7 +125,7 @@ li {
   height: 100%;
   overflow-y: hidden; /* Prevent scrolling */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-  backdrop-filter: blur(5px); /* Apply blur to background */
+  backdrop-filter: blur(10%); /* Apply blur to background */
 }
 
 .modal-content {

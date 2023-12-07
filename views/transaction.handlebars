@@ -1,14 +1,15 @@
 <main class="justify-center w-full text-center align-center">
 
-    <h1 class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-[#722F37]"> {{brandName}} - {{wineArray.Wine.wine_name}} - {{vintageTransactions.[0].vintage}} </h1>
+    <h1 class="flex items-center justify-center my-4 text-xl font-extrabold text-center md:text-3xl text-[#722F37]"> {{brandName}} - {{wineArray.Wine.wine_name}} - {{vintageTransactions.[0].vintage}} </h1>
 
-    <p class="flex items-center justify-center my-4 text-lg font-semibold text-center md:text-2xl text-zinc-900">
-        <span class="font-bold text-[#722F37]">{{vintageTransactions.[0].vintage_total}}</span> &nbsp;in stock
-    </p>
 
-    <h2 class="flex items-center justify-center my-4 text-lg font-semibold text-center md:text-2xl text-zinc-900" >
+    <h2 class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-zinc-900" >
         <span class="text-[#722F37]">Transaction History</span>
     </h2>
+
+    <h3 class="flex items-center justify-center my-4 text-lg font-bold text-center md:text-2xl text-zinc-900">
+        Current stock:&nbsp; <span class="font-bold text-[#722F37]">{{vintageTransactions.[0].vintage_total}}</span>
+    </h3>
 
 {{!-- Transaction History Table --}}
     <table id="trans-table" class="justify-center w-4/5 p-1 m-auto text-center border-2 table-auto rounded-3xl" >
