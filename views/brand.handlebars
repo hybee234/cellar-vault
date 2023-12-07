@@ -24,7 +24,7 @@
 {{!-- Main --}}
 {{!----------}}
 <div id="brandListContainer" class="w/-3/4">
-    <table class="w-1/2 mx-auto text-center table-auto">
+    <table class="w-1/5 mx-auto text-center table-auto">
         <thead>
             <tr>
             <th><u>Brand Name</u></th>
@@ -36,8 +36,11 @@
             {{#each brands as |brand|}}
             <tr>
                 <td
-                class="inline-block my-3 text-sm font-normal duration-200 ease-in-out text-zinc-900 md:text-lg lg:text-xl hover:text-zinc-400"
+                {{!-- class="inline-block my-3 text-sm font-normal duration-200 ease-in-out text-zinc-900 md:text-lg lg:text-xl hover:text-zinc-400"
+                > --}}
+                class="inline-block px-6 py-1 my-3 font-bold duration-200 ease-in bg-blue-500 text-zinc-100 rounded-xl hover:bg-blue-700"
                 >
+                
                     <a href="/wine/{{brand.brand_id}}">
                         {{brand.brand_name}}
                     </a>
