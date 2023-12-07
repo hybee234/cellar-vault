@@ -22,7 +22,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Video and Screenshots](#video-and-screenshots)
+- [Screenshots](#screenshots)
 - [License](#license)
 - [Contributing](#contributing)
 - [Testing](#testing)
@@ -51,13 +51,13 @@ In addition to the core functionality, "Cellar Vault" offers the following optio
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Video and Screenshots <a ID = "video-screenshots"></a>
+## Screenshots
 
-### Video
+### Live Screenshots
 
-Watch this video to learn more about the application
-
-<a href="https://drive.google.com/file/d/1F-TxUnNaoULuqn5DTNpz_jC-25aPx1c2/view"> Video - "How to: Huber's Employee Tracker" </a>
+![Live-Screenshot-1](./lib/images/live-screenshot-1.gif)
+![Live-Screenshot-2](./lib/images/live-screenshot-2.gif)
+![Live-Screenshot-3](./lib/images/live-screenshot-3.gif)
 
 ### Screenshots
 
@@ -81,6 +81,10 @@ Screenshot of the application during "Interaction with Edit Form"
 </div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+Cellar Vault is a deployed solution hosted on Heroku. Installation isn't required for end user consumption.
+
+If you wish to clone or fork the repo and contribute, follow the steps below:
 
 ## Installation
 
@@ -122,6 +126,34 @@ These installation steps cover the setup of your application and its dependencie
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Contributing
+
+We welcome contributions to improve Cellar Vault! To contribute to this project, please follow these steps:
+
+1. Fork this repository.
+
+2. Create a new branch for your feature or bug fix: `git checkout -b feature-name`
+
+3. Make your changes and commit them: `git commit -m "Your commit message here"`
+
+4. Push your changes to your forked repository: `git push origin feature-name`
+
+5. Open a pull request to the main repository.
+
+6. Provide a detailed description of your changes and why they are valuable.
+
+Our team will review your pull request and merge it if it aligns with the project's goals and quality standards. Thank you for contributing!
+
+If you have any questions or need assistance with your contribution, please feel free to contact [Hy](https://github.com/hybee234), [MJ](https://github.com/alghaibb) or [Khoi](https://github.com/knguyen3531)
+
+We expect all contributors to adhere to our [Code of Conduct](CODE_OF_CONDUCT.md). Please read it to understand our community standards.
+
+### Reporting Issues
+
+If you encounter any issues or bugs while using Cellar Vault, please [open an issue](https://github.com/hybee234/cellar-vault/issues) on our GitHub repository. Provide as much detail as possible, including steps to reproduce the problem.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Usage
 
 To start using Cellar Vault, follow these basic usage instructions:
@@ -141,28 +173,6 @@ To start using Cellar Vault, follow these basic usage instructions:
 7. Explore your wine collection and easily update wine and vintage details as needed.
 
 8. Log out of your account when you're finished.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-    
-## License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-This application can be used in conjunction with licensing covered in <b>MIT Lcensee</b>
-
-(Click on the badge for details of the license)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Contributing
-
-To contribute to this application, please reach out to me via my contact details below
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Testing
-
-Automated Test scripts have not been developed for this application
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -185,10 +195,26 @@ Automated Test scripts have not been developed for this application
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Testing
+
+Automated Test scripts have not been developed for this application
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Contributors
 
 - [hybee234](https://github.com/hybee234)
 - [knguyen3531](https://github.com/knguyen3531)
 - [alghaibb](https://github.com/alghaibb)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+This application can be used in conjunction with licensing covered in <b>MIT Lcensee</b>
+
+(Click on the badge for details of the license)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
